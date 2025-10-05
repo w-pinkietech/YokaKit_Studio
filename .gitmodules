@@ -1,0 +1,3 @@
+[submodule "yokakit"]
+	path = yokakit
+	url = git@github.com:w-pinkietech/YokaKit.git
