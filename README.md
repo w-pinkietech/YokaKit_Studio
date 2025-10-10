@@ -17,103 +17,159 @@ GitHub連携をベースに、開発における「文脈」を統合管理し�
 
 ## Core Concepts
 
-### 1. Context Framework: Context Layer × Context Dimension × Disposability
+### 1. Context Framework: 主軸 + 明文化の工程 + 評価基準
 
-**「Permanentは存在しない。すべては廃棄率で評価する」**
+**「Permanentは存在しない。すべては代替可能性で評価する」**
 
-Context Studioは、開発における文脈を**3つの軸**で整理します：
+Context Studioは、開発における文脈を**思考の流れ（主軸）**と**明文化の工程**と**評価基準**で整理します：
 
-#### 軸1: Context Layer（文脈層）- 情報の流れ
+#### 主軸: Context Dimension（文脈次元）- Why → What → How の思考の流れ
 
-文脈が生成・変換される層の流れ：
+開発における普遍的な思考の流れを5つのDimensionで表現：
 
-```
-Issue/Problem → Specification → Design → Planning →
-Implementation → Review → Merge → Feedback
-```
+```mermaid
+flowchart TD
+    subgraph WHY ["🔵 WHY（なぜ）: 問題と判断"]
+        direction TB
+        Intent["<b>Intent Dimension（意図）</b><br/>なぜ必要か？何が問題か？<br/>問題意識、ビジョン、目的"]
+        Decision["<b>Decision Dimension（意思決定）</b><br/>なぜこの設計か？何を捨てたか？<br/>ADR、トレードオフ、不採用理由"]
+    end
 
-#### 軸2: Context Dimension（文脈次元）- 情報の性質
+    subgraph WHAT ["🟠 WHAT（何を）: 定義と制約"]
+        direction TB
+        Rule["<b>Rule Dimension（掟）</b><br/>何を作るか？何を守るか？<br/>Specs、Constraints、API Schema、Contract Tests"]
+    end
 
-文脈を捉える5つの観点：
+    subgraph HOW ["🟣 HOW（どう）: 実現方法"]
+        direction TB
+        Coordination["<b>Coordination Dimension（調整）</b><br/>どう実現するか？どう分割するか？<br/>Plan、Tasks、GitHub Issues"]
+        Realization["<b>Realization Dimension（実現）</b><br/>具体的にどう実装するか？<br/>Code、Unit Tests、Docs"]
+    end
 
-```
-┌─────────────────────────────────────────────────────┐
-│ Intent（意図）                                       │
-│ - なぜ必要か？何が問題か？                           │
-│ - 問題意識、ビジョン、目的                           │
-└─────────────────────────────────────────────────────┘
+    Intent --> Decision
+    Decision --> Rule
+    Rule --> Coordination
+    Coordination --> Realization
 
-┌─────────────────────────────────────────────────────┐
-│ Decision（意思決定）                                 │
-│ - なぜこの設計か？何を捨てたか？                     │
-│ - ADR、トレードオフ、不採用理由                      │
-└─────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────┐
-│ Rule（掟）                                           │
-│ - 何を作るか？どう検証するか？守るべきルールは？     │
-│ - Specs、Constraints、API Schema、Contract Tests    │
-└─────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────┐
-│ Coordination（調整）                                 │
-│ - どう実現するか？どう分割するか？                   │
-│ - Plan、Tasks、GitHub Issues                        │
-└─────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────┐
-│ Realization（実現）                                  │
-│ - 具体的な実装・コード                               │
-│ - Code、Unit Tests、Docs                            │
-└─────────────────────────────────────────────────────┘
+    style WHY fill:#e3f2fd,stroke:#1976d2,stroke-width:4px,color:#000
+    style WHAT fill:#fff3e0,stroke:#ef6c00,stroke-width:4px,color:#000
+    style HOW fill:#f3e5f5,stroke:#7b1fa2,stroke-width:4px,color:#000
+    style Intent fill:#fff,stroke:#1976d2,stroke-width:2px,color:#000
+    style Decision fill:#fff,stroke:#1565c0,stroke-width:2px,color:#000
+    style Rule fill:#fff,stroke:#ef6c00,stroke-width:2px,color:#000
+    style Coordination fill:#fff,stroke:#6a1b9a,stroke-width:2px,color:#000
+    style Realization fill:#fff,stroke:#4a148c,stroke-width:2px,color:#000
 ```
 
-#### 軸3: Disposability（廃棄率）- AI再生成可能性
+**Forward Flow**: Intent → Decision → Rule → Coordination → Realization（抽象→具体）
 
-**Context Layer × Dimension で生まれる各Artifactが持つ性質**：
+#### 明文化の工程: Context Layer（文脈層）- 各Dimensionを文書化する場所
 
-```
-🟥 = Disposable｜🟩 = Durable
+各Dimensionの文脈を明文化・具体化する5つの工程：
 
-【20% - AIが推測不可能な文脈】
-📜 Specs（仕様／API定義）
-🧠 ADR（設計判断／トレードオフ）
-⚖️ Constraints（制約／ドメイン不変条件）
-🧪 Contract Tests（振る舞いの期待値）
-🟥🟥🟩🟩🟩🟩🟩🟩🟩🟩
+| Layer | 役割 | 明文化するDimension |
+|-------|------|-------------------|
+| **Specification** | 仕様化：何を作るか・なぜ必要か | Intent, Rule |
+| **Design** | 設計判断：なぜこの設計か | Decision, Rule |
+| **Planning** | 計画：どう実現するか | Coordination |
+| **Implementation** | 実装：具体的に作る | Realization |
+| **Feedback** | 発見の反映：すべてのDimensionへ逆流 | すべて |
 
-【40%】
-🧭 Vision（ビジョン／問題意識）
-🟥🟥🟥🟥🟩🟩🟩🟩🟩🟩
+#### 評価基準: 代替可能性（Disposability）- AI再生成の難易度
 
-【60%】
-📓 Docs（運用マニュアル／Playbook）
-🟥🟥🟥🟥🟥🟥🟩🟩🟩🟩
+**各Dimensionが持つ代替可能性**：
 
-【70%】
-📐 Detailed Design（図面／構造の細部）
-🧪 Unit Tests（実装の検証）
-🟥🟥🟥🟥🟥🟥🟥🟩🟩🟩
+各Dimensionの文脈は、抽象度に応じて異なる代替可能性を持ちます。この指標は以下の判断に使用されます：
+- **AI再生成の難易度**: どこまでAIが推測・復元できるか
+- **Feedback時の影響範囲**: 実装中の発見があったとき、どのDimensionまで遡って見直すか
+- **変更のコスト**: 修正・更新にどれだけのリスクとコストがかかるか
 
-【80%】
-💻 Code（実装コード）
-🟥🟥🟥🟥🟥🟥🟥🟥🟩🟩
+```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'14px'}}}%%
+flowchart TB
+    subgraph Durable["🟩 低代替可能性 (Durable) - AI再生成困難・保存すべき文脈"]
+        direction TB
+        Decision["<b>Decision Dimension - 20%</b><br/>🧠 ADR（設計判断／トレードオフ）<br/>→ Feedback時に慎重な見直しが必要"]
+        Rule["<b>Rule Dimension - 20%</b><br/>📜 Specs、⚖️ Constraints、🧪 Contract Tests<br/>→ 保存すべき文脈"]
+    end
+
+    subgraph Medium["⬜ 中代替可能性 - AI部分再生成可能"]
+        direction TB
+        Intent["<b>Intent Dimension - 40%</b><br/>🧭 Vision（ビジョン／問題意識）<br/>→ Feedback時に影響範囲を確認"]
+    end
+
+    subgraph Disposable["🟥 高代替可能性 (Disposable) - AI再生成可能"]
+        direction TB
+        Coordination["<b>Coordination Dimension - 70%</b><br/>📐 Plan、Tasks<br/>→ AIほぼ再生成可能・修正コスト低"]
+        Realization["<b>Realization Dimension - 80%</b><br/>💻 Code、🧪 Unit Tests、📓 Docs<br/>→ AI完全再生成可能・いつでも作り直せる"]
+    end
+
+    style Durable fill:#e8f5e9,stroke:#2e7d32,stroke-width:4px,color:#000
+    style Medium fill:#fff8e1,stroke:#f57f17,stroke-width:4px,color:#000
+    style Disposable fill:#ffebee,stroke:#c62828,stroke-width:4px,color:#000
+    style Decision fill:#fff,stroke:#2e7d32,stroke-width:2px,color:#000
+    style Rule fill:#fff,stroke:#2e7d32,stroke-width:2px,color:#000
+    style Intent fill:#fff,stroke:#f57f17,stroke-width:2px,color:#000
+    style Coordination fill:#fff,stroke:#c62828,stroke-width:2px,color:#000
+    style Realization fill:#fff,stroke:#b71c1c,stroke-width:2px,color:#000
 ```
 
 **重要な洞察**:
 - **AIのリバースは「今ある形」の復元のみ**
 - **意図・トレードオフ・不採用理由・守るべき制約はコードから出てこない**
 - **だから残すべき「設計」は図面ではなく、ADR＋制約＋ドメイン不変条件＋API/スキーマ/コントラクトテスト**
-- **これが次のモデル／エージェント世代への置換コストを最小化する**
+- **低代替可能性（20-40%）の文脈は、次のモデル／エージェント世代への置換コストを最小化する**
 
-### 2. Context-First Development (文脈ファースト開発)
-すべての開発活動は「文脈」の明示から始まります:
-- **Why** (なぜ): Vision/Issue での問題提起
-- **What** (何を): Specification での要求定義
-- **How** (どう): ADR での設計判断・トレードオフ記録
-- **Verify** (検証): Specs/Constraints での振る舞い定義・掟の記述
-- **Bridge** (橋渡し): Plan/Tasks でGitHub連携
-- **Execute** (実行): Implementation での実装（AI生成）
+### 2. Dimension-First Development (文脈次元ファースト開発)
+
+すべての開発活動は**Dimensionの流れ（Why → What → How）**に沿って進みます：
+
+```mermaid
+flowchart TD
+    subgraph WHY ["🔵 WHY（なぜ）"]
+        direction TB
+        Intent["Intent Dimension<br/>なぜ必要か？<br/>（Vision/Issue）"]
+        Decision["Decision Dimension<br/>なぜこの設計か？<br/>（ADR/トレードオフ）"]
+    end
+
+    subgraph WHAT ["🟠 WHAT（何を）"]
+        direction TB
+        Rule["Rule Dimension<br/>何を作るか？何を守るか？<br/>（Specs/Constraints/API Schema）"]
+    end
+
+    subgraph HOW ["🟣 HOW（どう）"]
+        direction TB
+        Coordination["Coordination Dimension<br/>どう実現するか？<br/>（Plan/Tasks）"]
+        Realization["Realization Dimension<br/>具体的にどう実装するか？<br/>（Code/Tests）"]
+    end
+
+    subgraph FEEDBACK ["🔴 FEEDBACK（発見の逆流）"]
+        direction TB
+        FeedbackFlow["Realization → Rule/Decision/Intent<br/>へフィードバック"]
+    end
+
+    Intent --> Decision
+    Decision --> Rule
+    Rule --> Coordination
+    Coordination --> Realization
+    Realization --> FeedbackFlow
+    FeedbackFlow -.-> Rule
+    FeedbackFlow -.-> Decision
+    FeedbackFlow -.-> Intent
+
+    style WHY fill:#e3f2fd,stroke:#1976d2,stroke-width:4px,color:#000
+    style WHAT fill:#fff3e0,stroke:#ef6c00,stroke-width:4px,color:#000
+    style HOW fill:#f3e5f5,stroke:#7b1fa2,stroke-width:4px,color:#000
+    style FEEDBACK fill:#ffebee,stroke:#c62828,stroke-width:4px,color:#000
+    style Intent fill:#fff,stroke:#1976d2,stroke-width:2px,color:#000
+    style Decision fill:#fff,stroke:#1565c0,stroke-width:2px,color:#000
+    style Rule fill:#fff,stroke:#ef6c00,stroke-width:2px,color:#000
+    style Coordination fill:#fff,stroke:#6a1b9a,stroke-width:2px,color:#000
+    style Realization fill:#fff,stroke:#4a148c,stroke-width:2px,color:#000
+    style FeedbackFlow fill:#fff,stroke:#d32f2f,stroke-width:2px,color:#000
+```
+
+この流れに沿って、各Dimensionを**Layer（明文化の工程）**で文書化していきます。
 
 ### 3. GitHub-Centric Integration
 GitHubを中心ハブとして、すべての文脈を統合:
@@ -130,129 +186,125 @@ AI開発者(Claude/Copilot/etc.)との協働を前提:
 
 ## Architecture
 
-### Context Layer × Context Dimension Matrix（完全なワークフロー）
+### Dimension × Layer Matrix（完全なワークフロー）
 
-Context Studioでは、**Context Layer（文脈層）** と **Context Dimension（文脈次元）** の組み合わせで文脈を管理します。
+Context Studioでは、**Dimension（思考の流れ）** を **Layer（明文化の工程）** で文書化します。
 
-#### Context Layer × Context Dimension マトリクス
+#### 各Dimensionの明文化場所と成果物
 
-| Context Layer | Intent | Decision | Rule | Coordination | Realization | Disposability |
-|-------|--------|----------|----------|--------------|-------------|---------------|
-| **Specification** | vision.md (40%) | - | specs.md (20%)<br>constraints.md (20%) | - | - | 20-40% |
-| **Design** | - | adr/*.md (20%) | schemas/*.yaml (20%)<br>contract tests (20%) | - | - | 20% |
-| **Planning** | - | - | - | plan.md (70%)<br>tasks.md (70%) | - | 70% |
-| **Implementation** | - | - | - | GitHub Issues | code (80%)<br>unit tests (70%)<br>docs (60%) | 60-80% |
-| **Feedback** | vision update | adr update | rule violations | - | PR discoveries | - |
+| Dimension | 明文化されるLayer | 成果物 | Disposability |
+|-----------|------------------|--------|---------------|
+| **Intent** | Specification | vision.md | 40% |
+| **Decision** | Design | adr/*.md | 20% |
+| **Rule** | Specification<br>Design | specs.md, constraints.md<br>schemas/*.yaml, contract tests | 20% |
+| **Coordination** | Planning<br>Implementation | plan.md, tasks.md<br>GitHub Issues | 70% |
+| **Realization** | Implementation | code, unit tests, docs | 60-80% |
+| **Feedback** | Feedback（横断） | すべてのDimensionへ逆流<br>- Realization → Rule<br>- Realization → Decision<br>- Realization → Intent | - |
 
-#### 完全なワークフロー: Forward Flow → Feedback Flow
+**重要な関係性**:
+- **Rule Dimension**は、Specification（specs.md）とDesign（schemas/*.yaml）の両方で明文化される
+- **Coordination Dimension**は、Planning（tasks.md）とImplementation（GitHub Issues）で扱われる
+- **Feedback**は、実装の発見を抽象度の高いDimensionへ逆流させる
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│ Context Layer: Specification（仕様化層）                     │
-│ - 低廃棄率の文脈を構築: AI時代に残すべき文脈                │
-└─────────────────────────────────────────────────────────────┘
+#### 完全なワークフロー: Dimensionの流れ（Why → What → How → Feedback）
 
-[Intent Context Dimension] 40% Disposable
-/vision create <feature-name>    → vision.md
-  ↓ なぜ必要か？
+```mermaid
+flowchart TD
+    subgraph WHY ["🔵 WHY（なぜ）: 問題と判断"]
+        direction TB
+        subgraph Intent_Block ["Intent Dimension - 40% Disposable"]
+            Intent_Cmd["<b>Layer: Specification</b><br/>/vision create → vision.md<br/>なぜ必要か？何が問題か？"]
+        end
+        subgraph Decision_Block ["Decision Dimension - 20% Disposable"]
+            Decision_Cmd["<b>Layer: Design</b><br/>/adr new → adr/*.md<br/>なぜこの設計か？何を捨てたか？"]
+        end
+    end
 
-[Rule Context Dimension] 20% Disposable
-/specify <description>           → specs.md
-/clarify                         → 曖昧性解消
-/constraints add <feature>       → constraints.md
-  ↓ 何を作るか？守るべき掟は？
+    subgraph WHAT ["🟠 WHAT（何を）: 定義と制約"]
+        direction TB
+        subgraph Rule_Block ["Rule Dimension - 20% Disposable"]
+            Rule_Spec["<b>Layer: Specification</b><br/>/specify → specs.md<br/>/clarify, /constraints add"]
+            Rule_Design["<b>Layer: Design</b><br/>/rule define → schemas/*.yaml<br/>/rule test → contract tests"]
+        end
+    end
 
-┌─────────────────────────────────────────────────────────────┐
-│ Context Layer: Design（設計判断層）                          │
-│ - 設計の意思決定を記録: トレードオフと不採用理由            │
-└─────────────────────────────────────────────────────────────┘
+    subgraph HOW ["🟣 HOW（どう）: 実現方法"]
+        direction TB
+        subgraph Coordination_Block ["Coordination Dimension - 70% Disposable"]
+            Coord_Plan["<b>Layer: Planning</b><br/>/plan → plan.md<br/>/tasks → tasks.md<br/>/publish → GitHub Issues"]
+        end
+        subgraph Realization_Block ["Realization Dimension - 60-80% Disposable"]
+            Real_Impl["<b>Layer: Implementation</b><br/>/implement → code + tests + docs<br/>→ Pull Requests"]
+        end
+    end
 
-[Decision Context Dimension] 20% Disposable
-/adr new <decision>              → adr/*.md
-  ↓ なぜこの設計か？何を捨てたか？
+    subgraph FEEDBACK ["🔴 FEEDBACK: 発見の逆流"]
+        direction TB
+        Feedback_Cmd["<b>Layer: Feedback</b><br/>/capture pr → 発見を抽出<br/>→ /vision, /adr, /constraints update"]
+    end
 
-[Rule Context Dimension] 20% Disposable
-/rule define <api>               → schemas/*.yaml
-/rule test <api>                 → contract tests
-  ↓ APIスキーマ・振る舞いの期待値（掟）
+    Intent_Cmd --> Decision_Cmd
+    Decision_Cmd --> Rule_Spec
+    Rule_Spec --> Rule_Design
+    Rule_Design --> Coord_Plan
+    Coord_Plan --> Real_Impl
+    Real_Impl --> Feedback_Cmd
+    Feedback_Cmd -.-> Rule_Spec
+    Feedback_Cmd -.-> Decision_Cmd
+    Feedback_Cmd -.-> Intent_Cmd
 
-┌─────────────────────────────────────────────────────────────┐
-│ Context Layer: Planning（計画・分解層）                      │
-│ - GitHub連携のための調整層: 高廃棄率                        │
-└─────────────────────────────────────────────────────────────┘
+    style WHY fill:#e3f2fd,stroke:#1976d2,stroke-width:4px,color:#000
+    style WHAT fill:#fff3e0,stroke:#ef6c00,stroke-width:4px,color:#000
+    style HOW fill:#f3e5f5,stroke:#7b1fa2,stroke-width:4px,color:#000
+    style FEEDBACK fill:#ffebee,stroke:#c62828,stroke-width:4px,color:#000
 
-[Coordination Context Dimension] 70% Disposable
-/plan                            → plan.md
-  ↓ どう実現するか？
-/tasks                           → tasks.md
-  ↓ どう分割するか？
+    style Intent_Block fill:#fff,stroke:#1976d2,stroke-width:2px,color:#000
+    style Decision_Block fill:#fff,stroke:#1565c0,stroke-width:2px,color:#000
+    style Rule_Block fill:#fff,stroke:#ef6c00,stroke-width:2px,color:#000
+    style Coordination_Block fill:#fff,stroke:#6a1b9a,stroke-width:2px,color:#000
+    style Realization_Block fill:#fff,stroke:#4a148c,stroke-width:2px,color:#000
 
-┌─────────────────────────────────────────────────────────────┐
-│ Context Layer: GitHub Integration（GitHub連携層）            │
-│ - tasks.md → GitHub Issues変換                               │
-└─────────────────────────────────────────────────────────────┘
-
-[Coordination Context Dimension]
-/publish tasks-to-github         → GitHub Issues #101〜#120
-  ↓ Context Dimension情報をラベル付与
-  ↓ Issue番号をtasks.mdに記録
-
-┌─────────────────────────────────────────────────────────────┐
-│ Context Layer: Implementation（実装層）                      │
-│ - AI生成による実装: 最も高い廃棄率                          │
-└─────────────────────────────────────────────────────────────┘
-
-[Realization Context Dimension] 80% Disposable
-/implement <task-id or issue>    → code + tests
-  ↓ GitHub Issue更新
-  ↓ PR #201〜#220 作成
-
-┌─────────────────────────────────────────────────────────────┐
-│ Context Layer: Feedback（フィードバック層）                  │
-│ - Implementation → Specification/Design への逆流             │
-│ - 実装中の発見を低廃棄率の文脈へ                             │
-└─────────────────────────────────────────────────────────────┘
-
-[PR実装から上流Context Dimensionへ]
-/capture pr <pr-number>          → 実装中の発見を抽出
-  ↓
-  ├─ [Decision Context Dimension] /adr update      → 設計判断の追加・更新 (20%)
-  ├─ [Rule Context Dimension] /constraints         → 掟違反の記録 (20%)
-  └─ [Intent Context Dimension] /vision update     → ビジョン修正 (40%)
+    style Intent_Cmd fill:#fff,stroke:#1976d2,stroke-width:2px,color:#000
+    style Decision_Cmd fill:#fff,stroke:#1565c0,stroke-width:2px,color:#000
+    style Rule_Spec fill:#fff,stroke:#ef6c00,stroke-width:2px,color:#000
+    style Rule_Design fill:#fff,stroke:#ef6c00,stroke-width:2px,color:#000
+    style Coord_Plan fill:#fff,stroke:#6a1b9a,stroke-width:2px,color:#000
+    style Real_Impl fill:#fff,stroke:#4a148c,stroke-width:2px,color:#000
+    style Feedback_Cmd fill:#fff,stroke:#d32f2f,stroke-width:2px,color:#000
 ```
 
 **重要な原則**:
 - **Forward Flow**: Intent → Decision → Rule → Coordination → Realization（抽象→具体）
-- **Feedback Flow**: Realization → Rule/Decision/Intent（発見の文脈化）
-- **廃棄率**: Specificationで作る文脈（20-40%）は残すべき。Implementationの成果物（60-80%）は再生成可能
+- **Feedback Flow**: Realization → Rule/Decision/Intent（具体→抽象へ発見を反映）
+- **代替可能性**: WHY/WHAT（20-40%）は低代替可能性（保存すべき文脈）。HOW（60-80%）は高代替可能性（再生成可能）
 
 ## Current State (現在の実装状況)
 
-### ✅ 実装済み（Rule & Coordination Context Dimension の一部）
+### ✅ 実装済み（Rule & Coordination Dimension の一部）
 - **Constitution**: `/constitution` - プロジェクト原則管理
-- **Rule Context Dimension**: `/specify`, `/clarify` - 仕様定義・曖昧性解消
-- **Coordination Context Dimension**: `/plan`, `/tasks` - 実装戦略・タスク分解
+- **Rule Dimension**: `/specify`, `/clarify` - 仕様定義・曖昧性解消
+- **Coordination Dimension**: `/plan`, `/tasks` - 実装戦略・タスク分解
 - **Analysis**: `/analyze` - 整合性分析
-- **Implementation**: `/implement` - 実装実行（Realization Context Dimensionへの橋渡し）
+- **Implementation**: `/implement` - 実装実行（Realization Dimensionへの橋渡し）
 
-### 🚧 Intent & Decision Context Dimension（優先度:高）
-- `/vision create/update` - Intent Context Dimension: ビジョン管理 (40% Disposable)
-- `/adr new/list/update` - Decision Context Dimension: ADR管理 (20% Disposable)
+### 🚧 Intent & Decision Dimension（優先度:高）
+- `/vision create/update` - Intent Dimension: ビジョン管理 (40% Disposable)
+- `/adr new/list/update` - Decision Dimension: ADR管理 (20% Disposable)
 
-### 🚧 Rule Context Dimension の拡充（優先度:高）
+### 🚧 Rule Dimension の拡充（優先度:高）
 - `/constraints add/verify` - 制約・不変条件管理（掟） (20% Disposable)
 - `/rule define/test` - APIスキーマ定義・テスト（掟） (20% Disposable)
 
-### 🚧 Coordination Context Dimension: GitHub連携（優先度:高）
+### 🚧 Coordination Dimension: GitHub連携（優先度:高）
 - `/publish tasks-to-github` - tasks.md → GitHub Issues化（自動ラベル付与）
 - `/sync github-to-tasks` - GitHub状態 → tasks.md同期
 - `/implement` のGitHub連携強化（Issue更新・PR作成）
 
 ### 🚧 Feedback Flow（優先度:中）
 - `/capture issue` - GitHub Issue → 文脈抽出
-- `/capture pr` - Pull Request → 上流Context Dimensionへフィードバック
-- `/analyze debt` - 技術的負債分析 → Rule/Decision Context Dimensionへの反映
-- Context Navigation UI（Context Dimension間のトレーサビリティ）
+- `/capture pr` - Pull Request → 上流Dimensionへフィードバック
+- `/analyze debt` - 技術的負債分析 → Rule/Decision Dimensionへの反映
+- Context Navigation UI（Dimension間のトレーサビリティ）
 
 ## Project Structure
 
@@ -263,24 +315,24 @@ YokaKit_Studio/
 ├── .claude/                  # Claude Code configuration
 │   ├── settings.local.json
 │   └── commands/             # Custom slash commands
-│       ├── [Intent Context Dimension]
+│       ├── [Intent Dimension]
 │       │   └── vision.md         # 🚧 Vision management
-│       ├── [Decision Context Dimension]
+│       ├── [Decision Dimension]
 │       │   └── adr.md            # 🚧 ADR management
-│       ├── [Rule Context Dimension]
+│       ├── [Rule Dimension]
 │       │   ├── specify.md        # ✅ Specification creation
 │       │   ├── clarify.md        # ✅ Ambiguity resolution
 │       │   ├── constraints.md    # 🚧 Constraints management
 │       │   └── rule.md           # 🚧 Rule (schema) definition/test
-│       ├── [Coordination Context Dimension]
+│       ├── [Coordination Dimension]
 │       │   ├── plan.md           # ✅ Implementation planning
 │       │   ├── tasks.md          # ✅ Task list generation
 │       │   ├── publish.md        # 🚧 Tasks → GitHub Issues
 │       │   └── sync.md           # 🚧 GitHub ↔ Tasks sync
-│       ├── [Realization Context Dimension]
+│       ├── [Realization Dimension]
 │       │   ├── implement.md      # ✅ Task execution
 │       │   └── generate.md       # 🚧 AI code generation
-│       ├── [Cross-Context Dimension]
+│       ├── [Cross-Dimension]
 │       │   ├── capture.md        # 🚧 Issue/PR → Context
 │       │   └── analyze.md        # ✅ Consistency analysis
 │       └── constitution.md       # ✅ Project constitution
@@ -333,7 +385,7 @@ YokaKit_Studio/
 
 コマンドは**Context Dimension（文脈次元）**ごとに整理されています。
 
-### 【Intent Context Dimension】意図次元 (40% Disposable)
+### 【Intent Dimension】意図次元 (40% Disposable)
 
 Context Layer: Specification
 
@@ -344,7 +396,7 @@ Context Layer: Specification
 /vision link <issue-url>         # GitHub Issueとリンク
 ```
 
-### 【Decision Context Dimension】意思決定次元 (20% Disposable)
+### 【Decision Dimension】意思決定次元 (20% Disposable)
 
 Context Layer: Design
 
@@ -356,7 +408,7 @@ Context Layer: Design
 /adr supersede <old> <new>       # ADRの更新・廃止
 ```
 
-### 【Rule Context Dimension】掟次元 (20% Disposable)
+### 【Rule Dimension】掟次元 (20% Disposable)
 
 Context Layer: Specification & Design
 
@@ -374,9 +426,9 @@ Context Layer: Specification & Design
 /rule test <api-name>            # コントラクトテスト実行
 ```
 
-### 【Coordination Context Dimension】調整次元 (70% Disposable)
+### 【Coordination Dimension】調整次元 (70% Disposable)
 
-Context Layer: Planning & GitHub Integration
+Context Layer: Planning
 
 ```bash
 # Planning (✅ 実装済み)
@@ -391,7 +443,7 @@ Context Layer: Planning & GitHub Integration
 /analyze                         # 整合性分析
 ```
 
-### 【Realization Context Dimension】実現次元 (80% Disposable)
+### 【Realization Dimension】実現次元 (60-80% Disposable)
 
 Context Layer: Implementation
 
@@ -405,7 +457,7 @@ Context Layer: Implementation
 /generate tests <from-contract>  # テスト生成
 ```
 
-### 【Cross-Context Dimension】横断的コマンド
+### 【Cross-Dimension】横断的コマンド
 
 Context Layer: Feedback
 
@@ -426,49 +478,47 @@ Context Layer: Feedback
 ### Example 1: 新機能開発（Context Layer × Context Dimension 完全フロー）
 
 ```bash
-# === Context Layer: Specification - Intent Context Dimension (40%) ===
+# === Layer 1: Specification - Intent Dimension (40%) ===
 $ /vision create "multi-account-switching"
 → contexts/001-multi-account/intent/vision.md
 
-# === Context Layer: Design - Decision Context Dimension (20%) ===
+# === Layer 2: Design - Decision Dimension (20%) ===
 $ /adr new "認証状態の管理方法"
 → contexts/001-multi-account/decision/adr/001-auth-state.md
 
-# === Context Layer: Specification - Rule Context Dimension (20%) ===
+# === Layer 1: Specification - Rule Dimension (20%) ===
 $ /specify "ユーザーが複数アカウントを切り替えられる機能"
 → contexts/001-multi-account/rule/specs.md
 $ /clarify
 $ /constraints add "account-switching"
 → contexts/001-multi-account/rule/constraints.md
 
-# === Context Layer: Design - Rule Context Dimension (20%) ===
+# === Layer 2: Design - Rule Dimension (20%) ===
 $ /rule define "account-api"
 → contexts/001-multi-account/rule/schemas/account-api.yaml
 
-# === Context Layer: Planning - Coordination Context Dimension (70%) ===
+# === Layer 3: Planning - Coordination Dimension (70%) ===
 $ /plan
 → coordination/001-multi-account/plan.md
 $ /tasks
 → coordination/001-multi-account/tasks.md
-
-# === Context Layer: GitHub Integration ===
 $ /publish tasks-to-github
-→ GitHub Issues #101〜#120 作成（dimension::ラベル付与）
+→ GitHub Issues #101〜#120 作成（dimension::coordination ラベル付与）
 
-# === Context Layer: Implementation - Realization Context Dimension (80%) ===
+# === Layer 4: Implementation - Realization Dimension (60-80%) ===
 $ /implement #101
-→ コード生成 → PR #201作成
+→ コード生成 (80%) → PR #201作成
 
-# === Context Layer: Feedback（Realization → Decision Context Dimension） ===
+# === Layer 5: Feedback（Realization → Decision Dimension） ===
 $ /capture pr #201
 → "トークン更新戦略" の判断が必要と判明
-→ Decision Context Dimensionへフィードバック: /adr new "トークン更新戦略"
+→ Decision Dimensionへフィードバック: /adr new "トークン更新戦略"
 ```
 
 ### Example 2: GitHub Issue起点の開発
 
 ```bash
-# Issue から開始（Context Layer: Feedback → Specification）
+# Issue から開始（Layer 5: Feedback → Layer 1: Specification）
 $ /capture issue 456
 → vision.md自動生成
 
@@ -479,11 +529,11 @@ $ /specify ...
 ### Example 3: 技術的負債への対応
 
 ```bash
-# 負債分析（Cross-Context Dimension）
+# 負債分析（Cross-Dimension）
 $ /analyze debt
 → 技術的負債検出
 
-# Decision & Rule Context Dimensionへのフィードバック
+# Decision & Rule Dimensionへのフィードバック
 $ /adr new "負債解消のリファクタリング方針"
 $ /constraints verify <affected-features>
 
@@ -498,16 +548,16 @@ $ /implement ...
 ## GitHub Label Strategy
 
 Context Studioでは、GitHubラベルを**多次元的**に活用して文脈を管理します。
-**Context Layer × Context Dimension × Disposability**の3軸に基づいて、ラベルを設計します。
+**Context Layer × Context Dimension**の2軸と**Disposability（代替可能性）**の評価基準に基づいて、ラベルを設計します。
 
-### Label Categories（7つの軸）
+### Label Categories（7つのカテゴリ）
 
 #### 1. Context Dimension（文脈次元）- 最重要軸
 
 文脈を捉える観点を示す：
 
-| ラベル | 廃棄率 | 意味 | 対応する文書 |
-|--------|--------|------|--------------|
+| ラベル | 代替可能性 | 意味 | 対応する文書 |
+|--------|-----------|------|--------------|
 | `dimension::intent` | 40% | なぜ必要か（Why） | vision.md |
 | `dimension::decision` | 20% | なぜこの設計か（トレードオフ） | adr/*.md |
 | `dimension::rule` | 20% | 何を作るか（仕様・制約・掟） | specs.md, constraints.md, schemas/*.yaml |
@@ -537,16 +587,15 @@ Context Studioでは、GitHubラベルを**多次元的**に活用して文脈�
 
 #### 3. Context Layer（文脈層）
 
-文脈が生成・変換される層を示す：
+文脈が生成・変換される5つの層を示す：
 
 | ラベル | 説明 |
 |--------|------|
 | `context-layer::specification` | 仕様化層（vision, specs, constraints作成） |
-| `context-layer::design` | 設計判断層（ADR, contracts作成） |
-| `context-layer::planning` | 計画層（plan, tasks作成） |
-| `context-layer::github-integration` | GitHub Issue化層 |
-| `context-layer::implementation` | 実装層（code, tests作成） |
-| `context-layer::feedback` | フィードバック層（PR発見の文脈化） |
+| `context-layer::design` | 設計判断層（ADR, schemas, contract tests作成） |
+| `context-layer::planning` | 計画層（plan, tasks作成、GitHub Issues公開） |
+| `context-layer::implementation` | 実装層（code, tests作成、PR作成） |
+| `context-layer::feedback` | フィードバック層（実装の発見を上流へ反映） |
 
 #### 4. Work Type（作業の種類）- spec駆動開発から継承
 
@@ -578,20 +627,20 @@ Context Studioでは、GitHubラベルを**多次元的**に活用して文脈�
 | `feedback::constraint-violation` | 制約違反の発見 |
 | `feedback::adr-update-needed` | ADR更新が必要 |
 
-#### 7. Disposability（廃棄率）
+#### 7. Disposability（代替可能性）
 
 | ラベル | 説明 |
 |--------|------|
-| `disposable::20%` | AI再生成不可能（残すべき文脈） |
-| `disposable::40%` | ビジョン（変化する可能性あり） |
-| `disposable::70%` | 調整層（頻繁に変わる） |
-| `disposable::80%` | 実装（最も変わりやすい） |
+| `disposable::20%` | 低代替可能性（AI再生成困難・保存すべき文脈） |
+| `disposable::40%` | 中低代替可能性（ビジョン・部分的に再生成可能） |
+| `disposable::70%` | 高代替可能性（調整層・ほぼ再生成可能） |
+| `disposable::80%` | 最高代替可能性（実装・完全再生成可能） |
 
 ---
 
 ### Label Combination Patterns（組み合わせパターン）
 
-#### Pattern 1: Vision議論のIssue（Intent Context Dimension, Specification Layer）
+#### Pattern 1: Vision議論のIssue（Intent Dimension, Specification Layer）
 
 ```
 dimension::intent + context::vision + work::epic + context-layer::specification + disposable::40%
@@ -599,7 +648,7 @@ dimension::intent + context::vision + work::epic + context-layer::specification 
 
 **例:** Issue #1 "マルチアカウント切り替え機能のビジョン"
 
-#### Pattern 2: ADR作成のIssue（Decision Context Dimension, Design Layer）
+#### Pattern 2: ADR作成のIssue（Decision Dimension, Design Layer）
 
 ```
 dimension::decision + context::adr + work::story + context-layer::design + disposable::20%
@@ -607,7 +656,7 @@ dimension::decision + context::adr + work::story + context-layer::design + dispo
 
 **例:** Issue #10 "認証状態の管理方法（ADR-001）"
 
-#### Pattern 3: 仕様定義のIssue（Rule Context Dimension, Specification Layer）
+#### Pattern 3: 仕様定義のIssue（Rule Dimension, Specification Layer）
 
 ```
 dimension::rule + context::spec + work::story + context-layer::specification + disposable::20%
@@ -615,15 +664,15 @@ dimension::rule + context::spec + work::story + context-layer::specification + d
 
 **例:** Issue #5 "アカウント切り替えAPIの仕様定義"
 
-#### Pattern 4: `/publish tasks-to-github` で生成されたタスク（Coordination Context Dimension）
+#### Pattern 4: `/publish tasks-to-github` で生成されたタスク（Coordination Dimension, Planning Layer）
 
 ```
-dimension::coordination + context::task + work::task + context-layer::github-integration + disposable::70%
+dimension::coordination + context::task + work::task + context-layer::planning + disposable::70%
 ```
 
 **例:** Issue #101 "アカウント切り替えAPIの実装計画（T001）"
 
-#### Pattern 5: 実装Issue（Realization Context Dimension, Implementation Layer）
+#### Pattern 5: 実装Issue（Realization Dimension, Implementation Layer）
 
 ```
 dimension::realization + work::task + context-layer::implementation + disposable::80%
@@ -631,7 +680,7 @@ dimension::realization + work::task + context-layer::implementation + disposable
 
 **例:** Issue #102 "アカウントモデルの実装"
 
-#### Pattern 6: PR実装からのフィードバック（Decision Context Dimensionへ）
+#### Pattern 6: PR実装からのフィードバック（Decision Dimensionへ）
 
 ```
 dimension::decision + context::adr + feedback::from-pr + context-layer::feedback + disposable::20%
@@ -639,7 +688,7 @@ dimension::decision + context::adr + feedback::from-pr + context-layer::feedback
 
 **例:** Issue #150 "トークン更新戦略のADR追加（PR #201からの発見）"
 
-#### Pattern 7: 技術的負債の発見（Rule Context Dimensionへ）
+#### Pattern 7: 技術的負債の発見（Rule Dimensionへ）
 
 ```
 dimension::rule + context::constraint + work::debt + feedback::constraint-violation + state::needs-adr
@@ -689,16 +738,16 @@ feedback:
 ### Label-Based Queries（ラベルを活用した検索例）
 
 ```bash
-# Intent Context Dimension（意図次元）の文脈のみ表示
+# Intent Dimension（意図次元）の文脈のみ表示
 is:issue label:dimension::intent
 
-# Decision Context Dimension（意思決定次元）の文脈のみ表示
+# Decision Dimension（意思決定次元）の文脈のみ表示
 is:issue label:dimension::decision
 
-# Rule Context Dimension（掟次元）の文脈のみ表示
+# Rule Dimension（掟次元）の文脈のみ表示
 is:issue label:dimension::rule
 
-# 低廃棄率（20-40%）のすべての文脈
+# 低代替可能性（20-40%）のすべての文脈
 is:issue label:disposable::20%,disposable::40%
 
 # ADRに関するすべてのIssue
@@ -716,10 +765,10 @@ is:issue label:state::ready-for-implementation is:open
 # 技術的負債
 is:issue label:work::debt is:open
 
-# Coordination & Realization Context Dimension（高廃棄率）の実装タスク
+# Coordination & Realization Dimension（高代替可能性）の実装タスク
 is:issue label:dimension::coordination,dimension::realization
 
-# Specification Layer（低廃棄率文脈の構築中）のすべてのIssue
+# Specification Layer（低代替可能性文脈の構築中）のすべてのIssue
 is:issue label:context-layer::specification
 
 # Implementation Layer（実装中）のすべてのIssue
@@ -731,57 +780,58 @@ is:issue label:context-layer::implementation
 ### Workflow Example with Labels（ラベルを使った完全フロー）
 
 ```bash
-# === Context Layer: Specification & Design（低廃棄率文脈の構築） ===
+# === Layer 1 & 2: Specification & Design（低代替可能性文脈の構築） ===
 
 Issue #1: "マルチアカウント切り替え機能のビジョン"
   Labels: dimension::intent, context::vision, work::epic, context-layer::specification, disposable::40%
-  Context Dimension: Intent - Disposable 40%
+  Dimension: Intent - Disposable 40%
 
 Issue #2: "認証状態の管理方法（ADR-001）"
   Labels: dimension::decision, context::adr, work::story, context-layer::design, disposable::20%
-  Context Dimension: Decision - Disposable 20%
+  Dimension: Decision - Disposable 20%
 
 Issue #3: "アカウント切り替え機能の仕様"
   Labels: dimension::rule, context::spec, work::story, context-layer::specification, disposable::20%
-  Context Dimension: Rule - Disposable 20%
+  Dimension: Rule - Disposable 20%
 
 Issue #4: "アカウント切り替えの掟（制約）定義"
   Labels: dimension::rule, context::constraint, work::story, context-layer::specification, disposable::20%
-  Context Dimension: Rule - Disposable 20%
+  Dimension: Rule - Disposable 20%
 
 Issue #5: "アカウント切り替えAPIスキーマ定義"
   Labels: dimension::rule, context::schema, work::story, context-layer::design, disposable::20%
-  Context Dimension: Rule - Disposable 20%
+  Dimension: Rule - Disposable 20%
 
-# === Context Layer: Planning & GitHub Integration（調整層） ===
+# === Layer 3: Planning（調整層） ===
 $ /plan
 $ /tasks
 $ /publish tasks-to-github
 
 Issue #101: "アカウントモデルの実装（T001）"
-  Labels: dimension::realization, work::task, context-layer::implementation, disposable::80%
-  Context Dimension: Realization - Disposable 80%
+  Labels: dimension::coordination, context::task, work::task, context-layer::planning, disposable::70%
+  Dimension: Coordination - Disposable 70%
   Related: #3, #4
 
 Issue #102: "認証トークン管理サービスの実装（T002）"
-  Labels: dimension::realization, work::task, context-layer::implementation, disposable::80%
-  Context Dimension: Realization - Disposable 80%
+  Labels: dimension::coordination, context::task, work::task, context-layer::planning, disposable::70%
+  Dimension: Coordination - Disposable 70%
   Related: #2, #4
 
-# === Context Layer: Implementation（実装） ===
+# === Layer 4: Implementation（実装層） ===
 $ /implement #101
-→ PR #201 作成
+→ code (80%), unit tests (70%), docs (60%)
+→ PR #201 作成（Realization Dimension）
 
-# === Context Layer: Feedback（実装 → 上流Context Dimension） ===
+# === Layer 5: Feedback（実装 → 上流Dimension） ===
 $ /capture pr #201
 → 実装中に「トークン更新戦略」の判断が必要と判明
 
 Issue #150: "トークン更新戦略のADR追加（PR #201からの発見）"
   Labels: dimension::decision, context::adr, feedback::from-pr, context-layer::feedback, disposable::20%
-  Context Dimension: Decision - Disposable 20%
+  Dimension: Decision - Disposable 20%
   Related: #2, PR #201
 
-→ Realization Context Dimension → Decision Context Dimension へのフィードバック
+→ Realization Dimension → Decision Dimension へのフィードバック
 ```
 
 ---
