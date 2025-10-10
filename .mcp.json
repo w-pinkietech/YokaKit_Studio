@@ -9,22 +9,22 @@
         "serena",
         "start-mcp-server",
         "--context",
-        "ide-assistant",
-        "--project",
-        "/mnt/shared_data/YokaKit_Replay"
+        "ide-assistant"
       ],
       "env": {}
     },
     "chrome-devtools": {
+      "type": "stdio",
       "command": "npx",
       "args": [
         "chrome-devtools-mcp@latest",
-        "--channel=stable",
+        "--executablePath=/usr/bin/chromium-browser",
         "--headless=true",
         "--isolated=true"
       ]
     },
     "sonarqube": {
+      "type": "stdio",
       "command": "docker",
       "args": [
         "run",
