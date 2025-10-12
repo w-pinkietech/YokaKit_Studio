@@ -58,20 +58,22 @@ AI-DLC プロセスに沿って作業することが必須です。より詳し�
 /docs/README.md            # ヒューマン向けハブ
 /docs/AGENTS.md            # このガイド
 /AGENTS.md                 # エージェント向けクイックスタート
-/docs/documentation-governance/README.md  # ドキュメント運用ルール
-/docs/documentation-governance/INDEX.md   # スタイルガイド索引
-/docs/framework-governance.md             # ガバナンス詳細
-/docs/development-process.md              # 開発プロセス詳細
+/docs/documentation-governance/README.md  # ドキュメント運用ルール（移行後は /docs/policy/documentation/README.md）
+/docs/documentation-governance/INDEX.md   # スタイルガイド索引（移行後は /docs/policy/documentation/INDEX.md）
+/docs/framework-governance.md             # フレームワークポリシー（移行後は /docs/policy/framework/README.md）
+/docs/development-process.md              # 開発プロセス詳細（移行後は /docs/process-guides/development/README.md）
 /scripts/setup_labels.sh   # ラベル同期スクリプト
 ```
 > ドキュメントが更新された際は、このマップも随時アップデートしてください。`AGENTS.md` は AI 向け指示、`INDEX.md` は対応ディレクトリの索引である点を意識して運用すること。
+
+成果物種別を基軸に、必要に応じて `stable/` や `iterative/` などのライフサイクル階層で整理する方針は [docs/documentation-governance/directory-structure.md](documentation-governance/directory-structure.md#ライフサイクルレイヤ運用例) を参照。AI 向け資料は対象トピック配下に整備し、共有情報かどうかを文書中で明示する。
 
 ## Command & Script Reference
 - `scripts/setup_labels.sh <owner/repo>`: ラベルの同期。実行前に `GITHUB_TOKEN` または `GH_TOKEN` を設定。
 - `gh auth status`: GitHub CLI の認証状態を確認。エラーがあれば再ログイン。
 - `git submodule status`: 参照・コード出力リポジトリの現在のコミットを確認。
 - `bash scripts/verify_submodules.sh`: サブモジュールの参照コミットがガバナンス違反になっていないか検証。
-- `/constitution`, `/inception`, `/construction` などのスラッシュコマンドは Claude のチャット上で実行する。必要なコマンドが表示されない場合は `.claude/commands/<name>.md` を新規作成または更新する。テンプレート整備手順は [docs/framework-governance.md](framework-governance.md#スラッシュコマンドテンプレート運用) と [docs/claude-code.md](claude-code.md) を参照。
+- `/constitution`, `/inception`, `/construction` などのスラッシュコマンドは Claude のチャット上で実行する。必要なコマンドが表示されない場合は `.claude/commands/<name>.md` を新規作成または更新する。テンプレート整備手順は [docs/framework-governance.md](framework-governance.md#スラッシュコマンドテンプレート運用)（移行後は `/docs/policy/framework/README.md` 内）と [docs/claude-code.md](claude-code.md) を参照。
 
 ## Pull Request Checklist
 1. 変更に紐づく Issue を `Closes #<n>` でリンクしたか。
