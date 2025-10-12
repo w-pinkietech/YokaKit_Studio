@@ -1,6 +1,11 @@
 # Documentation Governance: 推奨ディレクトリ構成
 
-YokaKit Studio では文脈（Context）とコード（Code Output）を分離して管理するため、ドキュメント配置の判断基準を明確にしておくことが重要である。本ガイドは `docs/` 配下だけでなく、`.aidlc/contexts/` やサブモジュールに広がるドキュメント構造を俯瞰し、新しいディレクトリを追加・再編する際の共通言語を提供する。
+YokaKit Studio では文脈（Context）とコード（Code Output）を分離して管理するため、ドキュメント配置の判断基準を明確にしておくことが重要である。本ガイドは主に `docs/` 配下の恒久ドキュメントを対象とし、新しいディレクトリを追加・再編する際の共通言語を提供する。`.aidlc/contexts/` やサブモジュール配下の文脈成果物は別ガイドラインに従うため、適用範囲を明確に理解したうえで参照すること。
+
+## 適用範囲
+- `docs/` 配下: 人間/AI 共通で永続的に参照するガバナンス、プロセス、リファレンス類。→ 本ガイドの対象。
+- `.aidlc/contexts/<id>/`: Intent / Domain Design / ADR など Bolt 単位で更新される文脈。→ 既定の `inception/`・`construction/` 構成を維持し、必要に応じて別途ガイドラインを参照。
+- `submodules/`: Code Output / References の README・AGENTS・INDEX は各リポジトリのポリシーに従うが、可能な限り本ガイドと整合させる。
 
 ## 分類軸
 新設・再編の可否は「成果物種別」「ライフサイクル」の 2 軸で評価する。ドキュメントの主な読者は補助情報として明示するが、ディレクトリ構造の軸には含めない。
@@ -43,6 +48,12 @@ YokaKit Studio では文脈（Context）とコード（Code Output）を分離�
 - 条件付き情報や作業メモが必要な場合は `meta/` や日付サブディレクトリを活用する。
 
 > ライフサイクルレイヤは必要な場合のみ追加し、過剰な入れ子構造を避ける。
+
+## `.aidlc/contexts/` との住み分け
+- Intent / Units / Stories / ADR / Domain Design などの文脈成果物は `.aidlc/contexts/<id>/` の既定構造（`inception/`, `construction/`, `operation/` など）が優先される。  
+- Bolt やユニットごとの一次成果物は基本的に `.aidlc/` に保持し、恒久的なリファレンスが必要になったタイミングで `docs/` へ要約・抜粋を移管する。  
+- `.aidlc/` 配下で追加の整理が必要な場合は、Intent/ADR 用テンプレートや AI-DLC プロセスガイド（例: `docs/process-guides/development/`）に従って構造化し、本ガイドで定義する `stable/`/`iterative/` の階層は適用しない。  
+- Context Studio と Code Output リポジトリをまたいで参照する場合は、`docs/reference/code-mapping/` など横断的ドキュメントから `.aidlc/` 内の該当ファイルへリンクを張り、位置づけを明確にする。
 
 ## 新規ディレクトリ判断フロー
 ```
