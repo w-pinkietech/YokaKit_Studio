@@ -125,3 +125,4 @@ GITHUB_TOKEN=ghp_xxx scripts/setup_labels.sh w-pinkietech/YokaKit_Studio
 - フレームワーク整備が落ち着いたら、`artifact::` 系ラベルを AI-DLC 階層（Intent / Domain Design など）へ細分化。
 - Milestone や Project Boards での運用ルールが固まった段階で、別途 `Project Governance` セクションを追加予定。
 - スクリプトの Node.js / Python 版 CLI などが必要になった場合は `scripts/` 以下でモジュール化し、本ドキュメントから参照する。
+- ドキュメントは `docs/` ディレクトリに集約し、ヒューマン向け・AI向けガイド（`docs/README.md`, `docs/AGENTS.md`）を随時更新する。
