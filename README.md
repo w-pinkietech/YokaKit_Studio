@@ -969,7 +969,60 @@ You: y
 
 ---
 
-## GitHub Integration
+## GitHub Integration Strategy
+
+**完全版**: [.github-strategy.md](.github-strategy.md) を参照
+
+YokaKit StudioはGitHub中心で運用されるため、ブランチ戦略・Issue戦略・PR戦略が開発効率を左右します。
+
+### Quick Reference
+
+#### Branch Strategy
+
+**Context Studio（文脈管理）**:
+```bash
+# Phase-Driven Branching
+inception/001-multi-account          # Inception Phase
+construction/001-multi-account       # Construction Phase
+operations/001-multi-account         # Operations Phase
+```
+
+**Code Output（実装）**:
+```bash
+# GitHub Flow + Feature Branching
+feature/001-account-entity           # Context #001対応
+hotfix/session-timeout               # 緊急修正
+refactor/auth-service                # リファクタリング
+```
+
+#### Issue Flow
+
+**Context-First（新規開発）**:
+```
+Context Studio #1: Intent
+  → Context Studio #5: Domain Design
+  → Context Studio #8: ADR-001
+  → Code Output #10: Implement (参照: Context #5, ADR-001)
+  → Context Studio: Submodule更新コミット
+```
+
+**Code-First（技術的負債）**:
+```
+Code Output #25: Refactor needed
+  → Context Studio #15: Elevate to Domain Model
+  → Context Studio #16: ADR-002
+  → Code Output #28: Refactor (参照: ADR-002)
+```
+
+#### Milestone = Bolt
+
+```
+Milestone: Bolt-2024-W42 (5日間)
+├─ Context Studio Issues: #1, #5, #8
+└─ Code Output Issues: #10, #12
+```
+
+---
 
 ### Label Strategy（AI-DLC構造ベース）
 
