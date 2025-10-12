@@ -15,6 +15,7 @@
 - [言語・表記](style-language.md) — 文体や表記ゆれに関するルール。
 - [構造と見出し](style-structure.md) — 見出し構成や段落整理の指針。
 - [構造管理とファイル分割](style-organization.md) — ディレクトリ単位のインデックス運用と分割基準。
+- [Mermaid 図スタイル](style-diagrams.md) — 図解の配色・構成・記法ルール。
 - [リンクと参照](style-links.md) — リンクの貼り方と整合性管理。
 - [フォーマットとコードブロック](style-formatting.md) — コード・表の表現統一。
 - [更新フロー](style-update-flow.md) — PR 前後の運用手順。

@@ -21,6 +21,7 @@ AI エージェントがドキュメントを作成・更新する際に守る�
 - コンテンツ配置ルール: `content-governance.md`
 - 更新フロー: `update-procedure.md`
 - 定期レビュー: `review-cycle.md`
+- Mermaid 図スタイル: `style-diagrams.md`
 - ルート AI インデックス: `../../AGENTS.md`
 - ドキュメントハブ: `../README.md`
 - 新しい補助資料を追加した場合は、この一覧に追記すること。

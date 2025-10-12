@@ -1076,6 +1076,7 @@ Milestone: Bolt-2024-W42 (5日間)
 - 人間向けドキュメントハブ: [docs/README.md](docs/README.md)
 - ドキュメント索引: [docs/INDEX.md](docs/INDEX.md)
 - AIエージェント向けガイド: [docs/AGENTS.md](docs/AGENTS.md)
+- Mermaid 図スタイルガイド: [docs/documentation-governance/style-diagrams.md](docs/documentation-governance/style-diagrams.md)
 - AIエージェント向けクイックスタート: [AGENTS.md](AGENTS.md)
 
 ---

@@ -31,6 +31,7 @@
 | `style-language.md` | 言語・表記ルール。 |
 | `style-structure.md` | 見出しや段落構成の指針。 |
 | `style-organization.md` | ディレクトリ管理とファイル分割ルール。 |
+| `style-diagrams.md` | Mermaid 図の配色・構成・記法ルール。 |
 | `style-links.md` | リンクと参照のポリシー。 |
 | `style-formatting.md` | フォーマットとコードブロックの扱い。 |
 | `style-update-flow.md` | 更新手順とレビューの進め方。 |
