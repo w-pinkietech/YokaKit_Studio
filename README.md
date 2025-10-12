@@ -251,9 +251,9 @@ git push -u origin main
 
 ### Step 2: Constitution（プロジェクトDNA）の作成
 
-```bash
-/constitution
-```
+1. `.claude/commands/constitution.md` を確認し、プロジェクトに必要な質問やテンプレートが揃っているか整備します（存在しない場合は同名ファイルを新規作成し、テンプレートを定義してください）。テンプレートの作成手順やセットアップは [docs/claude-code.md](docs/claude-code.md) を参照できます。
+2. Claude（Claude Web / Claude Desktop / Claude Code など）で本リポジトリを開き、チャット欄で `/constitution` を実行します。
+3. コマンド実行中に AI が以下のような質問を行うので、会話しながら情報を埋めてください。
 
 AI が質問します：
 - プロジェクトの目的は？
@@ -265,24 +265,30 @@ AI が質問します：
 
 ### Step 3: Code Outputリポジトリとの連携確認
 
+Code Output 側の実装は専用リポジトリで開発・レビューし、Context Studio は参照コミットのみを更新します。
+
 ```bash
-# Code Outputリポジトリの状態確認
+# Context Studioで現在参照しているコミットを確認
+git submodule status
+
+# 必要に応じて Code Output リポジトリへ移動し、作業ブランチを用意
 cd submodules/code-output/yokakit
-git status
-git log -1
+git fetch origin
+git switch -c feature/<slug> origin/main  # 例: ここで作業・PR作成
 
-# Context Studioに戻る
+# Code Output PR がマージされた後、Context Studio側で追随ブランチを作成
 cd ../../..
-
-# Submoduleの最新状態を反映
-git submodule update --remote
+git checkout -b framework/<issue-number>-update-yokakit
+git -C submodules/code-output/yokakit pull --ff-only
 ```
+
+> `git submodule update --remote` は参照コミットを直接最新化してしまうため、ガバナンスに反します。更新は必ず Code Output リポジトリで PR を通したうえで、Context Studio では追随 PR を発行してください（詳細: [Submodule Management](#submodule-management)）。
 
 ### Step 4: 最初のIntentを入力
 
-```bash
-/inception "ユーザーが複数アカウントを切り替えられる機能"
-```
+事前に `.claude/commands/inception.md` を確認し（存在しない場合は新規作成します）、必要な質問が揃っていることを確認したうえで、Claude で `/inception "ユーザーが複数アカウントを切り替えられる機能"` を実行してください。テンプレートの作り方は [docs/claude-code.md](docs/claude-code.md) を参照するとスムーズです。
+
+> スラッシュコマンドのテンプレート整備と実行手順は [docs/framework-governance.md](docs/framework-governance.md#スラッシュコマンドテンプレート運用) を参照してください。
 
 **AIが会話をリード**します：
 
@@ -322,10 +328,7 @@ AI: Bolts計画を提案します：
 
 YokaKit StudioではAIがほぼすべてのコードを書くため、**Documentation-First × TDD**を徹底します。
 
-```bash
-# Context Studioで実行
-/construction unit-1-account-management
-```
+`.claude/commands/construction.md` を確認したうえで（無い場合はテンプレートを追加します）、Claude で `/construction unit-1-account-management` を実行します。テンプレート整備の詳細は [docs/claude-code.md](docs/claude-code.md) を参照してください。
 
 **開発プロセス**:
 ```
@@ -774,15 +777,17 @@ Context Studio Issue #15
 
 ## Commands Reference
 
+以下のスラッシュコマンドは Claude のチャット画面で実行します。挙動を変更したい場合は `.claude/commands/<name>.md` を編集してから再実行してください。コマンドが表示されない場合は、対応するテンプレートファイルが作成・保存されているか確認し、必要であれば新規作成します。詳細なセットアップ手順は [docs/claude-code.md](docs/claude-code.md) を参照してください。
+
 ### Foundation
 
-```bash
+```
 /constitution                    # プロジェクトDNA作成・更新
 ```
 
 ### Inception Phase
 
-```bash
+```
 /inception <intent>              # Inception開始（対話的）
                                  # 1. Intent明確化
                                  # 2. Units分解
@@ -793,7 +798,7 @@ Context Studio Issue #15
 
 ### Construction Phase
 
-```bash
+```
 /construction <unit-name>        # Construction開始（対話的）
                                  # 1. Domain Design
                                  # 2. Logical Design (ADR)
@@ -808,7 +813,7 @@ Context Studio Issue #15
 
 ### Operations Phase
 
-```bash
+```
 /operations deploy <unit>        # デプロイ実行
 /operations monitor              # 監視・異常検知
 /operations recommend            # 対応提案
@@ -816,31 +821,31 @@ Context Studio Issue #15
 
 ### Submodule Management
 
-```bash
-# Submodule追加
-git submodule add <repo-url> submodules/code-output/<name>
-git submodule add <repo-url> submodules/references/<name>
+- **新規追加**
+  ```bash
+  git submodule add <repo-url> submodules/code-output/<name>
+  git submodule add <repo-url> submodules/references/<name>
+  git submodule update --init --recursive
+  ```
 
-# Submodule初期化（クローン後）
-git submodule update --init --recursive
+- **Code Output の更新フロー**
+  1. Code Output リポジトリでブランチ作成 → 作業 → PR → main へマージ。
+  2. Context Studio で追随ブランチを作成し、対象サブモジュールで `git -C submodules/code-output/<name> pull --ff-only` を実行。
+  3. `scripts/verify_submodules.sh` を実行して意図しないズレが無いか確認。
+  4. `git add submodules/code-output/<name>` → `[framework]` PR を作成し、Code Output 側 PR 番号と参照 Intent/ADR を記載。
 
-# Submodule最新化
-git submodule update --remote
+- **References の更新フロー**
+  - Bolt やリリース単位で更新要否をレビューし、必要な場合のみ追随ブランチを作成。
+  - 破壊的変更を取り込む場合は `.aidlc/contexts/<id>/construction/logical-design/` に補足メモを追加して背景を残す。
 
-# Code Output変更後、Context Studioに反映
-cd submodules/code-output/<name>
-git add . && git commit -m "..." && git push
-cd ../../..
-git add submodules/code-output/<name>
-git commit -m "Update submodule: <name> - <context-id>"
-git push
-```
+> `git submodule update --remote` は Context Studio 側の参照コミットを無査読で最新化してしまうため、日常運用では使用しません。検証目的で使う場合も、コミットには含めず追随 PR で改めて反映してください。
 
 ### Utilities
 
-```bash
+```
 /analyze                         # 整合性分析
 /trace <artifact>                # トレーサビリティ追跡（Context ↔ Code）
+bash scripts/verify_submodules.sh  # サブモジュールのズレ検知
 ```
 
 ---

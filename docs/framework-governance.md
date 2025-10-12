@@ -59,6 +59,43 @@ track::framework + artifact::documentation + status::needs-decision + impact::me
 
 ---
 
+## スラッシュコマンドテンプレート運用
+
+スラッシュコマンド（例: `/constitution`, `/inception`）は `.claude/commands/<name>.md` に定義されたテンプレートをもとに **Claude 環境**（Claude Web / Claude Desktop / Claude Code など）で実行する。テンプレートとドキュメントの整合性を保つため、以下の運用ルールに従う。
+
+### 想定ツールチェーン
+- Claude 環境（Claude Web / Claude Desktop / Claude Code など、スラッシュコマンドに対応したクライアント）
+- Anthropic アカウントと必要な API/アクセス権
+- `.claude/commands/` ディレクトリのテンプレート一式
+
+### テンプレート整備フロー
+> Claude Code のインストールや同期方法は [docs/claude-code.md](claude-code.md) を参照。
+1. コマンドの挙動を変更・追加する場合、`.claude/commands/<name>.md` を新規作成（既存があれば編集）し、目的・入出力・フローを明文化する。  
+2. テンプレートを更新したら、README や関連ドキュメントのコマンド例を確認し、説明と矛盾がないかチェックする。  
+3. テンプレートに追加の入力が必要な場合は、`.aidlc/contexts/` や `docs/` にある関連ドキュメントから参照できるよう導線を張る。  
+4. 新規コマンドを追加した際は、このセクションと README のコマンド一覧に必ず追記する。
+
+### 実行方法（Claude のチャットコマンド）
+1. Claude（Web / Desktop / Claude Code など）で本リポジトリを開く。
+2. チャット欄で以下のように入力する。
+   ```
+   /constitution
+   /inception "Intent text"
+   /construction unit-1-account-management
+   ```
+3. コマンド実行中にテンプレートが差し込まれ、AIとの対話が開始されるので、案内に従って回答する。
+
+> コマンドが候補に出ない場合は、対応する `.claude/commands/<name>.md` が存在し保存されているか、ファイル名が正しいか、リポジトリを再読み込みしたかを確認すること。
+
+### トラブルシューティング
+- `/constitution` が候補に出ない → Claude クライアントでリポジトリを再読み込みするか、`.claude/commands/` が正しく同期されているか確認する。  
+- テンプレート変更後に期待した挙動が得られない → `.claude/commands/<name>.md` を保存したか、キャッシュが残っていないか確認する。  
+- 認証エラーが発生する → Anthropic アカウントの権限やチーム設定を確認し、Claude クライアントのログイン状態を再確認する。  
+
+> `.claude/commands/` の更新は必ず Issue を起点に行い、README / `docs/AGENTS.md` / 本ガバナンス文書の記述を同期させること。
+
+---
+
 ## Pull Request ワークフロー
 
 フレームワーク関連の変更（本ドキュメント、README、AI-DLCワークフローの定義、スクリプトなど）はすべて PR を通して取り込む。以下の流れを原則とする。
@@ -87,6 +124,32 @@ track::framework + artifact::documentation + status::needs-decision + impact::me
    - Issue をクローズし、必要であればフォローアップのTODOを新規Issueで登録。
 
 > 緊急対応が必要な場合でもドラフトPRを作成し、議論の場を一元化すること。
+
+---
+
+## サブモジュール運用チェックリスト
+
+Context Studio で管理するサブモジュール（Code Output / References）は、必ず固定コミットハッシュで追跡し、`git submodule update --remote` による直接更新は禁止とする。
+
+### 共通原則
+- すべての更新は Issue 起点で議論し、Context Studio では追随 PR を作成する。
+- コミット前に `bash scripts/verify_submodules.sh` を実行し、未初期化（`-`）や未記録コミット（`+`）がないことを確認する。
+- PR 説明には「対象サブモジュール」「参照する Intent / ADR」「紐づく Code Output PR 番号（該当時）」を必ず記載する。
+
+### Code Output（例: submodules/code-output/yokakit）
+1. Code Output リポジトリでブランチを切り、PR を作成してレビューを完了させる。
+2. Context Studio では専用ブランチ（例: `framework/<issue>-update-<name>`）を作成し、`git -C submodules/code-output/<name> pull --ff-only` で最新コミットを取得する。
+3. `git status` で差分がサブモジュールのハッシュのみであることを確認し、`bash scripts/verify_submodules.sh` を実行する。
+4. 追随 PR を作成し、Code Output 側 PR のリンクと確認済みのコミットハッシュを記載する。
+5. レビューでは以下をチェックする：
+   - 参照コミットが意図した Code Output PR と一致しているか。
+   - `.aidlc/contexts/` の記録（Intent / ADR / code-mapping）が最新の状態と整合しているか。
+   - 本リポジトリの他ファイルに差分が紛れ込んでいないか。
+
+### References
+- Bolt やリリースの節目で更新要否をレビューし、必要な場合のみ追随 PR を作成する。
+- Breaking Change を取り込む際は、該当する Context の Logical Design に補足メモを追加し、Reference 更新の理由を残す。
+- `git submodule update --remote` の利用は禁止。検証目的で試した場合もコミットには含めず、追随 PR によって反映する。
 
 ---
 
