@@ -12,16 +12,21 @@
 |-----------|-----------|------|
 | `README.md` | 人間 | このファイル。全体像と主要ドキュメントへの案内を提供。 |
 | `AGENTS.md` | AIエージェント | 詳細ガイド。索引付きで稼働ルールや参照パスを整理。 |
+| `INDEX.md` | 人間/AI | `docs/` 全体の目次。主要カテゴリへの導線をまとめる。 |
+| `documentation-governance/` | 人間/AI | ドキュメント運用ルールとスタイルガイドのディレクトリ。 |
+| `templates/` | 人間/AI | README / AGENTS / INDEX などドキュメント用テンプレート。 |
 | `framework-governance.md` | 人間 | フレームワーク整備期のガバナンス、ラベル運用、PRフロー。 |
 | `development-process.md` | 人間/AI | AI-DLCにおけるTDD/ドキュメント駆動プロセス詳細。 |
 | `claude-code.md` | 人間/AI | Claude Code のセットアップとスラッシュコマンド運用ガイド。 |
 
 ## 参照ナビゲーション
 - プロジェクト概要・アーキテクチャ: ルート `README.md`
+- ドキュメントスタイルガイド: [documentation-governance/INDEX.md](documentation-governance/INDEX.md)
 - フレームワークガバナンス: [framework-governance.md](framework-governance.md)
 - 開発プロセス詳細: [development-process.md](development-process.md)
 - AIエージェント向けクイックスタート: [../AGENTS.md](../AGENTS.md)
 - AIエージェント向け詳細ガイド: [AGENTS.md](AGENTS.md)
+- ※ `AGENTS.md` は AI への行動指示、`INDEX.md` はディレクトリ全体の索引として機能する。
 
 ## コントリビューションのヒント
 1. 新しいドキュメントを追加する場合は、まず Issue で目的と読者を明確化してください。

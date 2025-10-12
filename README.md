@@ -1074,6 +1074,7 @@ Milestone: Bolt-2024-W42 (5日間)
 フレームワーク整備期のIssue/PR管理、ラベル設計、自動化スクリプトは [docs/framework-governance.md](docs/framework-governance.md) にまとめています。必要に応じて参照してください。
 
 - 人間向けドキュメントハブ: [docs/README.md](docs/README.md)
+- ドキュメント索引: [docs/INDEX.md](docs/INDEX.md)
 - AIエージェント向けガイド: [docs/AGENTS.md](docs/AGENTS.md)
 - AIエージェント向けクイックスタート: [AGENTS.md](AGENTS.md)
 
