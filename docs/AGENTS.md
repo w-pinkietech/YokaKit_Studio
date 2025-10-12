@@ -24,6 +24,7 @@ AIエージェントが YokaKit Studio のコンテキストを効率的に参�
 | フレームワークガバナンス | `framework-governance.md` | Issue/PR運用、ラベル体系、手続き確認。 |
 | 開発プロセス | `development-process.md` | AI-DLC のTDD/ドキュメント駆動手順。 |
 | ドキュメント集約 | `docs/README.md` | ヒューマン向けドキュメント一覧。 |
+| ドキュメントスタイル | `documentation-governance/INDEX.md` | 各スタイルガイドと構造運用ルール。 |
 
 ## Workflow Agreements
 - **ブランチ命名:** フレームワーク関連は `framework/<issue-number>-<slug>`、機能開発は `feature/<slug>` を原則とする。
@@ -57,11 +58,13 @@ AI-DLC プロセスに沿って作業することが必須です。より詳し�
 /docs/README.md            # ヒューマン向けハブ
 /docs/AGENTS.md            # このガイド
 /AGENTS.md                 # エージェント向けクイックスタート
-/docs/framework-governance.md  # ガバナンス詳細
-/docs/development-process.md   # 開発プロセス詳細
+/docs/documentation-governance/README.md  # ドキュメント運用ルール
+/docs/documentation-governance/INDEX.md   # スタイルガイド索引
+/docs/framework-governance.md             # ガバナンス詳細
+/docs/development-process.md              # 開発プロセス詳細
 /scripts/setup_labels.sh   # ラベル同期スクリプト
 ```
-> ドキュメントが更新された際は、このマップも随時アップデートしてください。
+> ドキュメントが更新された際は、このマップも随時アップデートしてください。`AGENTS.md` は AI 向け指示、`INDEX.md` は対応ディレクトリの索引である点を意識して運用すること。
 
 ## Command & Script Reference
 - `scripts/setup_labels.sh <owner/repo>`: ラベルの同期。実行前に `GITHUB_TOKEN` または `GH_TOKEN` を設定。
