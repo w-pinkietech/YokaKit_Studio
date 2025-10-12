@@ -67,7 +67,8 @@ AI-DLC プロセスに沿って作業することが必須です。より詳し�
 - `scripts/setup_labels.sh <owner/repo>`: ラベルの同期。実行前に `GITHUB_TOKEN` または `GH_TOKEN` を設定。
 - `gh auth status`: GitHub CLI の認証状態を確認。エラーがあれば再ログイン。
 - `git submodule status`: 参照・コード出力リポジトリの現在のコミットを確認。
-- `/constitution`, `/inception`, `/construction` などのスラッシュコマンドは専用CLIを介して実行する。詳細は Issue #2 にて整備予定。
+- `bash scripts/verify_submodules.sh`: サブモジュールの参照コミットがガバナンス違反になっていないか検証。
+- `/constitution`, `/inception`, `/construction` などのスラッシュコマンドは Claude のチャット上で実行する。必要なコマンドが表示されない場合は `.claude/commands/<name>.md` を新規作成または更新する。テンプレート整備手順は [docs/framework-governance.md](framework-governance.md#スラッシュコマンドテンプレート運用) と [docs/claude-code.md](claude-code.md) を参照。
 
 ## Pull Request Checklist
 1. 変更に紐づく Issue を `Closes #<n>` でリンクしたか。

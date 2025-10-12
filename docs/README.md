@@ -14,6 +14,7 @@
 | `AGENTS.md` | AIエージェント | 詳細ガイド。索引付きで稼働ルールや参照パスを整理。 |
 | `framework-governance.md` | 人間 | フレームワーク整備期のガバナンス、ラベル運用、PRフロー。 |
 | `development-process.md` | 人間/AI | AI-DLCにおけるTDD/ドキュメント駆動プロセス詳細。 |
+| `claude-code.md` | 人間/AI | Claude Code のセットアップとスラッシュコマンド運用ガイド。 |
 
 ## 参照ナビゲーション
 - プロジェクト概要・アーキテクチャ: ルート `README.md`
