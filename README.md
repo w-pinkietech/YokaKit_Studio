@@ -316,12 +316,52 @@ AI: Bolts計画を提案します：
     承認しますか？ [y/n]
 ```
 
-### Step 5: Construction Phase
+### Step 5: Construction Phase（TDD & Documentation-Driven）
+
+**完全版**: [.development-process.md](.development-process.md) を参照
+
+YokaKit StudioではAIがほぼすべてのコードを書くため、**Documentation-First × TDD**を徹底します。
 
 ```bash
 # Context Studioで実行
 /construction unit-1-account-management
 ```
+
+**開発プロセス**:
+```
+1. Domain Design（ドキュメント）
+   → AI: Static/Dynamic Model生成
+   → Human: 検証・承認
+   → Commit: Domain Design
+
+2. Logical Design（ADR）
+   → AI: Architecture提案
+   → Human: トレードオフ検証・承認
+   → Commit: ADR
+
+3. Test Specification（テスト先行）
+   → AI: Test Cases生成
+   → Human: Test Cases検証
+   → AI: Test Code生成（実装なし）
+   → Commit: Tests Only (すべてFAIL)
+
+4. Code Generation（実装）
+   → AI: Implementation生成
+   → Run Tests → 失敗 → AI修正 → 成功
+   → Human: Code Review
+   → Commit: Implementation (すべてPASS)
+
+5. Documentation Update
+   → AI: Code Mapping更新
+   → AI: API Doc生成
+   → Commit: Documentation
+```
+
+**品質ゲート**:
+- ✅ カバレッジ100%必須
+- ✅ すべてのテストパス必須
+- ✅ ADR準拠チェック必須
+- ✅ Context参照必須
 
 **AIが段階的に提案**します：
 
@@ -1024,47 +1064,65 @@ Milestone: Bolt-2024-W42 (5日間)
 
 ---
 
-### Label Strategy（AI-DLC構造ベース）
+### Framework Governance
 
-#### 1. Artifact Labels
+フレームワーク整備期のIssue/PR管理、ラベル設計、自動化スクリプトは [.framework-governance.md](.framework-governance.md) にまとめています。必要に応じて参照してください。
 
-| ラベル | Disposability | 説明 |
-|--------|--------------|------|
-| `artifact::constitution` | 0% | プロジェクトDNA |
-| `artifact::domain-design` | 20% | Domain Design |
-| `artifact::logical-design` | 20% | ADR（技術判断） |
-| `artifact::intent` | 30% | Intent（目的） |
-| `artifact::units` | 40% | Units（機能ブロック） |
-| `artifact::stories` | 50% | User Stories |
-| `artifact::deployment` | 70% | Deployment Units |
-| `artifact::code` | 80% | Code実装 |
+---
 
-#### 2. Phase Labels
+## Development Process Deep Dive
 
-| ラベル | 説明 |
-|--------|------|
-| `phase::inception` | Inception Phase |
-| `phase::construction` | Construction Phase |
-| `phase::operations` | Operations Phase |
+### TDD & Documentation-Driven Development
 
-#### 3. Work Type Labels
+**完全版**: [.development-process.md](.development-process.md)
 
-| ラベル | 説明 |
-|--------|------|
-| `work::green-field` | 新規開発 |
-| `work::brown-field` | 既存システム変更 |
-| `work::refactoring` | リファクタリング |
-| `work::defect` | 不具合修正 |
+YokaKit StudioではAIがほぼすべてのコードを生成するため、品質担保のために以下を徹底：
 
-### Label Combination Examples
+#### Core Principles
 
+1. **Documentation-First**: `Domain Design → ADR → Tests → Code`
+2. **Test-Driven Development**: テストを先に書き、AIが実装を生成
+3. **Continuous Verification**: 各ステップで人間が検証（Loss Function）
+
+#### Workflow Summary
+
+```mermaid
+graph LR
+    DD[Domain Design<br/>Human Verify] --> ADR[ADR<br/>Human Approve]
+    ADR --> TS[Test Spec<br/>Human Verify]
+    TS --> TC[Test Code<br/>AI Generate]
+    TC --> Impl[Implementation<br/>AI Generate]
+    Impl --> Test{Tests Pass?}
+    Test -->|No| Fix[AI Fix]
+    Fix --> Impl
+    Test -->|Yes| Review[Human Review]
+    Review --> Doc[Documentation<br/>AI Update]
+    
+    style DD fill:#1f4068,stroke:#2ec4b6,stroke-width:2px,color:#fff
+    style ADR fill:#1f4068,stroke:#2ec4b6,stroke-width:2px,color:#fff
+    style TC fill:#2d2d44,stroke:#7f5af0,stroke-width:2px,color:#fff
+    style Impl fill:#2d2d44,stroke:#7f5af0,stroke-width:2px,color:#fff
+    style Test fill:#5c2e7e,stroke:#e63946,stroke-width:2px,color:#fff
+    style Review fill:#162447,stroke:#1dd1a1,stroke-width:2px,color:#fff
 ```
-artifact::domain-design + phase::construction + work::green-field
-→ Issue #10 "アカウント管理のDomain Design"
 
-artifact::logical-design + phase::construction
-→ Issue #15 "認証状態管理のADR（ADR-001）"
-```
+#### Quality Gates
+
+| Gate | Reviewer | Checks | Coverage Requirement |
+|------|----------|--------|---------------------|
+| Domain Design | Architect | DDD準拠, 用語一貫性 | - |
+| ADR | Architect + Tech Lead | トレードオフ明記, 代替案記載 | - |
+| Test Code | Developer (2+) | Test仕様準拠 | - |
+| Implementation | Developer (2+) | すべてのテストパス | **100%必須** |
+
+#### Key Differences from Traditional Development
+
+| 観点 | 従来 | YokaKit Studio |
+|------|------|----------------|
+| **コード作成** | 人間が書く | **AIが書く** |
+| **品質担保** | コードレビュー | **テスト先行 + ドキュメント** |
+| **設計** | 暗黙知 | **Domain Design + ADR（明示化）** |
+| **カバレッジ** | 70-80% | **100%必須** |
 
 ---
 
