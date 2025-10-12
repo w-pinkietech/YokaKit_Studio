@@ -1,849 +1,1245 @@
-# YokaKit Studio - Context Studio (文脈統合開発環境)
+# YokaKit Studio - GitHub-Centric Context Studio for AI-DLC
 
-## Vision: AI開発を前提とした文脈統合開発環境
+**AI-Driven Development Lifecycle（AI-DLC）をGitHub中心で実践する文脈統合開発環境**
 
-YokaKit Studioは、従来のIDE(統合開発環境)を超えた**Context Studio(文脈統合開発環境)**です。
-GitHub連携をベースに、開発における「文脈」を統合管理し、人間とAIの協働開発を最適化します。
+> 🎯 **解決する問題**: AIとの対話履歴が散逸し、「なぜこの設計にしたのか」が失われる  
+> 🚀 **革新的アプローチ**: 文脈（Context）とコードを分離し、GitHub Submoduleで統合管理  
+> ✨ **解決策**: すべての成果物を構造化して永続化し、AIが常に正しい文脈を参照できる環境
 
-### 従来のIDEとの違い
+---
 
-| 観点 | 従来のIDE | Context Studio (YokaKit Studio) |
-|------|-----------|--------------------------------|
-| 焦点 | コード編集・実行 | 文脈の統合・追跡 |
-| 主な利用者 | 人間の開発者 | 人間 + AI開発者 |
-| 情報源 | ローカルファイル | GitHub (Issues/PRs/Discussions) + ローカル |
-| ワークフロー | エディタ中心 | 文脈中心 (Context-First) |
-| トレーサビリティ | コミット履歴のみ | Issue→Spec→Design→Code→Test の完全追跡 |
+## Revolutionary Approach: Context Studio Architecture
 
-## Core Concepts
+### 従来のAI-DLC実践との違い
 
-### 1. Context Framework: 主軸 + 明文化の工程 + 評価基準
+**従来**: 単一リポジトリで完結
+```
+my-project/
+├── .aidlc/              # 文脈
+├── src/                 # コード
+└── tests/               # テスト
+```
+**問題点**:
+- ❌ 文脈（低Disposability）とコード（高Disposability）が混在
+- ❌ 複数プロジェクトで文脈を共有できない
+- ❌ 参考にした既存コードとの関係が不明確
 
-**「Permanentは存在しない。すべては代替可能性で評価する」**
+---
 
-Context Studioは、開発における文脈を**思考の流れ（主軸）**と**明文化の工程**と**評価基準**で整理します：
+**YokaKit Studio**: GitHub中心のマルチリポジトリ
+```
+Context-Studio/                    # このリポジトリ（文脈管理）
+├── .aidlc/                        # AI-DLC文脈（Constitution, ADR, Domain Design）
+├── submodules/
+│   ├── code-output/               # ← Submodule: 出力先コードリポジトリ
+│   │   └── yokakit/               #    (Laravel application)
+│   └── references/                # ← Submodules: 参考リポジトリ群
+│       ├── laravel-sanctum-spa/   #    認証参考実装
+│       └── ddd-sample-app/        #    DDD設計参考
+└── README.md
+```
 
-#### 主軸: Context Dimension（文脈次元）- Why → What → How の思考の流れ
+**革新ポイント**:
+- ✅ **文脈とコードの分離**: Disposabilityに応じた最適な管理
+- ✅ **複数プロジェクト対応**: 1つのContext Studioから複数Output
+- ✅ **参照の明示化**: 参考にした既存コードをSubmoduleで追跡
+- ✅ **権限分離**: Context（PO/Architect）とCode（Developer）で異なる権限
+- ✅ **トレーサビリティ**: GitHub Issues/PRで文脈↔コードを紐付け
 
-開発における普遍的な思考の流れを5つのDimensionで表現：
+---
+
+## What: YokaKit Studio とは
+
+**Context Studio**（文脈統合開発環境）- AIが主導する開発ワークフローで生成されるすべての文脈成果物（Constitution, Intent, Domain Design, ADR）を構造化管理し、コードリポジトリ（Submodule）と連携して高品質なシステムを構築する環境。
+
+### Architecture Diagram
+
+```mermaid
+graph TB
+    subgraph ContextStudio["Context Studio (This Repository)"]
+        Constitution[Constitution<br/>プロジェクトDNA]
+        Contexts[".aidlc/contexts/<br/>Intent, Units, Stories<br/>Domain Design, ADR"]
+    end
+    
+    subgraph CodeOutput["Code Output Submodules"]
+        YokaKit[yokakit/<br/>Laravel Application]
+        MicroService[other-service/<br/>Microservice]
+    end
+    
+    subgraph References["Reference Submodules"]
+        RefAuth[laravel-sanctum-spa/<br/>認証参考実装]
+        RefDDD[ddd-sample-app/<br/>DDD設計参考]
+    end
+    
+    Constitution -.基盤.-> Contexts
+    Contexts -->|ADR, Domain Design| YokaKit
+    Contexts -->|Code生成指示| MicroService
+    
+    RefAuth -.参考.-> Contexts
+    RefDDD -.参考.-> Contexts
+    
+    YokaKit -->|GitHub PR| Contexts
+    MicroService -->|GitHub PR| Contexts
+    
+    style ContextStudio fill:#16213e,stroke:#2ec4b6,stroke-width:4px,color:#fff
+    style CodeOutput fill:#1a1a2e,stroke:#7f5af0,stroke-width:4px,color:#fff
+    style References fill:#0f3460,stroke:#feca57,stroke-width:4px,color:#fff
+    
+    style Constitution fill:#1f4068,stroke:#2ec4b6,stroke-width:2px,color:#fff
+    style Contexts fill:#1f4068,stroke:#2ec4b6,stroke-width:2px,color:#fff
+    style YokaKit fill:#2d2d44,stroke:#7f5af0,stroke-width:2px,color:#fff
+    style MicroService fill:#2d2d44,stroke:#7f5af0,stroke-width:2px,color:#fff
+    style RefAuth fill:#162447,stroke:#feca57,stroke-width:2px,color:#fff
+    style RefDDD fill:#162447,stroke:#feca57,stroke-width:2px,color:#fff
+```
+
+### 従来のAI開発ツールとの違い
+
+| 観点 | 従来のAI開発ツール | YokaKit Studio |
+|------|-------------------|----------------|
+| **リポジトリ構成** | 単一リポジトリ | **Context + Code分離（Submodule）** |
+| **文脈管理** | チャット履歴のみ | **構造化された成果物階層** |
+| **トレーサビリティ** | なし | **Intent → Code の双方向追跡（GitHub Issues/PR）** |
+| **参照管理** | 不明確 | **参考リポジトリもSubmodule化** |
+| **会話の主導権** | 人間が指示 | **AIが提案・人間が検証** |
+| **設計の永続化** | コードのみ | **Domain Design + ADR + Code** |
+| **イテレーション** | 週・月単位 | **時間・日単位（Bolt）** |
+
+### 核心価値: Context Memory
+
+```
+Intent（意図）
+  ↓ 検証
+Units（機能分割）
+  ↓ 検証
+User Stories（要件）
+  ↓ 検証
+Domain Design（ビジネスロジック）
+  ↓ 検証
+Logical Design（技術判断・ADR）
+  ↓ 検証
+Code（実装）
+
+各段階で検証 = Loss Function（下流の無駄削減）
+すべて永続化 = AIが常に正しい文脈を参照
+```
+
+---
+
+## Why: なぜ必要か
+
+### 問題0: 従来のAI-DLC実践は単一リポジトリで完結
+
+**単一リポジトリの限界**:
+- ❌ 文脈（低Disposability）とコード（高Disposability）が混在
+- ❌ 複数プロジェクト（マイクロサービス等）で文脈を共有できない
+- ❌ 参考にした既存コードとの関係が不明確
+- ❌ 権限管理が困難（PO/Architectとの分離）
+
+**YokaKit StudioのContext Studio方式**:
+- ✅ **物理的分離**: Context StudioとCode Outputを別リポジトリ
+- ✅ **Submodule統合**: Git Submoduleで連携（トレーサビリティ維持）
+- ✅ **複数Output対応**: 1つのContext Studioから複数サービス管理
+- ✅ **参照の明示化**: 参考リポジトリもSubmodule化
+- ✅ **権限分離**: Context（戦略）とCode（実装）で異なるアクセス権
+
+### 問題1: 従来のIDEは「コードしか見ない」
+
+**コードから失われる情報**:
+- ❌ なぜこの設計を選んだのか（トレードオフ）
+- ❌ なぜ他の選択肢を採用しなかったのか
+- ❌ どのビジネス意図に対応しているのか
+
+**YokaKit Studioの解決**:
+- ✅ Architecture Decision Records（ADR）でトレードオフを記録
+- ✅ Domain Designでビジネスロジックを明示
+- ✅ Intent → Code の双方向トレーサビリティ（GitHub Issues/PR連携）
+
+### 問題2: Agile/ScrumはAI時代に最適化されていない
+
+**従来のAgile（週・月単位前提）**:
+- 日次スタンダップ → AI-DLCでは**リアルタイム検証**
+- ストーリーポイント → AIが難易度境界を消す
+- ベロシティ測定 → **ビジネス価値**で測定すべき
+
+**YokaKit StudioのAI-DLC**:
+- ⚡ 時間・日単位のイテレーション（Bolt）
+- 🤖 AI主導の計画・分解・実装
+- 👤 人間は検証・承認・戦略決定に集中
+
+### 問題3: AIの能力と限界の不明確さ
+
+**現実**:
+- ❌ AIは高レベルIntentから直接コードを生成できない（まだ）
+- ❌ AI生成コードは「Quick Cement」（後で変更困難）になりがち
+- ✅ AIは段階的計画・分解・実装は得意
+
+**YokaKit Studioのアプローチ**:
+- **AI-Driven**: AIが主導（AI-Assistedではない）
+- **人間が最終責任**: 各段階で検証・承認
+- **段階的検証**: Intent → Units → Stories → Design → Code
+
+---
+
+## How: Quick Start
+
+### Prerequisites
+
+- **Git**: Submodule管理に必要
+- **Claude Code CLI**（またはAI-DLC対応AI環境）
+- (Optional) Docker for Laravel development
+
+### Step 1: Context Studio初期化
+
+#### 1-1. 既存Context Studioをクローン（チーム参加時）
+
+```bash
+# Context Studioをクローン
+git clone https://github.com/w-pinkietech/YokaKit_Studio
+cd YokaKit_Studio
+
+# すべてのSubmodule（Code Output + References）を初期化
+git submodule update --init --recursive
+
+# 構成確認
+tree -L 2 submodules/
+# submodules/
+# ├── code-output/
+# │   └── yokakit/                # ← Laravel Application
+# └── references/
+#     ├── laravel-sanctum-spa/    # ← 認証参考
+#     └── ddd-sample-app/         # ← DDD参考
+```
+
+#### 1-2. 新規Context Studio作成（新プロジェクト開始時）
+
+```bash
+# 空のContext Studioリポジトリ作成
+mkdir my-context-studio
+cd my-context-studio
+git init
+
+# 基本構造作成
+mkdir -p .aidlc/contexts
+mkdir -p .aidlc-docs/plans
+mkdir -p .claude/commands
+mkdir -p submodules/code-output
+mkdir -p submodules/references
+
+# Code Outputリポジトリを作成してSubmodule追加
+# (事前にGitHubでリポジトリ作成しておく)
+git submodule add https://github.com/your-org/your-app.git submodules/code-output/your-app
+
+# 参考リポジトリを追加（Read-Only推奨）
+git submodule add https://github.com/laravel/sanctum.git submodules/references/laravel-sanctum
+
+# .gitmodulesの確認
+cat .gitmodules
+# [submodule "submodules/code-output/your-app"]
+#     path = submodules/code-output/your-app
+#     url = https://github.com/your-org/your-app.git
+# [submodule "submodules/references/laravel-sanctum"]
+#     path = submodules/references/laravel-sanctum
+#     url = https://github.com/laravel/sanctum.git
+
+# コミット
+git add .
+git commit -m "Initialize Context Studio structure"
+git remote add origin https://github.com/your-org/context-studio.git
+git push -u origin main
+```
+
+### Step 2: Constitution（プロジェクトDNA）の作成
+
+```bash
+/constitution
+```
+
+AI が質問します：
+- プロジェクトの目的は？
+- 技術スタック制約は？
+- コーディング規約は？
+- リスク管理の基準は？
+
+**これがプロジェクト全体の基盤になります（Disposability: 0%）**
+
+### Step 3: Code Outputリポジトリとの連携確認
+
+```bash
+# Code Outputリポジトリの状態確認
+cd submodules/code-output/yokakit
+git status
+git log -1
+
+# Context Studioに戻る
+cd ../../..
+
+# Submoduleの最新状態を反映
+git submodule update --remote
+```
+
+### Step 4: 最初のIntentを入力
+
+```bash
+/inception "ユーザーが複数アカウントを切り替えられる機能"
+```
+
+**AIが会話をリード**します：
+
+```
+AI: この機能について質問があります：
+    1. 主要なユーザーは誰ですか？
+    2. 同時に何個のアカウントを切り替える想定ですか？
+    3. 認証状態は共有されますか？
+
+You: 1. エンドユーザー（一般消費者）
+     2. 最大5個まで
+     3. 共有しない（独立）
+
+AI: Units分解を提案します：
+    - Unit 1: アカウント管理（CRUD）
+    - Unit 2: 認証状態管理
+    - Unit 3: UI/UX（切り替えインターフェース）
+    承認しますか？ [y/n]
+
+You: y
+
+AI: User Storiesを作成しました：
+    → .aidlc/contexts/001-multi-account/inception/stories/
+    レビューしてください。
+
+You: （レビュー後）承認
+
+AI: Bolts計画を提案します：
+    - Bolt 1: Unit 1 + Unit 2（2日間）
+    - Bolt 2: Unit 3（1日間）
+    承認しますか？ [y/n]
+```
+
+### Step 5: Construction Phase
+
+```bash
+# Context Studioで実行
+/construction unit-1-account-management
+```
+
+**AIが段階的に提案**します：
+
+1. **Domain Design**（ビジネスロジック）
+   ```
+   AI: 静的モデル:
+       - Account Entity (id, name, credentials)
+       - AccountRepository Interface
+       - SwitchAccountService
+       
+       動的モデル:
+       - アカウント切り替えフロー図
+       
+       承認しますか？
+   ```
+
+2. **Logical Design**（技術判断・ADR）
+   ```
+   AI: ADR-001: 認証状態の管理方法
+       採用: Redis Cluster
+       理由: マルチデバイス対応、セッション共有
+       不採用: JWT
+       理由: デバイス間同期が困難
+       
+       承認しますか？
+   ```
+
+3. **Code生成**（Code Outputリポジトリに出力）
+   ```
+   AI: Codeを生成しました（Code Output: yokakit）：
+       → submodules/code-output/yokakit/app/Models/Account.php
+       → submodules/code-output/yokakit/app/Services/SwitchAccountService.php
+       → submodules/code-output/yokakit/app/Repositories/AccountRepository.php
+       
+       code-mapping.mdを更新しました：
+       → .aidlc/contexts/001-multi-account/construction/code-mapping.md
+       
+       レビューしてください。
+   ```
+
+4. **Tests生成・実行**
+   ```
+   AI: Testsを生成・実行しました：
+       ✅ AccountTest: 5/5 passed
+       ✅ SwitchAccountServiceTest: 8/8 passed
+   ```
+
+### Step 6: Code OutputをGitHubにプッシュ
+
+```bash
+# Code Outputリポジトリに移動
+cd submodules/code-output/yokakit
+
+# 生成されたコードを確認
+git status
+# Changes not staged for commit:
+#   modified:   app/Models/Account.php
+#   modified:   app/Services/SwitchAccountService.php
+#   (new file)  app/Repositories/AccountRepository.php
+
+# コミット
+git add .
+git commit -m "Implement multi-account switching
+
+Based on Context Studio:
+- ADR-001: Redis-based session management
+- Domain Design: Account Entity, SwitchAccountService
+
+Ref: YokaKit_Studio/.aidlc/contexts/001-multi-account/"
+
+# プッシュ
+git push origin main
+
+# Context Studioに戻る
+cd ../../..
+
+# SubmoduleのコミットハッシュをContext Studioに反映
+git add submodules/code-output/yokakit
+git commit -m "Update yokakit submodule: Implement multi-account (Context #001)"
+git push origin main
+```
+
+### Step 7: Operations Phase
+
+```bash
+# Context Studioで実行
+/operations deploy unit-1-account-management
+```
+
+```
+AI: デプロイ構成を提案します：
+    - Infrastructure: AWS ECS Fargate
+    - Cache: Redis Cluster (ElastiCache)
+    - Monitoring: CloudWatch + X-Ray
+    承認しますか？
+
+You: 承認
+
+AI: デプロイ完了。監視を開始しました。
+```
+
+---
+
+## Core Concepts: AI-DLC の基礎
+
+### 1. AI が会話をリード、人間が検証
+
+**Google Maps の比喩**：
+- 人間：目的地を設定（Intent）
+- AI：ルートを提案、ナビゲーション
+- 人間：監督、必要に応じて調整
+
+```mermaid
+flowchart LR
+    AI[AI Agent] -->|提案| H[Human]
+    H -->|承認/修正| AI
+    AI -->|次の提案| H
+
+    style AI fill:#1a1a2e,stroke:#7f5af0,stroke-width:3px,color:#fff
+    style H fill:#16213e,stroke:#2ec4b6,stroke-width:3px,color:#fff
+```
+
+### 2. Artifacts（成果物）階層構造
 
 ```mermaid
 flowchart TD
-    subgraph WHY ["🔵 WHY（なぜ）: 問題と判断"]
-        direction TB
-        Intent["<b>Intent Dimension（意図）</b><br/>なぜ必要か？何が問題か？<br/>問題意識、ビジョン、目的"]
-        Decision["<b>Decision Dimension（意思決定）</b><br/>なぜこの設計か？何を捨てたか？<br/>ADR、トレードオフ、不採用理由"]
-    end
+    Constitution[Constitution<br/>プロジェクトDNA<br/>Disposability: 0%]
+    Intent[Intent<br/>高レベル意図<br/>30%]
+    Units[Units<br/>機能ブロック<br/>40%]
+    Stories[User Stories<br/>具体的要件<br/>50%]
+    Domain[Domain Design<br/>ビジネスロジック<br/>20%]
+    Logical[Logical Design ADR<br/>技術判断<br/>20%]
+    Code[Code<br/>実装<br/>80%]
+    Deploy[Deployment Units<br/>デプロイ成果物<br/>70%]
 
-    subgraph WHAT ["🟠 WHAT（何を）: 定義と制約"]
-        direction TB
-        Rule["<b>Rule Dimension（掟）</b><br/>何を作るか？何を守るか？<br/>Specs、Constraints、API Schema、Contract Tests"]
-    end
+    Constitution -.基盤.-> Intent
+    Intent --> Units
+    Units --> Stories
+    Stories --> Domain
+    Domain --> Logical
+    Logical --> Code
+    Code --> Deploy
 
-    subgraph HOW ["🟣 HOW（どう）: 実現方法"]
-        direction TB
-        Coordination["<b>Coordination Dimension（調整）</b><br/>どう実現するか？どう分割するか？<br/>Plan、Tasks、GitHub Issues"]
-        Realization["<b>Realization Dimension（実現）</b><br/>具体的にどう実装するか？<br/>Code、Unit Tests、Docs"]
-    end
-
-    Intent --> Decision
-    Decision --> Rule
-    Rule --> Coordination
-    Coordination --> Realization
-
-    style WHY fill:#e3f2fd,stroke:#1976d2,stroke-width:4px,color:#000
-    style WHAT fill:#fff3e0,stroke:#ef6c00,stroke-width:4px,color:#000
-    style HOW fill:#f3e5f5,stroke:#7b1fa2,stroke-width:4px,color:#000
-    style Intent fill:#fff,stroke:#1976d2,stroke-width:2px,color:#000
-    style Decision fill:#fff,stroke:#1565c0,stroke-width:2px,color:#000
-    style Rule fill:#fff,stroke:#ef6c00,stroke-width:2px,color:#000
-    style Coordination fill:#fff,stroke:#6a1b9a,stroke-width:2px,color:#000
-    style Realization fill:#fff,stroke:#4a148c,stroke-width:2px,color:#000
+    style Constitution fill:#0f3460,stroke:#16213e,stroke-width:3px,color:#fff
+    style Intent fill:#533483,stroke:#7f5af0,stroke-width:3px,color:#fff
+    style Units fill:#533483,stroke:#7f5af0,stroke-width:3px,color:#fff
+    style Stories fill:#724e91,stroke:#9d4edd,stroke-width:3px,color:#fff
+    style Domain fill:#0f3460,stroke:#16213e,stroke-width:3px,color:#fff
+    style Logical fill:#0f3460,stroke:#16213e,stroke-width:3px,color:#fff
+    style Code fill:#5c2e7e,stroke:#c77dff,stroke-width:3px,color:#fff
+    style Deploy fill:#5c2e7e,stroke:#c77dff,stroke-width:3px,color:#fff
 ```
 
-**Forward Flow**: Intent → Decision → Rule → Coordination → Realization（抽象→具体）
+#### Disposability（代替可能性）とは
 
-#### 明文化の工程: Context Layer（文脈層）- 各Dimensionを文書化する場所
+**AIによる再生成の難易度** - 低いほど永続化が重要：
 
-各Dimensionの文脈を明文化・具体化する5つの工程：
-
-| Layer | 役割 | 明文化するDimension |
-|-------|------|-------------------|
-| **Specification** | 仕様化：何を作るか・なぜ必要か | Intent, Rule |
-| **Design** | 設計判断：なぜこの設計か | Decision, Rule |
-| **Planning** | 計画：どう実現するか | Coordination |
-| **Implementation** | 実装：具体的に作る | Realization |
-| **Feedback** | 発見の反映：すべてのDimensionへ逆流 | すべて |
-
-#### 評価基準: 代替可能性（Disposability）- AI再生成の難易度
-
-**各Dimensionが持つ代替可能性**：
-
-各Dimensionの文脈は、抽象度に応じて異なる代替可能性を持ちます。この指標は以下の判断に使用されます：
-- **AI再生成の難易度**: どこまでAIが推測・復元できるか
-- **Feedback時の影響範囲**: 実装中の発見があったとき、どのDimensionまで遡って見直すか
-- **変更のコスト**: 修正・更新にどれだけのリスクとコストがかかるか
-
-```mermaid
-%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'14px'}}}%%
-flowchart TB
-    subgraph Durable["🟩 低代替可能性 (Durable) - AI再生成困難・保存すべき文脈"]
-        direction TB
-        Decision["<b>Decision Dimension - 20%</b><br/>🧠 ADR（設計判断／トレードオフ）<br/>→ Feedback時に慎重な見直しが必要"]
-        Rule["<b>Rule Dimension - 20%</b><br/>📜 Specs、⚖️ Constraints、🧪 Contract Tests<br/>→ 保存すべき文脈"]
-    end
-
-    subgraph Medium["⬜ 中代替可能性 - AI部分再生成可能"]
-        direction TB
-        Intent["<b>Intent Dimension - 40%</b><br/>🧭 Vision（ビジョン／問題意識）<br/>→ Feedback時に影響範囲を確認"]
-    end
-
-    subgraph Disposable["🟥 高代替可能性 (Disposable) - AI再生成可能"]
-        direction TB
-        Coordination["<b>Coordination Dimension - 70%</b><br/>📐 Plan、Tasks<br/>→ AIほぼ再生成可能・修正コスト低"]
-        Realization["<b>Realization Dimension - 80%</b><br/>💻 Code、🧪 Unit Tests、📓 Docs<br/>→ AI完全再生成可能・いつでも作り直せる"]
-    end
-
-    style Durable fill:#e8f5e9,stroke:#2e7d32,stroke-width:4px,color:#000
-    style Medium fill:#fff8e1,stroke:#f57f17,stroke-width:4px,color:#000
-    style Disposable fill:#ffebee,stroke:#c62828,stroke-width:4px,color:#000
-    style Decision fill:#fff,stroke:#2e7d32,stroke-width:2px,color:#000
-    style Rule fill:#fff,stroke:#2e7d32,stroke-width:2px,color:#000
-    style Intent fill:#fff,stroke:#f57f17,stroke-width:2px,color:#000
-    style Coordination fill:#fff,stroke:#c62828,stroke-width:2px,color:#000
-    style Realization fill:#fff,stroke:#b71c1c,stroke-width:2px,color:#000
-```
+| Artifact | Disposability | 永続化の重要性 | 理由 |
+|----------|--------------|---------------|------|
+| **Constitution** | 0% | ⭐⭐⭐⭐⭐ | プロジェクトDNA、AIリバース不可 |
+| **Domain Design** | 20% | ⭐⭐⭐⭐⭐ | ビジネスロジック、コードから復元困難 |
+| **Logical Design (ADR)** | 20% | ⭐⭐⭐⭐⭐ | トレードオフ・不採用理由はコードにない |
+| **Intent** | 30% | ⭐⭐⭐⭐ | 問題意識、部分的復元可能 |
+| **Units** | 40% | ⭐⭐⭐ | 機能分割、再設計コスト中 |
+| **User Stories** | 50% | ⭐⭐⭐ | 要件、比較的復元可能 |
+| **Deployment Units** | 70% | ⭐⭐ | IaCから再生成可能 |
+| **Code** | 80% | ⭐ | AIが完全再生成可能 |
 
 **重要な洞察**:
-- **AIのリバースは「今ある形」の復元のみ**
-- **意図・トレードオフ・不採用理由・守るべき制約はコードから出てこない**
-- **だから残すべき「設計」は図面ではなく、ADR＋制約＋ドメイン不変条件＋API/スキーマ/コントラクトテスト**
-- **低代替可能性（20-40%）の文脈は、次のモデル／エージェント世代への置換コストを最小化する**
+> AIのリバースエンジニアリングは「今ある形」の復元のみ。  
+> **意図・トレードオフ・不採用理由・ビジネスロジックはコードから出てこない**。  
+> だから残すべきは: **Constitution + Domain Design + Logical Design (ADR)**
 
-### 2. Dimension-First Development (文脈次元ファースト開発)
-
-すべての開発活動は**Dimensionの流れ（Why → What → How）**に沿って進みます：
+### 3. Phases（開発フェーズ）
 
 ```mermaid
-flowchart TD
-    subgraph WHY ["🔵 WHY（なぜ）"]
-        direction TB
-        Intent["Intent Dimension<br/>なぜ必要か？<br/>（Vision/Issue）"]
-        Decision["Decision Dimension<br/>なぜこの設計か？<br/>（ADR/トレードオフ）"]
-    end
+flowchart LR
+    Inception[🔵 Inception<br/>要件明確化と分解<br/>数時間]
+    Construction[🟣 Construction<br/>設計と実装<br/>時間・日単位]
+    Operations[🟢 Operations<br/>デプロイと運用<br/>継続的]
 
-    subgraph WHAT ["🟠 WHAT（何を）"]
-        direction TB
-        Rule["Rule Dimension<br/>何を作るか？何を守るか？<br/>（Specs/Constraints/API Schema）"]
-    end
+    Inception ==> Construction
+    Construction ==> Operations
+    Operations -.Feedback.-> Inception
 
-    subgraph HOW ["🟣 HOW（どう）"]
-        direction TB
-        Coordination["Coordination Dimension<br/>どう実現するか？<br/>（Plan/Tasks）"]
-        Realization["Realization Dimension<br/>具体的にどう実装するか？<br/>（Code/Tests）"]
-    end
-
-    subgraph FEEDBACK ["🔴 FEEDBACK（発見の逆流）"]
-        direction TB
-        FeedbackFlow["Realization → Rule/Decision/Intent<br/>へフィードバック"]
-    end
-
-    Intent --> Decision
-    Decision --> Rule
-    Rule --> Coordination
-    Coordination --> Realization
-    Realization --> FeedbackFlow
-    FeedbackFlow -.-> Rule
-    FeedbackFlow -.-> Decision
-    FeedbackFlow -.-> Intent
-
-    style WHY fill:#e3f2fd,stroke:#1976d2,stroke-width:4px,color:#000
-    style WHAT fill:#fff3e0,stroke:#ef6c00,stroke-width:4px,color:#000
-    style HOW fill:#f3e5f5,stroke:#7b1fa2,stroke-width:4px,color:#000
-    style FEEDBACK fill:#ffebee,stroke:#c62828,stroke-width:4px,color:#000
-    style Intent fill:#fff,stroke:#1976d2,stroke-width:2px,color:#000
-    style Decision fill:#fff,stroke:#1565c0,stroke-width:2px,color:#000
-    style Rule fill:#fff,stroke:#ef6c00,stroke-width:2px,color:#000
-    style Coordination fill:#fff,stroke:#6a1b9a,stroke-width:2px,color:#000
-    style Realization fill:#fff,stroke:#4a148c,stroke-width:2px,color:#000
-    style FeedbackFlow fill:#fff,stroke:#d32f2f,stroke-width:2px,color:#000
+    style Inception fill:#16213e,stroke:#2ec4b6,stroke-width:4px,color:#fff
+    style Construction fill:#1a1a2e,stroke:#7f5af0,stroke-width:4px,color:#fff
+    style Operations fill:#0f3460,stroke:#16213e,stroke-width:4px,color:#fff
 ```
 
-この流れに沿って、各Dimensionを**Layer（明文化の工程）**で文書化していきます。
+#### Inception Phase - Mob Elaboration（全員協働必須）
 
-### 3. GitHub-Centric Integration
-GitHubを中心ハブとして、すべての文脈を統合:
-- **Issue** → Context (問題・要求)
-- **Discussion** → Context (設計議論・ADR)
-- **Pull Request** → Context (実装・レビュー・フィードバック)
-- **Actions** → Context (CI/CD・品質メトリクス)
+**時間**: 数時間（従来の数週間 → 数時間に短縮）  
+**場所**: 1つの部屋（または仮想空間）  
+**参加者**: Product Owner, Developers, QA, Stakeholders
 
-### 4. AI-Native Workflow
-AI開発者(Claude/Copilot/etc.)との協働を前提:
-- AI が理解しやすい文脈の構造化（Durable層の明確化）
-- AI が実行可能なタスクの明確化（tasks.md → GitHub Issue）
-- AI の意思決定プロセスの可視化（ADR/Constraints記録）
+```
+Intent（ビジネス意図）
+  → AI: 質問・明確化 → 人間: 回答
+  → AI: Units分解提案 → 人間: 検証・修正
+  → AI: User Stories作成 → 人間: 検証・修正
+  → AI: NFRs/Risks定義 → 人間: 検証・修正
+  → AI: Bolts計画提案 → 人間: 承認
 
-## Architecture
-
-### Dimension × Layer Matrix（完全なワークフロー）
-
-Context Studioでは、**Dimension（思考の流れ）** を **Layer（明文化の工程）** で文書化します。
-
-#### 各Dimensionの明文化場所と成果物
-
-| Dimension | 明文化されるLayer | 成果物 | Disposability |
-|-----------|------------------|--------|---------------|
-| **Intent** | Specification | vision.md | 40% |
-| **Decision** | Design | adr/*.md | 20% |
-| **Rule** | Specification<br>Design | specs.md, constraints.md<br>schemas/*.yaml, contract tests | 20% |
-| **Coordination** | Planning<br>Implementation | plan.md, tasks.md<br>GitHub Issues | 70% |
-| **Realization** | Implementation | code, unit tests, docs | 60-80% |
-| **Feedback** | Feedback（横断） | すべてのDimensionへ逆流<br>- Realization → Rule<br>- Realization → Decision<br>- Realization → Intent | - |
-
-**重要な関係性**:
-- **Rule Dimension**は、Specification（specs.md）とDesign（schemas/*.yaml）の両方で明文化される
-- **Coordination Dimension**は、Planning（tasks.md）とImplementation（GitHub Issues）で扱われる
-- **Feedback**は、実装の発見を抽象度の高いDimensionへ逆流させる
-
-#### 完全なワークフロー: Dimensionの流れ（Why → What → How → Feedback）
-
-```mermaid
-flowchart TD
-    subgraph WHY ["🔵 WHY（なぜ）: 問題と判断"]
-        direction TB
-        subgraph Intent_Block ["Intent Dimension - 40% Disposable"]
-            Intent_Cmd["<b>Layer: Specification</b><br/>/vision create → vision.md<br/>なぜ必要か？何が問題か？"]
-        end
-        subgraph Decision_Block ["Decision Dimension - 20% Disposable"]
-            Decision_Cmd["<b>Layer: Design</b><br/>/adr new → adr/*.md<br/>なぜこの設計か？何を捨てたか？"]
-        end
-    end
-
-    subgraph WHAT ["🟠 WHAT（何を）: 定義と制約"]
-        direction TB
-        subgraph Rule_Block ["Rule Dimension - 20% Disposable"]
-            Rule_Spec["<b>Layer: Specification</b><br/>/specify → specs.md<br/>/clarify, /constraints add"]
-            Rule_Design["<b>Layer: Design</b><br/>/rule define → schemas/*.yaml<br/>/rule test → contract tests"]
-        end
-    end
-
-    subgraph HOW ["🟣 HOW（どう）: 実現方法"]
-        direction TB
-        subgraph Coordination_Block ["Coordination Dimension - 70% Disposable"]
-            Coord_Plan["<b>Layer: Planning</b><br/>/plan → plan.md<br/>/tasks → tasks.md<br/>/publish → GitHub Issues"]
-        end
-        subgraph Realization_Block ["Realization Dimension - 60-80% Disposable"]
-            Real_Impl["<b>Layer: Implementation</b><br/>/implement → code + tests + docs<br/>→ Pull Requests"]
-        end
-    end
-
-    subgraph FEEDBACK ["🔴 FEEDBACK: 発見の逆流"]
-        direction TB
-        Feedback_Cmd["<b>Layer: Feedback</b><br/>/capture pr → 発見を抽出<br/>→ /vision, /adr, /constraints update"]
-    end
-
-    Intent_Cmd --> Decision_Cmd
-    Decision_Cmd --> Rule_Spec
-    Rule_Spec --> Rule_Design
-    Rule_Design --> Coord_Plan
-    Coord_Plan --> Real_Impl
-    Real_Impl --> Feedback_Cmd
-    Feedback_Cmd -.-> Rule_Spec
-    Feedback_Cmd -.-> Decision_Cmd
-    Feedback_Cmd -.-> Intent_Cmd
-
-    style WHY fill:#e3f2fd,stroke:#1976d2,stroke-width:4px,color:#000
-    style WHAT fill:#fff3e0,stroke:#ef6c00,stroke-width:4px,color:#000
-    style HOW fill:#f3e5f5,stroke:#7b1fa2,stroke-width:4px,color:#000
-    style FEEDBACK fill:#ffebee,stroke:#c62828,stroke-width:4px,color:#000
-
-    style Intent_Block fill:#fff,stroke:#1976d2,stroke-width:2px,color:#000
-    style Decision_Block fill:#fff,stroke:#1565c0,stroke-width:2px,color:#000
-    style Rule_Block fill:#fff,stroke:#ef6c00,stroke-width:2px,color:#000
-    style Coordination_Block fill:#fff,stroke:#6a1b9a,stroke-width:2px,color:#000
-    style Realization_Block fill:#fff,stroke:#4a148c,stroke-width:2px,color:#000
-
-    style Intent_Cmd fill:#fff,stroke:#1976d2,stroke-width:2px,color:#000
-    style Decision_Cmd fill:#fff,stroke:#1565c0,stroke-width:2px,color:#000
-    style Rule_Spec fill:#fff,stroke:#ef6c00,stroke-width:2px,color:#000
-    style Rule_Design fill:#fff,stroke:#ef6c00,stroke-width:2px,color:#000
-    style Coord_Plan fill:#fff,stroke:#6a1b9a,stroke-width:2px,color:#000
-    style Real_Impl fill:#fff,stroke:#4a148c,stroke-width:2px,color:#000
-    style Feedback_Cmd fill:#fff,stroke:#d32f2f,stroke-width:2px,color:#000
+成果物: Units, User Stories, NFRs, Risks, PRFAQ
 ```
 
-**重要な原則**:
-- **Forward Flow**: Intent → Decision → Rule → Coordination → Realization（抽象→具体）
-- **Feedback Flow**: Realization → Rule/Decision/Intent（具体→抽象へ発見を反映）
-- **代替可能性**: WHY/WHAT（20-40%）は低代替可能性（保存すべき文脈）。HOW（60-80%）は高代替可能性（再生成可能）
+#### Construction Phase - Mob Construction（全員協働推奨）
 
-## Current State (現在の実装状況)
+**時間**: 時間・日単位（Bolt）  
+**場所**: 1つの部屋（または仮想空間）  
+**参加者**: Developers（複数チーム並行可能）
 
-### ✅ 実装済み（Rule & Coordination Dimension の一部）
-- **Constitution**: `/constitution` - プロジェクト原則管理
-- **Rule Dimension**: `/specify`, `/clarify` - 仕様定義・曖昧性解消
-- **Coordination Dimension**: `/plan`, `/tasks` - 実装戦略・タスク分解
-- **Analysis**: `/analyze` - 整合性分析
-- **Implementation**: `/implement` - 実装実行（Realization Dimensionへの橋渡し）
+```
+User Stories
+  → AI: Domain Design提案 → 人間: 検証
+  → AI: Logical Design提案 → 人間: 検証（トレードオフ承認）
+  → AI: Code生成 → 人間: レビュー
+  → AI: Tests生成・実行 → 人間: 結果確認
+  → AI: 修正提案 → 人間: 承認
 
-### 🚧 Intent & Decision Dimension（優先度:高）
-- `/vision create/update` - Intent Dimension: ビジョン管理 (40% Disposable)
-- `/adr new/list/update` - Decision Dimension: ADR管理 (20% Disposable)
+成果物: Domain Design, Logical Design (ADR), Code, Tests
+```
 
-### 🚧 Rule Dimension の拡充（優先度:高）
-- `/constraints add/verify` - 制約・不変条件管理（掟） (20% Disposable)
-- `/rule define/test` - APIスキーマ定義・テスト（掟） (20% Disposable)
+#### Operations Phase
 
-### 🚧 Coordination Dimension: GitHub連携（優先度:高）
-- `/publish tasks-to-github` - tasks.md → GitHub Issues化（自動ラベル付与）
-- `/sync github-to-tasks` - GitHub状態 → tasks.md同期
-- `/implement` のGitHub連携強化（Issue更新・PR作成）
+```
+Deployment Units
+  → AI: デプロイ構成提案 → 人間: 承認
+  → Deploy実行
+  → AI: 監視・異常検知 → 人間: 確認
+  → AI: 対応提案（スケーリング等） → 人間: 承認・実行
 
-### 🚧 Feedback Flow（優先度:中）
-- `/capture issue` - GitHub Issue → 文脈抽出
-- `/capture pr` - Pull Request → 上流Dimensionへフィードバック
-- `/analyze debt` - 技術的負債分析 → Rule/Decision Dimensionへの反映
-- Context Navigation UI（Dimension間のトレーサビリティ）
+成果物: Deployed System, Observability Data
+```
+
+### 4. Bolt（最小イテレーション）
+
+**Bolt = Sprint の AI-DLC版**
+
+| 項目 | Sprint（Agile） | Bolt（AI-DLC） |
+|------|----------------|----------------|
+| **期間** | 2-4週間 | 時間・日単位 |
+| **スコープ** | Epic/複数Stories | 1 Unit または Unit内複数Stories |
+| **計画** | 人間が計画 | AIが提案、人間が承認 |
+| **成果物** | 動くソフトウェア | テスト済みDeployment Unit |
+
+### 5. Context Memory（文脈記憶）
+
+**すべての成果物を永続化し、AIが参照**
+
+```
+Intent → Units → Stories → Domain → Logical → Code
+  ↓       ↓       ↓         ↓         ↓        ↓
+  保存    保存    保存      保存      保存     保存
+  ↓       ↓       ↓         ↓         ↓        ↓
+  ←───── トレーサビリティ（双方向リンク） ──────
+```
+
+**利点**:
+- 各ステップの成果物が次のステップの文脈になる
+- 「なぜこの設計にしたか」を追跡可能
+- AI は常に最新・正確な文脈を参照して提案
+
+### 6. 人間の役割 = Loss Function（損失関数）
+
+各ステップでの人間の検証が、下流への無駄な作業を防ぐ：
+
+```
+Intent検証 ─ミス発見→ 早期修正（コスト: 小）
+  ↓ ✓ OK
+Units検証 ─ミス発見→ 修正（コスト: 中）
+  ↓ ✓ OK
+Stories検証 ─ミス発見→ 修正（コスト: 中）
+  ↓ ✓ OK
+Design検証 ─ミス発見→ 修正（コスト: 大）
+  ↓ ✓ OK
+Code検証 ─ミス発見→ 修正（コスト: 特大）
+```
+
+**早い段階での検証ほど、修正コストが低い**
+
+### 7. AIの役割と人間の責任
+
+**AI-Drivenだが、完全自動ではない**:
+- **AI**: 計画・分解・コード生成・提案
+- **人間**: 最終責任・検証・判断・承認
+
+**現実認識**:
+- ❌ 現在のAIは高レベルIntentから直接コードを生成できない
+- ❌ AI生成コードは「Quick Cement」になりやすい
+- ✅ 段階的計画・分解は得意
+- ✅ だから**段階的検証が必須**
+
+---
 
 ## Project Structure
 
-Context Studioでは、**Context Layer × Context Dimension** に基づいてディレクトリを構造化します：
+### Context Studio（このリポジトリ）
+
+AI-DLC文脈を管理し、複数のCode Outputリポジトリを統合：
 
 ```
-YokaKit_Studio/
-├── .claude/                  # Claude Code configuration
-│   ├── settings.local.json
-│   └── commands/             # Custom slash commands
-│       ├── [Intent Dimension]
-│       │   └── vision.md         # 🚧 Vision management
-│       ├── [Decision Dimension]
-│       │   └── adr.md            # 🚧 ADR management
-│       ├── [Rule Dimension]
-│       │   ├── specify.md        # ✅ Specification creation
-│       │   ├── clarify.md        # ✅ Ambiguity resolution
-│       │   ├── constraints.md    # 🚧 Constraints management
-│       │   └── rule.md           # 🚧 Rule (schema) definition/test
-│       ├── [Coordination Dimension]
-│       │   ├── plan.md           # ✅ Implementation planning
-│       │   ├── tasks.md          # ✅ Task list generation
-│       │   ├── publish.md        # 🚧 Tasks → GitHub Issues
-│       │   └── sync.md           # 🚧 GitHub ↔ Tasks sync
-│       ├── [Realization Dimension]
-│       │   ├── implement.md      # ✅ Task execution
-│       │   └── generate.md       # 🚧 AI code generation
-│       ├── [Cross-Dimension]
-│       │   ├── capture.md        # 🚧 Issue/PR → Context
-│       │   └── analyze.md        # ✅ Consistency analysis
-│       └── constitution.md       # ✅ Project constitution
+YokaKit_Studio/                        # Context Studio（このリポジトリ）
 │
-├── .specify/                 # Workflow infrastructure
-│   ├── scripts/bash/         # Automation scripts
-│   ├── templates/            # Command templates
-│   └── memory/
-│       └── constitution.md   # Project principles
+├── .aidlc/                            # 🔵 AI-DLC文脈ストレージ（低Disposability）
+│   ├── constitution.md                # Foundation: プロジェクトDNA (0%)
+│   │                                  # - 技術スタック、コーディング規約
+│   │                                  # - リスク管理基準、組織原則
+│   │
+│   └── contexts/                      # Feature contexts
+│       ├── 001-multi-account/         # Example: マルチアカウント機能
+│       │   ├── inception/
+│       │   │   ├── intent.md          # Intent (30%)
+│       │   │   ├── units.md           # Units breakdown (40%)
+│       │   │   ├── stories/           # User Stories (50%)
+│       │   │   ├── nfrs.md            # Non-Functional Requirements
+│       │   │   ├── risks.md           # Risk descriptions
+│       │   │   └── prfaq.md           # PRFAQ (optional)
+│       │   │
+│       │   ├── construction/
+│       │   │   ├── domain-design/     # Domain Design (20%) ⭐重要
+│       │   │   │   ├── static-model.md   # Components, relationships
+│       │   │   │   └── dynamic-model.md  # Interactions, use cases
+│       │   │   │
+│       │   │   ├── logical-design/    # Logical Design (20%) ⭐重要
+│       │   │   │   ├── adr/           # Architecture Decision Records
+│       │   │   │   │   ├── 001-auth-state-management.md
+│       │   │   │   │   └── 002-cache-strategy.md
+│       │   │   │   └── architecture.md
+│       │   │   │
+│       │   │   └── code-mapping.md    # Code Outputへのマッピング
+│       │   │       # Example:
+│       │   │       # - yokakit/app/Models/Account.php → Account Entity
+│       │   │       # - yokakit/app/Services/SwitchAccountService.php → SwitchAccountService
+│       │   │
+│       │   └── operations/
+│       │       ├── deployment-plan.md
+│       │       └── playbooks/
+│       │
+│       └── 002-payment-integration/   # 他の機能も同様の構造
 │
-├── contexts/                 # 🚧 Context storage (Context Layer: Specification/Design)
-│   └── [###-feature-name]/
-│       ├── intent/           # Intent Dimension (40%)
-│       │   └── vision.md     # Why this feature
-│       ├── decision/         # Decision Dimension (20%)
-│       │   └── adr/          # Architecture decisions
-│       │       ├── 001-*.md
-│       │       └── 002-*.md
-│       └── rule/             # Rule Dimension (20%)
-│           ├── specs.md      # What to build
-│           ├── constraints.md # Invariants and rules (掟)
-│           └── schemas/      # API schemas & contract tests
+├── .aidlc-docs/                       # Workflow documentation
+│   ├── plans/                         # AI-generated plans
+│   └── prompts.md                     # Prompt history
 │
-├── coordination/             # 🚧 Coordination Dimension (Context Layer: Planning) (70%)
-│   └── [###-feature-name]/
-│       ├── plan.md           # Implementation strategy
-│       └── tasks.md          # Task breakdown (→ GitHub Issues)
+├── .claude/                           # Claude Code CLI config
+│   └── commands/                      # AI-DLC workflow commands
+│       ├── inception.md
+│       ├── construction.md
+│       └── operations.md
 │
-├── .serena/                  # Serena MCP configuration
-├── .mcp.json                 # MCP servers configuration
-└── yokakit/                  # Git submodule - Laravel application
+├── submodules/                        # 🟣 Git Submodules
+│   ├── code-output/                   # 出力先コードリポジトリ
+│   │   ├── yokakit/                   # ← Submodule: Laravel Application
+│   │   │                              #    Repository: w-pinkietech/YokaKit
+│   │   └── payment-service/           # ← Submodule: Payment Microservice
+│   │                                  #    Repository: w-pinkietech/YokaKit-Payment
+│   │
+│   └── references/                    # 参考リポジトリ（Read-Only推奨）
+│       ├── laravel-sanctum-spa/       # ← Submodule: 認証参考実装
+│       │                              #    Repository: laravel/sanctum (fork)
+│       └── ddd-sample-app/            # ← Submodule: DDD設計参考
+│                                      #    Repository: dddinphp/sample
+│
+├── .gitmodules                        # Submodule設定ファイル
+├── README.md                          # このファイル
+└── LICENSE
 ```
 
-## Getting Started
+### Code Output Repository（Submodule）
 
-### Prerequisites
-- Claude Code CLI
-- Git
-- (Optional) Docker for YokaKit development
+実装コード（高Disposability）を管理：
 
-### Quick Start
-1. Clone this repository
-2. Initialize submodule: `git submodule update --init --recursive`
-3. Start with Context Studio workflow:
-   - `/constitution` - Define project principles
-   - `/specify <feature description>` - Create feature specification
-   - Follow the workflow prompts
+```
+yokakit/                               # Submodule: Laravel Application
+├── app/
+│   ├── Models/
+│   │   └── Account.php                # ← .aidlc/contexts/001-.../domain-design/に対応
+│   ├── Services/
+│   │   └── SwitchAccountService.php   # ← 同上
+│   └── Http/Controllers/
+│
+├── tests/
+│   └── Feature/
+│       └── AccountSwitchTest.php
+│
+├── .github/
+│   └── workflows/
+│       └── ci.yml                     # CI/CD（Context StudioのADRに従う）
+│
+└── README.md                          # Code側のREADME
+                                       # → Context Studioへのリンク記載推奨
+```
 
-## Command Reference
+### GitHub Issues/PR連携（トレーサビリティ）
 
-コマンドは**Context Dimension（文脈次元）**ごとに整理されています。
+```
+Context Studio Issue #15
+├─ Title: "認証状態管理のADR作成（ADR-001）"
+├─ Labels: artifact::logical-design, phase::construction
+├─ Body: Intent #001へのリンク
+└─ Linked PR:
+    ├─ Context Studio PR #20: "ADR-001: Redis採用決定"
+    └─ Code Output (yokakit) PR #5: "Implement Redis-based session"
+        └─ Description: "Context Studio ADR-001に基づく実装"
+```
 
-### 【Intent Dimension】意図次元 (40% Disposable)
+---
 
-Context Layer: Specification
+## Commands Reference
+
+### Foundation
 
 ```bash
-# Vision Management (🚧 未実装)
-/vision create <feature-name>    # ビジョン文書作成
-/vision update <feature-name>    # ビジョン更新
-/vision link <issue-url>         # GitHub Issueとリンク
+/constitution                    # プロジェクトDNA作成・更新
 ```
 
-### 【Decision Dimension】意思決定次元 (20% Disposable)
-
-Context Layer: Design
+### Inception Phase
 
 ```bash
-# ADR Management (🚧 未実装)
-/adr new <decision-title>        # 新しいADR作成
-/adr list [feature-name]         # ADR一覧表示
-/adr update <adr-number>         # ADR更新
-/adr supersede <old> <new>       # ADRの更新・廃止
+/inception <intent>              # Inception開始（対話的）
+                                 # 1. Intent明確化
+                                 # 2. Units分解
+                                 # 3. User Stories作成
+                                 # 4. NFRs/Risks定義
+                                 # 5. Bolts計画
 ```
 
-### 【Rule Dimension】掟次元 (20% Disposable)
-
-Context Layer: Specification & Design
+### Construction Phase
 
 ```bash
-# Specification (✅ 実装済み)
-/specify <description>           # 仕様定義
-/clarify                         # 曖昧性解消
+/construction <unit-name>        # Construction開始（対話的）
+                                 # 1. Domain Design
+                                 # 2. Logical Design (ADR)
+                                 # 3. Code生成（→ Code Output Submodule）
+                                 # 4. Tests生成・実行
+                                 # 5. 修正提案
 
-# Constraints Management (🚧 未実装)
-/constraints add <feature-name>  # 制約・不変条件追加（掟）
-/constraints verify <feature>    # 掟違反チェック
-
-# Rule (Schema) Management (🚧 未実装)
-/rule define <api-name>          # APIスキーマ定義（掟）
-/rule test <api-name>            # コントラクトテスト実行
+# Brown-Field（既存システム変更）
+/elevate-code <path>             # 既存コード → モデル昇格
+                                 # path: submodules/code-output/yokakit/app/...
 ```
 
-### 【Coordination Dimension】調整次元 (70% Disposable)
-
-Context Layer: Planning
+### Operations Phase
 
 ```bash
-# Planning (✅ 実装済み)
-/plan                            # 実装戦略策定
-/tasks                           # タスク分解
+/operations deploy <unit>        # デプロイ実行
+/operations monitor              # 監視・異常検知
+/operations recommend            # 対応提案
+```
 
-# GitHub Integration (🚧 未実装)
-/publish tasks-to-github         # tasks.md → GitHub Issues化
-/sync github-to-tasks            # GitHub状態同期
+### Submodule Management
 
-# Analysis (✅ 実装済み)
+```bash
+# Submodule追加
+git submodule add <repo-url> submodules/code-output/<name>
+git submodule add <repo-url> submodules/references/<name>
+
+# Submodule初期化（クローン後）
+git submodule update --init --recursive
+
+# Submodule最新化
+git submodule update --remote
+
+# Code Output変更後、Context Studioに反映
+cd submodules/code-output/<name>
+git add . && git commit -m "..." && git push
+cd ../../..
+git add submodules/code-output/<name>
+git commit -m "Update submodule: <name> - <context-id>"
+git push
+```
+
+### Utilities
+
+```bash
 /analyze                         # 整合性分析
+/trace <artifact>                # トレーサビリティ追跡（Context ↔ Code）
 ```
 
-### 【Realization Dimension】実現次元 (60-80% Disposable)
+---
 
-Context Layer: Implementation
+## AI-DLCが向いているプロジェクト
 
-```bash
-# Execution (✅ 実装済み / 🚧 GitHub連携強化予定)
-/implement <task-id>             # タスク実行
-/implement <issue-url>           # 🚧 Issue URLから実行
+### ✅ 適用すべき
 
-# Generation (🚧 未実装)
-/generate code <from-spec>       # コード生成
-/generate tests <from-contract>  # テスト生成
-```
+- **複雑なビジネスロジック**: 多数のドメインモデル、ルール
+- **多数のトレードオフ**: 技術選択・アーキテクチャ判断が多い
+- **スケーラビリティ要件**: 大規模・高負荷対応
+- **規制対応**: コンプライアンス、監査証跡が必要
+- **複数チーム**: 独立したUnit並行開発
 
-### 【Cross-Dimension】横断的コマンド
+### ❌ 避けるべき（代替手段推奨）
 
-Context Layer: Feedback
-
-```bash
-# Context Capture (🚧 未実装)
-/capture issue <issue-number>    # Issue → 文脈抽出
-/capture pr <pr-number>          # PR → 上流Dimensionフィードバック
-/analyze debt                    # 技術的負債分析
-
-# Foundation (✅ 実装済み)
-/constitution                    # プロジェクト憲章管理
-```
+- **単純なCRUD**: → No-Code/Low-Code ツール
+- **プロトタイプ**: → Rapid Prototyping ツール
+- **小規模・短期**: → 従来のAgile
+- **学習目的**: → 個人開発、チュートリアル
 
 ---
 
 ## Workflow Examples
 
-### Example 1: 新機能開発（Context Layer × Context Dimension 完全フロー）
+<details>
+<summary><b>Example 1: Green-Field Development（新機能開発）</b></summary>
+
+### シナリオ: マルチアカウント切り替え機能
 
 ```bash
-# === Layer 1: Specification - Intent Dimension (40%) ===
-$ /vision create "multi-account-switching"
-→ contexts/001-multi-account/intent/vision.md
+# === Inception Phase ===
+$ /inception "ユーザーが複数アカウントを切り替えられる機能"
 
-# === Layer 2: Design - Decision Dimension (20%) ===
-$ /adr new "認証状態の管理方法"
-→ contexts/001-multi-account/decision/adr/001-auth-state.md
+AI: この機能について質問があります：
+    1. 主要なユーザーは誰ですか？
+    2. 同時に何個のアカウントを切り替える想定ですか？
+    3. 認証状態は共有されますか？
 
-# === Layer 1: Specification - Rule Dimension (20%) ===
-$ /specify "ユーザーが複数アカウントを切り替えられる機能"
-→ contexts/001-multi-account/rule/specs.md
-$ /clarify
-$ /constraints add "account-switching"
-→ contexts/001-multi-account/rule/constraints.md
+You: 1. エンドユーザー（一般消費者）
+     2. 最大5個まで
+     3. 共有しない（独立）
 
-# === Layer 2: Design - Rule Dimension (20%) ===
-$ /rule define "account-api"
-→ contexts/001-multi-account/rule/schemas/account-api.yaml
+AI: Units分解を提案します：
+    - Unit 1: アカウント管理（CRUD）
+    - Unit 2: 認証状態管理
+    - Unit 3: UI/UX（切り替えインターフェース）
+    承認しますか？ [y/n]
 
-# === Layer 3: Planning - Coordination Dimension (70%) ===
-$ /plan
-→ coordination/001-multi-account/plan.md
-$ /tasks
-→ coordination/001-multi-account/tasks.md
-$ /publish tasks-to-github
-→ GitHub Issues #101〜#120 作成（dimension::coordination ラベル付与）
+You: y
 
-# === Layer 4: Implementation - Realization Dimension (60-80%) ===
-$ /implement #101
-→ コード生成 (80%) → PR #201作成
+AI: User Storiesを作成しました：
+    .aidlc/contexts/001-multi-account/inception/stories/
+    レビューしてください。
 
-# === Layer 5: Feedback（Realization → Decision Dimension） ===
-$ /capture pr #201
-→ "トークン更新戦略" の判断が必要と判明
-→ Decision Dimensionへフィードバック: /adr new "トークン更新戦略"
+You: （レビュー後）y
+
+AI: Bolts計画：
+    - Bolt 1: Unit 1 + Unit 2（2日）
+    - Bolt 2: Unit 3（1日）
+    承認しますか？ [y/n]
+
+You: y
+
+# === Construction Phase: Bolt 1 ===
+$ /construction unit-1-account-management
+
+AI: Domain Design（静的モデル）:
+    - Account Entity (id, name, credentials)
+    - AccountRepository Interface
+    - SwitchAccountService
+    
+    動的モデル:
+    - アカウント切り替えフロー図
+    
+    承認しますか？ [y/n]
+
+You: y
+
+AI: Logical Design - ADR-001: 認証状態管理
+    採用: Redis Cluster (ElastiCache)
+    理由: マルチデバイス対応、セッション共有
+    不採用: JWT
+    理由: デバイス間同期が困難、即座のログアウト不可
+    
+    承認しますか？ [y/n]
+
+You: y
+
+AI: Code生成完了:
+    → yokakit/app/Models/Account.php
+    → yokakit/app/Services/SwitchAccountService.php
+    → yokakit/app/Repositories/AccountRepository.php
+    レビューしてください。
+
+You: （レビュー後）y
+
+AI: Tests生成・実行:
+    ✅ AccountTest: 5/5 passed
+    ✅ SwitchAccountServiceTest: 8/8 passed
+    
+# === Operations Phase ===
+$ /operations deploy unit-1-account-management
+
+AI: デプロイ構成:
+    - Infrastructure: AWS ECS Fargate
+    - Cache: Redis Cluster (ElastiCache)
+    - Monitoring: CloudWatch + X-Ray
+    承認しますか？ [y/n]
+
+You: y
+
+AI: ✅ デプロイ完了。監視開始。
 ```
 
-### Example 2: GitHub Issue起点の開発
+</details>
+
+<details>
+<summary><b>Example 2: Brown-Field Development（既存システム変更）</b></summary>
+
+### シナリオ: 既存認証に多要素認証追加
 
 ```bash
-# Issue から開始（Layer 5: Feedback → Layer 1: Specification）
-$ /capture issue 456
-→ vision.md自動生成
+# === Existing Code Elevation ===
+$ /elevate-code yokakit/app/Services/AuthService.php
 
-# 以降は Example 1 と同じフロー
-$ /specify ...
+AI: コードをモデル表現に昇格中...
+    
+    静的モデル:
+    - AuthService class
+    - Dependencies: UserRepository, TokenManager, PasswordHasher
+    
+    動的モデル:
+    - Login flow: credentials validation → token generation
+    - Token refresh flow
+    
+    レビューしてください。
+
+You: y
+
+# === Inception Phase（通常フロー） ===
+$ /inception "既存の認証に多要素認証（SMS/TOTP）を追加"
+
+AI: 質問:
+    1. SMSとTOTP両方対応しますか？
+    2. 全ユーザー必須ですか、オプションですか？
+    3. バックアップコードは必要ですか？
+
+You: 1. 両方対応
+     2. オプション（ユーザーが有効化）
+     3. 必要（10個）
+
+AI: Units分解:
+    - Unit 1: MFA設定管理（既存AuthServiceへの追加）
+    - Unit 2: SMS送信サービス（新規）
+    - Unit 3: TOTP検証サービス（新規）
+    - Unit 4: バックアップコード管理（新規）
+    承認しますか？
+
+You: y
+
+# 以降、通常のConstructionフローへ...
 ```
 
-### Example 3: 技術的負債への対応
+</details>
 
-```bash
-# 負債分析（Cross-Dimension）
-$ /analyze debt
-→ 技術的負債検出
+---
 
-# Decision & Rule Dimensionへのフィードバック
-$ /adr new "負債解消のリファクタリング方針"
-$ /constraints verify <affected-features>
+## GitHub Integration
 
-# 通常のフロー継続
-$ /tasks
-$ /publish tasks-to-github
-$ /implement ...
+### Label Strategy（AI-DLC構造ベース）
+
+#### 1. Artifact Labels
+
+| ラベル | Disposability | 説明 |
+|--------|--------------|------|
+| `artifact::constitution` | 0% | プロジェクトDNA |
+| `artifact::domain-design` | 20% | Domain Design |
+| `artifact::logical-design` | 20% | ADR（技術判断） |
+| `artifact::intent` | 30% | Intent（目的） |
+| `artifact::units` | 40% | Units（機能ブロック） |
+| `artifact::stories` | 50% | User Stories |
+| `artifact::deployment` | 70% | Deployment Units |
+| `artifact::code` | 80% | Code実装 |
+
+#### 2. Phase Labels
+
+| ラベル | 説明 |
+|--------|------|
+| `phase::inception` | Inception Phase |
+| `phase::construction` | Construction Phase |
+| `phase::operations` | Operations Phase |
+
+#### 3. Work Type Labels
+
+| ラベル | 説明 |
+|--------|------|
+| `work::green-field` | 新規開発 |
+| `work::brown-field` | 既存システム変更 |
+| `work::refactoring` | リファクタリング |
+| `work::defect` | 不具合修正 |
+
+### Label Combination Examples
+
+```
+artifact::domain-design + phase::construction + work::green-field
+→ Issue #10 "アカウント管理のDomain Design"
+
+artifact::logical-design + phase::construction
+→ Issue #15 "認証状態管理のADR（ADR-001）"
 ```
 
 ---
 
-## GitHub Label Strategy
+## Advanced Topics
 
-Context Studioでは、GitHubラベルを**多次元的**に活用して文脈を管理します。
-**Context Layer × Context Dimension**の2軸と**Disposability（代替可能性）**の評価基準に基づいて、ラベルを設計します。
+<details>
+<summary><b>Multi-Repository運用ベストプラクティス</b></summary>
 
-### Label Categories（7つのカテゴリ）
+### 1. Context Studio（文脈）とCode Output（実装）の責任分離
 
-#### 1. Context Dimension（文脈次元）- 最重要軸
+**Context Studio（このリポジトリ）**:
+- **所有者**: Product Owner, Architect
+- **権限**: Write（戦略・設計決定）
+- **更新頻度**: Inception/Construction Phase（機能ごと）
+- **レビュープロセス**: PO/Architectによる承認必須
 
-文脈を捉える観点を示す：
+**Code Output（Submodule）**:
+- **所有者**: Developer Team
+- **権限**: Write（実装）
+- **更新頻度**: 継続的（Bolt単位）
+- **レビュープロセス**: 開発者間のコードレビュー
 
-| ラベル | 代替可能性 | 意味 | 対応する文書 |
-|--------|-----------|------|--------------|
-| `dimension::intent` | 40% | なぜ必要か（Why） | vision.md |
-| `dimension::decision` | 20% | なぜこの設計か（トレードオフ） | adr/*.md |
-| `dimension::rule` | 20% | 何を作るか（仕様・制約・掟） | specs.md, constraints.md, schemas/*.yaml |
-| `dimension::coordination` | 70% | どう実現するか（計画・分解） | plan.md, tasks.md |
-| `dimension::realization` | 80% | 具体的な実装 | code, tests |
+### 2. GitHub Issues/PR連携パターン
 
-**使い分け:**
-- 問題意識・ビジョン議論 → `dimension::intent`
-- 設計判断・トレードオフ記録 → `dimension::decision`
-- 仕様・制約・掟（API定義） → `dimension::rule`
-- 計画・タスク分解 → `dimension::coordination`
-- 実装・コード → `dimension::realization`
-
-#### 2. Context Type（具体的な文脈の種類）
-
-各Context Dimension内での具体的な種類：
-
-| ラベル | Context Dimension | 意味 |
-|--------|-------------------|------|
-| `context::vision` | Intent | ビジョン文書 |
-| `context::adr` | Decision | ADR（Architecture Decision Records） |
-| `context::spec` | Rule | 仕様定義 |
-| `context::constraint` | Rule | 制約・不変条件（掟） |
-| `context::schema` | Rule | APIスキーマ・コントラクト（掟） |
-| `context::plan` | Coordination | 実装戦略 |
-| `context::task` | Coordination | タスク分解 |
-
-#### 3. Context Layer（文脈層）
-
-文脈が生成・変換される5つの層を示す：
-
-| ラベル | 説明 |
-|--------|------|
-| `context-layer::specification` | 仕様化層（vision, specs, constraints作成） |
-| `context-layer::design` | 設計判断層（ADR, schemas, contract tests作成） |
-| `context-layer::planning` | 計画層（plan, tasks作成、GitHub Issues公開） |
-| `context-layer::implementation` | 実装層（code, tests作成、PR作成） |
-| `context-layer::feedback` | フィードバック層（実装の発見を上流へ反映） |
-
-#### 4. Work Type（作業の種類）- spec駆動開発から継承
-
-| ラベル | 説明 |
-|--------|------|
-| `work::epic` | 大きな機能群（複数のstoryを含む） |
-| `work::story` | ユーザーストーリー（実装可能な単位） |
-| `work::task` | 具体的な実装タスク |
-| `work::debt` | 技術的負債 |
-| `work::spike` | 調査・検証タスク |
-
-#### 5. Context State（文脈の状態）
-
-| ラベル | 説明 |
-|--------|------|
-| `state::needs-clarification` | `/clarify` が必要 |
-| `state::needs-adr` | 設計判断が必要 |
-| `state::needs-constraint` | 制約定義が必要 |
-| `state::has-ambiguity` | 曖昧性あり |
-| `state::ready-for-plan` | `/plan` 実行可能 |
-| `state::ready-for-implementation` | 実装準備完了 |
-
-#### 6. Feedback Source（フィードバック元）
-
-| ラベル | 説明 |
-|--------|------|
-| `feedback::from-pr` | PR実装から得られた知見 |
-| `feedback::from-review` | レビューから得られた知見 |
-| `feedback::constraint-violation` | 制約違反の発見 |
-| `feedback::adr-update-needed` | ADR更新が必要 |
-
-#### 7. Disposability（代替可能性）
-
-| ラベル | 説明 |
-|--------|------|
-| `disposable::20%` | 低代替可能性（AI再生成困難・保存すべき文脈） |
-| `disposable::40%` | 中低代替可能性（ビジョン・部分的に再生成可能） |
-| `disposable::70%` | 高代替可能性（調整層・ほぼ再生成可能） |
-| `disposable::80%` | 最高代替可能性（実装・完全再生成可能） |
-
----
-
-### Label Combination Patterns（組み合わせパターン）
-
-#### Pattern 1: Vision議論のIssue（Intent Dimension, Specification Layer）
+#### パターン1: Context-First（新規開発）
 
 ```
-dimension::intent + context::vision + work::epic + context-layer::specification + disposable::40%
+1. Context Studio Issue作成
+   Title: "マルチアカウント機能のIntent"
+   Labels: artifact::intent, phase::inception
+
+2. Context Studio PR作成（AIによるUnits分解）
+   Title: "Add Units for multi-account feature"
+   Body: Closes #1
+
+3. Context Studio PR作成（Domain Design）
+   Title: "Domain Design: Account Entity"
+   Body: Part of #1
+
+4. Code Output PR作成（実装）
+   Title: "Implement Account Entity"
+   Body: Based on Context Studio ADR-001
+         Ref: YokaKit_Studio/.aidlc/contexts/001-multi-account/
+
+5. Context Studio Commit（Submodule更新）
+   Message: "Update yokakit submodule: Account Entity (Context #001)"
 ```
 
-**例:** Issue #1 "マルチアカウント切り替え機能のビジョン"
-
-#### Pattern 2: ADR作成のIssue（Decision Dimension, Design Layer）
+#### パターン2: Code-First（技術的負債解消）
 
 ```
-dimension::decision + context::adr + work::story + context-layer::design + disposable::20%
+1. Code Output Issue作成
+   Title: "Refactor AuthService for testability"
+
+2. Context Studio Issue作成（リバースエンジニアリング）
+   Title: "Elevate AuthService to Domain Model"
+   Body: Related to yokakit#123
+
+3. Context Studio PR（モデル昇格）
+   Title: "Add Domain Design for existing AuthService"
+
+4. Code Output PR（リファクタリング）
+   Title: "Refactor AuthService based on Domain Design"
+   Body: Based on Context Studio Domain Design
+         Ref: YokaKit_Studio/.aidlc/contexts/002-auth-refactor/
 ```
 
-**例:** Issue #10 "認証状態の管理方法（ADR-001）"
+### 3. Submodule同期戦略
 
-#### Pattern 3: 仕様定義のIssue（Rule Dimension, Specification Layer）
-
-```
-dimension::rule + context::spec + work::story + context-layer::specification + disposable::20%
-```
-
-**例:** Issue #5 "アカウント切り替えAPIの仕様定義"
-
-#### Pattern 4: `/publish tasks-to-github` で生成されたタスク（Coordination Dimension, Planning Layer）
-
-```
-dimension::coordination + context::task + work::task + context-layer::planning + disposable::70%
-```
-
-**例:** Issue #101 "アカウント切り替えAPIの実装計画（T001）"
-
-#### Pattern 5: 実装Issue（Realization Dimension, Implementation Layer）
-
-```
-dimension::realization + work::task + context-layer::implementation + disposable::80%
-```
-
-**例:** Issue #102 "アカウントモデルの実装"
-
-#### Pattern 6: PR実装からのフィードバック（Decision Dimensionへ）
-
-```
-dimension::decision + context::adr + feedback::from-pr + context-layer::feedback + disposable::20%
-```
-
-**例:** Issue #150 "トークン更新戦略のADR追加（PR #201からの発見）"
-
-#### Pattern 7: 技術的負債の発見（Rule Dimensionへ）
-
-```
-dimension::rule + context::constraint + work::debt + feedback::constraint-violation + state::needs-adr
-```
-
-**例:** Issue #200 "認証トークンの有効期限管理の掟違反"
-
----
-
-### Auto-Labeling Rules（`/publish tasks-to-github` での自動ラベル付与）
-
-```yaml
-# tasks.md から GitHub Issue 作成時の自動ラベル付与ルール
-
-# タスクの種類による判定
-setup_task:
-  labels: [dimension::coordination, work::task, context-layer::implementation]
-
-test_task:
-  labels: [dimension::realization, work::task, context-layer::implementation]
-
-implement_task:
-  labels: [dimension::realization, work::task, context-layer::implementation]
-
-# tasks.md のメタデータから判定
-metadata:
-  "related-to: vision": [dimension::intent, context::vision, disposable::40%]
-  "related-to: adr": [dimension::decision, context::adr, disposable::20%]
-  "related-to: spec": [dimension::rule, context::spec, disposable::20%]
-  "related-to: constraint": [dimension::rule, context::constraint, disposable::20%]
-  "related-to: schema": [dimension::rule, context::schema, disposable::20%]
-
-# タスクの依存関係から
-dependency:
-  "blocks: T001": [work::epic]
-  "[P]": [work::task]  # 並列実行可能マーカー
-
-# Feedback元の判定
-feedback:
-  "from: PR": [feedback::from-pr, context-layer::feedback]
-  "from: review": [feedback::from-review, context-layer::feedback]
-  "rule-violation": [feedback::constraint-violation, dimension::rule]
-```
-
----
-
-### Label-Based Queries（ラベルを活用した検索例）
+#### Daily Sync（推奨）
 
 ```bash
-# Intent Dimension（意図次元）の文脈のみ表示
-is:issue label:dimension::intent
+#!/bin/bash
+# daily-sync.sh
 
-# Decision Dimension（意思決定次元）の文脈のみ表示
-is:issue label:dimension::decision
+# Context Studioで実行
+cd /path/to/context-studio
 
-# Rule Dimension（掟次元）の文脈のみ表示
-is:issue label:dimension::rule
+# すべてのCode Output Submoduleを最新化
+git submodule foreach 'git pull origin main'
 
-# 低代替可能性（20-40%）のすべての文脈
-is:issue label:disposable::20%,disposable::40%
-
-# ADRに関するすべてのIssue
-is:issue label:context::adr
-
-# PRレビューから生まれたフィードバック
-is:issue label:feedback::from-pr
-
-# 曖昧性があり /clarify が必要なIssue
-is:issue label:state::needs-clarification is:open
-
-# 実装準備完了で待機中のIssue
-is:issue label:state::ready-for-implementation is:open
-
-# 技術的負債
-is:issue label:work::debt is:open
-
-# Coordination & Realization Dimension（高代替可能性）の実装タスク
-is:issue label:dimension::coordination,dimension::realization
-
-# Specification Layer（低代替可能性文脈の構築中）のすべてのIssue
-is:issue label:context-layer::specification
-
-# Implementation Layer（実装中）のすべてのIssue
-is:issue label:context-layer::implementation
+# Context Studioにコミット
+git add submodules/code-output/*
+git commit -m "Daily sync: Update all code output submodules"
+git push
 ```
 
----
-
-### Workflow Example with Labels（ラベルを使った完全フロー）
+#### Feature-Driven Sync
 
 ```bash
-# === Layer 1 & 2: Specification & Design（低代替可能性文脈の構築） ===
+# 特定の機能完了時のみ同期
+cd submodules/code-output/yokakit
+git checkout feature/multi-account
+git pull origin feature/multi-account
 
-Issue #1: "マルチアカウント切り替え機能のビジョン"
-  Labels: dimension::intent, context::vision, work::epic, context-layer::specification, disposable::40%
-  Dimension: Intent - Disposable 40%
-
-Issue #2: "認証状態の管理方法（ADR-001）"
-  Labels: dimension::decision, context::adr, work::story, context-layer::design, disposable::20%
-  Dimension: Decision - Disposable 20%
-
-Issue #3: "アカウント切り替え機能の仕様"
-  Labels: dimension::rule, context::spec, work::story, context-layer::specification, disposable::20%
-  Dimension: Rule - Disposable 20%
-
-Issue #4: "アカウント切り替えの掟（制約）定義"
-  Labels: dimension::rule, context::constraint, work::story, context-layer::specification, disposable::20%
-  Dimension: Rule - Disposable 20%
-
-Issue #5: "アカウント切り替えAPIスキーマ定義"
-  Labels: dimension::rule, context::schema, work::story, context-layer::design, disposable::20%
-  Dimension: Rule - Disposable 20%
-
-# === Layer 3: Planning（調整層） ===
-$ /plan
-$ /tasks
-$ /publish tasks-to-github
-
-Issue #101: "アカウントモデルの実装（T001）"
-  Labels: dimension::coordination, context::task, work::task, context-layer::planning, disposable::70%
-  Dimension: Coordination - Disposable 70%
-  Related: #3, #4
-
-Issue #102: "認証トークン管理サービスの実装（T002）"
-  Labels: dimension::coordination, context::task, work::task, context-layer::planning, disposable::70%
-  Dimension: Coordination - Disposable 70%
-  Related: #2, #4
-
-# === Layer 4: Implementation（実装層） ===
-$ /implement #101
-→ code (80%), unit tests (70%), docs (60%)
-→ PR #201 作成（Realization Dimension）
-
-# === Layer 5: Feedback（実装 → 上流Dimension） ===
-$ /capture pr #201
-→ 実装中に「トークン更新戦略」の判断が必要と判明
-
-Issue #150: "トークン更新戦略のADR追加（PR #201からの発見）"
-  Labels: dimension::decision, context::adr, feedback::from-pr, context-layer::feedback, disposable::20%
-  Dimension: Decision - Disposable 20%
-  Related: #2, PR #201
-
-→ Realization Dimension → Decision Dimension へのフィードバック
+cd ../../..
+git add submodules/code-output/yokakit
+git commit -m "Sync yokakit: Feature multi-account completed (Context #001)"
 ```
+
+### 4. 参考リポジトリ（References）の管理
+
+**原則**: Read-Only、Fork推奨
+
+```bash
+# 参考リポジトリをForkしてSubmodule追加
+git submodule add https://github.com/your-org/laravel-sanctum-fork.git \
+  submodules/references/laravel-sanctum
+
+# 特定バージョンに固定（推奨）
+cd submodules/references/laravel-sanctum
+git checkout v3.2.1
+cd ../../..
+git add submodules/references/laravel-sanctum
+git commit -m "Pin laravel-sanctum reference to v3.2.1"
+```
+
+**活用方法**:
+- Inception PhaseでAIが参考コードを分析
+- Domain Design作成時のパターン参照
+- ADR作成時のトレードオフ比較材料
+
+</details>
+
+<details>
+<summary><b>なぜAgile/Scrumではダメなのか</b></summary>
+
+### 従来のAgile/Scrumの前提
+
+Agile/Scrumは**週・月単位の人間駆動プロセス**として設計されました：
+
+| 要素 | 前提 | AI時代の現実 |
+|------|------|-------------|
+| **日次スタンダップ** | 24時間ごとの同期 | AI-DLCは**リアルタイム検証** |
+| **ストーリーポイント** | タスク難易度の見積もり | AIが難易度境界を消す |
+| **ベロシティ** | チーム生産性測定 | **ビジネス価値**で測定すべき |
+| **Sprint Planning** | 人間が計画 | AIが提案、人間が承認 |
+| **Sprint Review** | 2-4週間ごと | Boltは時間・日単位 |
+
+### AI-DLCの根本的な違い
+
+**"速い馬車"ではなく"自動車"**
+
+- Agile + AI = 速い馬車（既存手法の高速化）
+- AI-DLC = 自動車（根本的な再設計）
+
+</details>
+
+<details>
+<summary><b>Complete Workflow Diagram</b></summary>
+
+```mermaid
+flowchart TD
+    subgraph Inception["🔵 Inception Phase（数時間）"]
+        I1[AI: Intent明確化<br/>質問・回答]
+        I2[AI: Units分解提案<br/>高凝集・疎結合]
+        I3[AI: User Stories作成<br/>受入条件]
+        I4[AI: NFRs/Risks定義<br/>制約・リスク]
+        I5[AI: Bolts計画<br/>イテレーション設計]
+
+        I1 ==> I2 ==> I3 ==> I4 ==> I5
+    end
+
+    subgraph Construction["🟣 Construction Phase（時間・日単位）"]
+        C1[AI: Domain Design<br/>ビジネスロジック]
+        C2[AI: Logical Design<br/>ADR・技術判断]
+        C3[AI: Code生成<br/>実装]
+        C4[AI: Tests生成・実行<br/>検証]
+        C5[AI: 修正提案<br/>改善]
+
+        C1 ==> C2 ==> C3 ==> C4 ==> C5
+    end
+
+    subgraph Operations["🟢 Operations Phase（継続的）"]
+        O1[AI: デプロイ構成<br/>IaC]
+        O2[Deploy実行<br/>リリース]
+        O3[AI: 監視・検知<br/>異常検出]
+        O4[AI: 対応提案<br/>スケーリング]
+
+        O1 ==> O2 ==> O3 ==> O4
+    end
+
+    Inception ==> Construction
+    Construction ==> Operations
+    Operations -.Feedback.-> Inception
+
+    style Inception fill:#16213e,stroke:#2ec4b6,stroke-width:4px,color:#fff
+    style Construction fill:#1a1a2e,stroke:#7f5af0,stroke-width:4px,color:#fff
+    style Operations fill:#0f3460,stroke:#16213e,stroke-width:4px,color:#fff
+
+    style I1 fill:#1f4068,stroke:#2ec4b6,stroke-width:2px,color:#fff
+    style I2 fill:#1f4068,stroke:#2ec4b6,stroke-width:2px,color:#fff
+    style I3 fill:#1f4068,stroke:#2ec4b6,stroke-width:2px,color:#fff
+    style I4 fill:#1f4068,stroke:#2ec4b6,stroke-width:2px,color:#fff
+    style I5 fill:#1f4068,stroke:#2ec4b6,stroke-width:2px,color:#fff
+
+    style C1 fill:#2d2d44,stroke:#7f5af0,stroke-width:2px,color:#fff
+    style C2 fill:#2d2d44,stroke:#7f5af0,stroke-width:2px,color:#fff
+    style C3 fill:#2d2d44,stroke:#7f5af0,stroke-width:2px,color:#fff
+    style C4 fill:#2d2d44,stroke:#7f5af0,stroke-width:2px,color:#fff
+    style C5 fill:#2d2d44,stroke:#7f5af0,stroke-width:2px,color:#fff
+
+    style O1 fill:#162447,stroke:#1dd1a1,stroke-width:2px,color:#fff
+    style O2 fill:#162447,stroke:#1dd1a1,stroke-width:2px,color:#fff
+    style O3 fill:#162447,stroke:#1dd1a1,stroke-width:2px,color:#fff
+    style O4 fill:#162447,stroke:#1dd1a1,stroke-width:2px,color:#fff
+```
+
+</details>
 
 ---
 
 ## Contributing
 
-Context Studioのビジョン実現に向けて、継続的な改善を行っています。
+YokaKit Studioは**AI-DLCを実践するための文脈統合開発環境**の実験的プロジェクトです。  
+フィードバックや改善提案を歓迎します。
 
 ## License
 
-(To be determined)
+MIT License (予定)
 
 ## Related Projects
 
 - **YokaKit**: Laravel-based web application (submodule at `./yokakit/`)
+- **AI-DLC**: [AI-Driven Development Lifecycle Method Definition](https://prod.d13rzhkk8k8cj2z0.amplifyapp.com/) by Raja SP (AWS)
+
+## References
+
+- Raja SP (Amazon Web Services). "AI-Driven Development Lifecycle (AI-DLC) Method Definition"
+- Domain-Driven Design (DDD) - Eric Evans
+- Building Microservices - Sam Newman
