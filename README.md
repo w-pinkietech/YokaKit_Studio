@@ -318,7 +318,7 @@ AI: Bolts計画を提案します：
 
 ### Step 5: Construction Phase（TDD & Documentation-Driven）
 
-**完全版**: [.development-process.md](.development-process.md) を参照
+**完全版**: [docs/development-process.md](docs/development-process.md) を参照
 
 YokaKit StudioではAIがほぼすべてのコードを書くため、**Documentation-First × TDD**を徹底します。
 
@@ -1066,7 +1066,11 @@ Milestone: Bolt-2024-W42 (5日間)
 
 ### Framework Governance
 
-フレームワーク整備期のIssue/PR管理、ラベル設計、自動化スクリプトは [.framework-governance.md](.framework-governance.md) にまとめています。必要に応じて参照してください。
+フレームワーク整備期のIssue/PR管理、ラベル設計、自動化スクリプトは [docs/framework-governance.md](docs/framework-governance.md) にまとめています。必要に応じて参照してください。
+
+- 人間向けドキュメントハブ: [docs/README.md](docs/README.md)
+- AIエージェント向けガイド: [docs/AGENTS.md](docs/AGENTS.md)
+- AIエージェント向けクイックスタート: [AGENTS.md](AGENTS.md)
 
 ---
 
@@ -1074,7 +1078,7 @@ Milestone: Bolt-2024-W42 (5日間)
 
 ### TDD & Documentation-Driven Development
 
-**完全版**: [.development-process.md](.development-process.md)
+**完全版**: [docs/development-process.md](docs/development-process.md)
 
 YokaKit StudioではAIがほぼすべてのコードを生成するため、品質担保のために以下を徹底：
 
