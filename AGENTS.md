@@ -34,6 +34,9 @@ scripts/exec_plan/bootstrap.sh --slug ${SLUG} --filter-label track::framework \
 # ブランチ作成（例）
 git checkout -b framework/${ISSUE}-${SLUG}
 
+# Worktree 作成（推奨フロー）
+scripts/worktree/create.sh framework/${ISSUE}-${SLUG}
+
 # 計画の雛形
 cp docs/60-templates/exec-plan.md plans.md
 
@@ -61,7 +64,18 @@ To-Do（Exec Plan）
 - [ ] summary.md に作業内容を記述（Summary / Key Points / Decisions / Links を反映）
 - [ ] 記録完了後、ブランチ上の `plans.md` を削除（PRに残らないよう整備）
 
+## Multi-Agent Worktree Quickstart
+1. ベースリポジトリ（既存ワークツリー）は `main` またはベア状態に保ち、変更が残っていないことを確認する。
+2. `scripts/worktree/create.sh framework/<issue>-<slug>` を実行して専用ディレクトリを作成する（既定の設置先: `../YokaKit_Studio.worktrees/framework/<issue>-<slug>`）。
+3. 作成されたディレクトリに移動して `git status` / `git branch --show-current` を確認し、期待したブランチがチェックアウトされていることを確かめる。
+4. 以降の Exec Plan 手順（`plans.md` の作成、records 連携、PR 作成）は **新しい worktree 内** で実行する。コマンドは既存手順どおり利用可能。
+5. 作業完了後は `git worktree remove <path>` で作業ディレクトリを削除し、必要なら `git worktree prune` で参照を整理する。
+
+詳細な運用ルールやトラブルシューティングは [docs/20-process/agents/README.md](docs/20-process/agents/README.md#multi-agent-worktrees) を参照。
+> 手動で作成する場合: `git worktree add -b framework/<issue>-<slug> ../YokaKit_Studio.worktrees/framework/<issue>-<slug> origin/main`
+
 ## Immediate Checklist
+- 専用 worktree 上で対象ブランチがチェックアウトされているか（`git worktree list` / `pwd` で確認）。
 - 対応する Issue が存在し、状況ラベル（`track::framework` など）が整備されているか確認する。
 - 現在のブランチ命名規則とPRフローを [docs/10-governance/framework/README.md](docs/10-governance/framework/README.md) で確認する。
 - Draft PR を作成する前に `scripts/exec_plan/prepare_pr_body.sh` で Related Issues セクションに `Closes #<n>` が入っていることを確認する。
