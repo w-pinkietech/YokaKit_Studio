@@ -11,7 +11,7 @@
 - エージェントガイド（`docs/20-process/agents/README.md`）
 - ドキュメント SOP（`docs/00-foundation/documentation/standard-procedures.md`）
 - ラベル同期スクリプト（`scripts/setup_labels.sh`）
-- Exec Plan（`plans.md` / `records/by-pr/22-status-label-flow/plans.md`）
+- Exec Plan（`records/by-pr/22-status-label-flow/plans.md`）
 
 ## 検証
 ```bash
@@ -26,5 +26,5 @@ gh issue edit 1 --remove-label "status::needs-decision" --add-label "status::tri
 ```
 
 ## 参考
-- Exec Plan: `plans.md`
+- Exec Plan: `records/by-pr/22-status-label-flow/plans.md`
 - Records summary: `records/by-pr/22-status-label-flow/summary.md`

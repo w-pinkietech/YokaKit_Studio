@@ -17,7 +17,6 @@ links:
     - docs/20-process/agents/README.md
     - docs/00-foundation/documentation/standard-procedures.md
     - scripts/setup_labels.sh
-    - plans.md
 repos: []
 decisions:
   - summary: "`status::` ラベルを triage→ready→in-progress→in-review→done（+ blocked）に再編し、対応する運用ルールとスクリプトを更新する。"
