@@ -74,7 +74,7 @@
 3. [x] Agents / Exec Plan / Framework docs に Issue 連携必須手順を反映
 4. [x] records に plans.md を保存（`bash scripts/records/archive_plan.sh <pr-number> <slug>` を実行し、`records/by-pr/<pr>-issue-linkage>/plans.md` と `summary.md` のリンクを確認）
 5. [x] records/by-pr/<pr>-issue-linkage/summary.md に作業内容を記述（Summary / Key Points / Decisions / Links を反映）
-6. [ ] records への保存後、ブランチ上の `plans.md` を削除（PR 差分から除外）
+6. [x] records への保存後、ブランチ上の `plans.md` を削除（PR 差分から除外）
 
 ## Cross-Repository（必要時）
 | Repo | Branch | Order | Notes |
@@ -83,7 +83,6 @@
 
 ## 次アクション
 - [ ] `shellcheck` が利用可能になったら `scripts/exec_plan/prepare_pr_body.sh` を lint する。
-- [ ] `plans.md` を削除し PR 差分から除外する（マージ準備時）。
 
 ---
 メモ
