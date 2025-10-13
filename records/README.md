@@ -41,6 +41,7 @@ records/
 4) 合意事項は docs（Rules/SOP/ADR 等）に反映し、`decisions.impacts` に該当ファイルを列挙。
 5) 複数リポ横断の場合は `records/packages/` に親を作り、各 PR 要約へリンク。
    - コマンド例: `bash scripts/records/new_package.sh <issue-number> <slug>`
+6) Plan（plans.md）の保存：マージ前に `bash scripts/records/archive_plan.sh <pr-number> <slug>` を実行し、`records/by-pr/<pr>-<slug>/plans.md` へスナップショットを保存。`summary.md` にもリンクが追記されます。
 ```
 
 ## メタデータ（YAML）

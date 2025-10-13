@@ -49,4 +49,5 @@ PR 単位で必ず `records/by-pr/<number>-<slug>/summary.md` を作成し、以
 1) Draft PR 作成 → records 要約を生成して PR 本文にパスを追記  
 2) 実装しつつ `plans.md` を更新（進捗/決定ログ）  
 3) レビューは別コンテキストで実行し、合意後に records 要約へ Permalink を追記  
-4) マージ後、Issue は自動クローズ（`Closes #<n>`）。`plans.md` は履歴として PR から辿れるようにする。
+4) マージ前に Plan をスナップショット保存: `bash scripts/records/archive_plan.sh <pr-number> <slug>`  
+5) マージ後、Issue は自動クローズ（`Closes #<n>`）。`records/by-pr/<pr>-<slug>/plans.md` から参照可能。

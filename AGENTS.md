@@ -58,5 +58,55 @@ YokaKit Studio での作業は AI-DLC プロセスを前提としています。
 - スクリプト・自動化: `scripts/`
 - ドキュメントハブ: [docs/README.md](docs/README.md)
 
+## Exec Plan × records（必須運用の要点）
+- Draft PR を作成したら、PR要約を作成して本文にリンクを追記する。
+  - `bash scripts/records/new_pr_summary.sh <pr-number> <slug> --issue <issue-number> --repo-url https://github.com/<org>/<repo> --author @<you>`
+- 複雑な作業は作業ブランチ直下に `plans.md` を用意（短命文書）。テンプレ: `docs/templates/exec-plan.md`。
+  - 進捗（チェックボックス）と決定ログを作業の前後で必ず更新。
+  - records の要約（`records/by-pr/<pr>-<slug>/summary.md`）の Links に `plans.md` を相対リンクで記録。
+- レビューは実装とは別コンテキストで実施し、主要スレッドのPermalinkを records に追記。
+- 複数リポ横断時は、毎回PR要約に対象リポ/ブランチ/順序を列挙（カタログは任意・恒常更新不要）。
+- スクリプトは厳格モード推奨: `set -euo pipefail`（失敗を早期検知し副作用を防止）。
+
+最後に（Planの保存）
+- マージ前に `scripts/records/archive_plan.sh <pr-number> <slug>` を実行し、`plans.md` を `records/by-pr/<pr>-<slug>/plans.md` にスナップショット保存する。
+
+参考: 詳細は [docs/process-guides/agents/AGENTS.md](docs/process-guides/agents/AGENTS.md)（Exec Plan 運用 / records 連携）を参照。
+
+## Exec Plan クイックスタート（Step 1→3）
+Step 1: 計画を依頼（plans.md 作成）
+- 次の要領で `plans.md` を用意し、実行計画を書かせる。
+- 参考資料（仕様・ADR・設計）を添付し、統合方法の調査と詳細計画を指示。
+- 初期化コマンド例: `cp docs/templates/exec-plan.md plans.md`
+
+Step 2: plans.md の構造（例）
+```
+# Exec Plan: <タイトル>
+
+## 全体像
+取り組む機能の目的/背景と期待する振る舞い（1〜3段落）
+
+## 進捗状況
+- [ ] スパイク：XXXライブラリの調査
+- [ ] 機能実装：ストリーミングAPI
+- [ ] テスト追加
+- [ ] ドキュメント更新
+
+## 発見と驚き
+- 依存ライブラリの既知バグ / 想定外の挙動 など
+
+## 決定ログ
+YYYY-MM-DD: 採用/却下したアプローチと理由
+
+## To-Do
+1. [ ] コア機能の実装
+2. [ ] エッジケースのテスト
+3. [ ] パフォーマンス最適化
+```
+
+Step 3: 実装を実行（進捗に応じ更新）
+- `plans.md` に基づき実装し、作業の前後でチェックボックス/決定ログを更新。
+- Draft PR で開始し、records の要約に `plans.md` と主要スレッドの Permalink を追記。
+
 ---
 詳細なワークフロー、用語集、チェックリストは [docs/process-guides/agents/README.md](docs/process-guides/agents/README.md) を必ず参照してください。
