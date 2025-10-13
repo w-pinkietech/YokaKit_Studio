@@ -7,10 +7,11 @@
 
 - 0) 前提（推奨）: `set -euo pipefail` を使い失敗時に即中断。
 - 1) 計画作成: `cp docs/60-templates/exec-plan.md plans.md`（ブランチ直下に配置）
-- 2) Draft PR 作成 → PR番号 `<n>` と `slug` を決め、要約を生成してPR本文にリンク
+- 2) プラン初稿を作成し、必要なら人間レビューで合意
+- 3) Issue/PR（Draft）作成 → PR番号 `<n>` と `slug` を決め、records 要約を生成して PR 本文にリンク
   - `bash scripts/records/new_pr_summary.sh <n> <slug> --issue <issue> --repo-url https://github.com/<org>/<repo> --author @<you>`
-- 3) 実装しながら `plans.md` の進捗/決定ログを更新
-- 4) マージ前: `bash scripts/records/archive_plan.sh <n> <slug>` で `records/by-pr/<n>-<slug>/plans.md` にスナップショットを保存（summary にリンクも追記）
+- 4) 実装しながら `plans.md` の進捗/決定ログを更新
+- 5) マージ前: `bash scripts/records/archive_plan.sh <n> <slug>` で `records/by-pr/<n>-<slug>/plans.md` にスナップショットを保存（summary にリンクも追記）
  - 5) 要約更新: `records/by-pr/<n>-<slug>/summary.md` に作業内容（Summary / Key Points / Decisions / Links）を記述し、PR本文と整合を取る
 
 Quick commands（雛形・変数化）
@@ -38,7 +39,8 @@ bash scripts/records/archive_plan.sh ${PR} ${SLUG}
 
 To-Do（Exec Plan）
 - [ ] 計画の雛形をコピー（plans.md 作成）
-- [ ] PR 要約を生成（records/by-pr/<pr>-<slug>/summary.md）
+- [ ] プラン初稿を作成・合意（レビュー）
+- [ ] Issue/PR（Draft）を作成し、PR 要約を生成（records/by-pr/<pr>-<slug>/summary.md）
 - [ ] 実装しながら plans.md を更新（進捗/決定/リスク）
 - [ ] マージ前に Plan を保存（archive_plan.sh で plans.md をスナップショット）
 - [ ] summary.md に作業内容を記述（Summary / Key Points / Decisions / Links を反映）

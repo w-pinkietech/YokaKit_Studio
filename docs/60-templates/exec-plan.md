@@ -1,8 +1,8 @@
 # Exec Plan: <タイトル>
 
-> 使い方（雛形）
+> 使い方（雛形：Deferred GitHub Ops 推奨）
 > - このファイルをブランチ直下 `plans.md` にコピーして編集します。
-> - PR 作成後に `scripts/records/new_pr_summary.sh` で要約を生成し、マージ前に `scripts/records/archive_plan.sh` でスナップショットを保存します。
+> - プラン初稿に合意したら、Issue/PR（Draft）を作成し `scripts/records/new_pr_summary.sh` で要約を生成、マージ前に `scripts/records/archive_plan.sh` でスナップショットを保存します。
 >
 > 推奨コマンド例:
 > ```bash

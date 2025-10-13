@@ -18,17 +18,24 @@ Exec Plan は、複雑な作業を「計画→実装→検証→記録」で進�
 ```
 cp docs/60-templates/exec-plan.md plans.md
 ```
-2) Draft PR を作成し、records の PR 要約を生成
+2) プラン初稿の作成・合意（レビュー）
+- Spike/調査の結果や実行計画、リスク、決定ログを `plans.md` に記述し、必要に応じて人間レビューで合意を取る。
+
+3) Issue/PR（Draft）を作成し、records の PR 要約を生成（推奨: プラン合意後）
 ```
 bash scripts/records/new_pr_summary.sh <pr> <slug> --issue <n> \
   --repo-url https://github.com/<org>/<repo> --author @<you>
 ```
-3) 実装しながら `plans.md` を随時更新（進捗/決定ログ/リスク）
-4) マージ前に `plans.md` をスナップショットとして保存
+
+4) 実装しながら `plans.md` を随時更新（進捗/決定ログ/リスク）
+5) マージ前に `plans.md` をスナップショットとして保存
 ```
 bash scripts/records/archive_plan.sh <pr> <slug>
 ```
 → `records/by-pr/<pr>-<slug>/plans.md` が作成され、`summary.md` にリンクが追記されます。
+
+補足（Deferred GitHub Ops）
+- 小さな作業や即時性が高い場合は、従来どおり最初に Draft PR を作成しても良いが、基本は「プラン初稿→合意→Issue/PR 生成」を推奨する。
 
 ## plans.md の構成（必須要素）
 - 目的/ゴール（Doneの定義）
@@ -60,4 +67,3 @@ bash scripts/records/archive_plan.sh <pr> <slug>
   - A: 作業ブランチ直下（短命文書）。マージ後は records/by-pr から参照。
 - Q: 既存PRにもテンプレは適用できる？
   - A: 可能。`plans.md` を追加して以降の進捗を記録し、マージ前にスナップショットします。
-
