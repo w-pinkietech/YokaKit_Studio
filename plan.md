@@ -21,6 +21,37 @@
 - Tooling: `docs/tooling/`, `docs/tooling/claude/`
 - Templates: `docs/templates/`
 
+## レイヤー定義（固定）
+- 00 Foundation: 不変原則・命名規則・記述ルール（例: Documentation Rules / SOP）
+- 10 Governance: 運用ガバナンス（Issue/PR/ラベル/レビュー）
+- 20 Process: 実務手順・SOP・Runbook（開発/エージェント運用）
+- 30 Architecture: 全体像・図・ADR
+- 40 Reference: 用語集・仕様・コードマッピング
+- 50 Tooling: ツールセットアップと運用
+- 60 Templates: テンプレート群
+
+## レイヤー別マッピング（現状→配置）
+- 00 Foundation
+  - `docs/00-foundation/documentation/` → OK（Documentation Rules / SOP）
+  - `docs/00-foundation/aidlc/` → OK（AIDLC Rules / SOP）
+- 10 Governance
+  - `docs/policy/framework/` → OK（Issue/PR/ラベル/レビュー）
+- 20 Process
+  - `docs/process-guides/development/` → OK（AI-DLC手順）
+  - `docs/process-guides/agents/` → OK（Agents運用）
+  - `docs/process-guides/exec-plan.md` → OK（Exec Plan 手順）
+- 30 Architecture
+  - 該当ディレクトリ未設置（ADR等は `.aidlc/contexts/...` に存在）→ 本リポdocsでは対象外のまま据え置き（必要なら案内だけ追加）
+- 40 Reference
+  - `docs/reference/`, `docs/reference/repos/` → OK（任意のカタログ含む）
+- 50 Tooling
+  - `docs/tooling/`, `docs/tooling/claude/` → OK
+- 60 Templates
+  - `docs/templates/` → OK
+
+■ 要整理候補（ドラフト）
+- `docs/documentation-governance.md` → Foundation側のdocumentationに統合 or 廃止（移設注記）
+
 ## 全体像
 本リポのドキュメントは増加基調にあり、レイヤー横断の重複・導線不整合が発生しやすい。`docs/README.md` のレイヤーモデルを基準に、各カテゴリの役割（原則＝Foundation、運用＝Governance、手順＝Process、参照＝Reference、ツール＝Tooling、雛形＝Templates）を明確化する。
 今回の作業では、既存ファイルを棚卸しし、適切な階層へ再配置・Hubからのリンクを更新する。重複・旧ファイルは削除または統合し、必要に応じてリダイレクト注記（「移設先はこちら」）を冒頭に残す。
