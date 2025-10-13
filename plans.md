@@ -32,8 +32,8 @@
 - Issue: #28（[framework] Enable multi-agent work via git worktree）
 - ADR / 設計: 該当 ADR なし（Issue 文脈と現行プロセスドキュメントを参照）
 - 関連Docs: `docs/20-process/agents/README.md`, `docs/20-process/exec-plan.md`, `AGENTS.md`
- - PR: https://github.com/w-pinkietech/YokaKit_Studio/pull/<pr>
- - Records: `records/by-pr/<pr>-git-worktree/summary.md`
+- PR: https://github.com/w-pinkietech/YokaKit_Studio/pull/39
+- Records: `records/by-pr/39-git-worktree/summary.md`
 
 ## 全体像
 - 現状は単一ワークツリーを前提としており、複数エージェントが並列で動くと未コミット差分やブランチ切り替えが干渉する。Git worktree を標準フローに取り込むことで、作業者ごとに独立したディレクトリを確保しつつ、既存の Exec Plan / records ワークフローを維持する。
@@ -75,7 +75,7 @@
 3. [x] `scripts/worktree/create.sh` と `scripts/exec_plan/bootstrap.sh` の改善を実装し、使い方をドキュメントへ記載
 4. [x] worktree 上で Exec Plan コマンドを検証し、結果を Findings/Docs に反映
 5. [ ] records に plans.md を保存（`bash scripts/records/archive_plan.sh <pr-number> <slug>` を実行し、`records/by-pr/<pr>-git-worktree/plans.md` と `summary.md` のリンクを確認）
-6. [ ] records/by-pr/<pr>-git-worktree/summary.md に作業内容を記述（Summary / Key Points / Decisions / Links を反映）
+6. [x] records/by-pr/39-git-worktree/summary.md に作業内容を記述（Summary / Key Points / Decisions / Links を反映）
 7. [ ] records への保存後、ブランチ上の `plans.md` を削除（PR 差分から除外）
 
 ## Cross-Repository（必要時）
@@ -84,7 +84,8 @@
 | なし | - | - | 現時点で Cross-Repo 作業は発生しない前提 |
 
 ## 次アクション
-- [ ] ドキュメント草案とスクリプト仕様をレビューし、必要なフィードバックを反映
+- [ ] `plans.md` を `bash scripts/records/archive_plan.sh 39 git-worktree` で保存し、ブランチから削除する。
+- [ ] PR ready 化に向けてレビュー指摘や追加フィードバックを反映する。
 
 ---
 メモ
