@@ -21,3 +21,33 @@
 - [Process Guide (Full)](README.md)
 - [Development Process](../development/README.md)
 - [Policy Framework](../../policy/framework/README.md)
+
+## Exec Plan 運用（plans.md）
+複雑な機能実装や大規模リファクタでは、ブランチ直下に `plans.md` を置き、計画→実装→検証の進捗を可視化します。マージ後は履歴として PR（records/by-pr）から辿れるため、`plans.md` はブランチ単位のエフェメラル（短命）文書として扱います。
+
+推奨ルール
+- 作りどき: 仕様が複数ステップに分かれる、または1時間超の自動作業を任せる場合。
+- 配置: 作業ブランチ直下 `plans.md`（リポジトリルート）。
+- 構成: 目的/範囲、進捗チェックボックス、決定ログ、リスク、次アクション。
+- 更新: 作業の前後で「進捗」「決定ログ」を必ず更新する。
+- 終了: マージ時点で `plans.md` はそのまま残し、PR 要約（records）にリンクを記録。
+
+テンプレート
+- ひな型: `docs/templates/exec-plan.md` をコピーして `plans.md` を作成。
+
+補助コマンド例
+- 継続テスト: `watch -n 1 "npm test"` / `cargo test` 等
+- 厳格モードでのスクリプト実行: `set -euo pipefail`（早期失敗で安全性を高める）
+
+## records 連携（PR要約との紐付け）
+PR 単位で必ず `records/by-pr/<number>-<slug>/summary.md` を作成し、以下を記録します。
+- Links に `plans.md`（ブランチ上）の相対リンクを追記
+- 主要スレッド（レビュー/議論）のパーマリンク
+- 決定事項（Decisions）と docs への反映先（impacts）
+
+ワークフロー
+1) Draft PR 作成 → records 要約を生成して PR 本文にパスを追記  
+2) 実装しつつ `plans.md` を更新（進捗/決定ログ）  
+3) レビューは別コンテキストで実行し、合意後に records 要約へ Permalink を追記  
+4) マージ前に Plan をスナップショット保存: `bash scripts/records/archive_plan.sh <pr-number> <slug>`  
+5) マージ後、Issue は自動クローズ（`Closes #<n>`）。`records/by-pr/<pr>-<slug>/plans.md` から参照可能。

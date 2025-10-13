@@ -54,12 +54,15 @@
 - 権限/トークン/CI 実行可否の確認（対象リポすべて）。
 - ブランチ命名の統一（例: `framework/<issue>-<slug>` または `feature/<slug>`）。
 - PR 接頭辞の統一（例: `[change-pkg:#<issue>]`）。
+- リポジトリカタログ（docs/reference/repos/）は任意。対象リポは「毎回」PR 要約（records/by-pr）に列挙して確認する。
 
 実行
 - リポ別に単体テスト/ビルドを確認 → 最低1本の統合検証を実施。
 - 変更順序（例: backend → frontend）を定義し、互換性のある状態で段階的にマージ。
+ - PR 要約に対象リポ/ブランチ/検証結果の要点を記録（一次情報は GitHub のスレッドへリンク）。
 
 終了
 - すべての PR がマージされ、必要なタグ/リリース/通知が完了。
 - `records/` に Change Package の要約を追加（`records/packages/`）。
 - `records/INDEX.md` にリンクを追記。
+ - docs/reference/repos の恒常更新は不要（必要時のみ）。

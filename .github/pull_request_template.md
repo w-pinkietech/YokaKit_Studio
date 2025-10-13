@@ -4,6 +4,7 @@
 ## Discussion Summary (records)
 - [ ] `records/by-pr/<number>-<slug>/summary.md` を作成し、要約を記載した
 - [ ] PR本文に上記ファイルへのリンクを追記した
+- [ ] マージ前に `plans.md` を `records/by-pr/<number>-<slug>/plans.md` へスナップショット保存（`scripts/records/archive_plan.sh`）
 
 ヒント: 作成コマンド
 ```
@@ -17,4 +18,3 @@ bash scripts/records/new_pr_summary.sh <pr-number> <slug> --issue <issue-number>
 
 ## Notes
 必要に応じてスクリーンショットや補足を記載してください。
-
