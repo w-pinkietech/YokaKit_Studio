@@ -62,9 +62,12 @@ declare -a LABELS=(
   "lifecycle::in-review|f97316|Under active review"
   "lifecycle::approved|16a34a|Approved and ready to close"
 
-  "status::needs-decision|ef4444|Requires decision or direction"
-  "status::blocked|b91c1c|Blocked by external dependency"
-  "status::ready|14b8a6|Ready for execution"
+  "status::triage|6b7280|Collecting context and scoping the issue"
+  "status::ready|14b8a6|Clear scope and available to pick up"
+  "status::in-progress|2563eb|Active implementation in progress"
+  "status::in-review|f97316|Implementation complete and under review"
+  "status::done|22c55e|Verified complete and ready to close"
+  "status::blocked|b91c1c|Blocked by external dependency or decision"
 
   "impact::high|fb7185|High impact or urgency"
   "impact::medium|facc15|Moderate impact"
