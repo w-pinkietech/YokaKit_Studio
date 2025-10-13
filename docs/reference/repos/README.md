@@ -1,24 +1,24 @@
-# Repository Catalog
+# Repository Catalog（任意）
 
-複数リポジトリでの変更を扱うためのカタログ。各リポの役割・主要ブランチ・デプロイ先・CI 概要・連絡先など、横断作業に必要な最小情報をまとめる。
+このカタログは「参考情報（任意）」です。実運用では毎回の横断作業時に対象リポジトリを確認し、PR 要約（records/by-pr）に列挙する方針とします。ここはテンプレートと確認観点のみを保持します。
 
-## 目的
-- 変更対象リポジトリを素早く把握し、横断の依存・順序・責任境界を明確化する。
-- Cross-Repo の作業時に参照する共通情報（ブランチ命名、PR 接頭辞、CI の要点）を提供する。
+## 使い方（最小）
+- Cross-Repo 作業を開始する際に、下記チェックを PR 要約に記録する。
+  - 対象リポ名と URL（必要数のみ）
+  - ブランチ命名（例: `framework/<issue>-<slug>` / `feature/<slug>`）
+  - 変更順序（例: backend → frontend）
+  - 主要 CI の可否（最低限テスト/ビルド）
+- 本カタログ（docs/reference/repos）は更新必須ではありません。継続的な保守は不要です。
 
-## カタログ項目（推奨）
+## カタログ項目（テンプレート）
 | 項目 | 説明 |
 |------|------|
 | Name | リポ名（例: `frontend`, `backend`） |
 | URL | リポジトリ URL |
 | Role | 役割（例: Web UI, API, Infra） |
-| Main Branch | 既定のデフォルトブランチ（例: `main`） |
 | Branching | 命名ルール（例: `framework/<issue>-<slug>` / `feature/<slug>`） |
-| Environments | デプロイ/動作環境（例: Staging/Prod の URL 等） |
-| CI | 主要ジョブ（テスト/ビルド/リリース） |
-| Contacts | オーナー/メンテナのハンドル |
+| Notes | 依存や順序、CI 可否などのメモ |
 
 ## 参照
 - 索引: `INDEX.md`
 - AIDLC Rules/SOP: `../../00-foundation/aidlc/README.md`
-

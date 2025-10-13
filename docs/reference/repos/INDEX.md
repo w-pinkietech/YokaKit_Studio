@@ -1,13 +1,12 @@
-# Repository Catalog Index
+# Repository Catalog Index（任意）
 
-対象リポジトリの一覧。必要に応じて行を追加し、横断作業前に最新化する。
+この一覧は維持必須ではありません。横断作業ごとに PR 要約（records/by-pr）へ対象リポを列挙してください。本ページは必要時のみ一時的に追記/削除して構いません。
 
-| Name | URL | Role | Main Branch | Branching | Environments | CI | Contacts |
-|------|-----|------|-------------|-----------|--------------|----|----------|
-| frontend | https://github.com/<org>/frontend | Web UI | main | `feature/<slug>` | https://staging-frontend.example.com | unit/e2e | @owner |
-| backend  | https://github.com/<org>/backend  | API    | main | `feature/<slug>` | https://staging-backend.example.com  | unit/integration | @owner |
+## 参考テンプレート
+| Name | URL | Role | Branching | Notes |
+|------|-----|------|-----------|-------|
+| <repo> | https://github.com/<org>/<repo> | Web UI / API / Infra | `framework/<issue>-<slug>` / `feature/<slug>` | 変更順序・CI可否など |
 
 備考
 - 同一イニシアチブで複数リポを変更する場合、ブランチの slug を統一する（例: `16-aidlc-foundation`）。
-- PR タイトルに `[change-pkg:#<issue>]` など共通接頭辞を付ける。
-
+- PR タイトルに `[change-pkg:#<issue>]` 等の共通接頭辞を付ける。
