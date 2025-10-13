@@ -57,6 +57,7 @@
 2. [ ] ...
 3. [ ] ...
 4. [ ] records に plans.md を保存（`bash scripts/records/archive_plan.sh <pr-number> <slug>` を実行し、`records/by-pr/<pr>-<slug>/plans.md` と `summary.md` のリンクを確認）
+5. [ ] records/by-pr/<pr>-<slug>/summary.md に作業内容を記述（Summary / Key Points / Decisions / Links を反映）
 
 ## Cross-Repository（必要時）
 | Repo | Branch | Order | Notes |
