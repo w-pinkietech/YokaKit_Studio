@@ -52,6 +52,13 @@ bash scripts/records/archive_plan.sh <pr> <slug>
 → `records/by-pr/<pr>-<slug>/plans.md` が作成され、`summary.md` にリンクが追記されます。
 - スナップショット取得後はブランチ上の `plans.md` を削除し、最終差分から除外します。
 
+### Worktree 環境での Exec Plan
+- 複数エージェントが同時に作業する場合は、事前に `scripts/worktree/create.sh framework/<issue-number>-<slug>` で専用 worktree を作成し、**作業は常に worktree 内で実施**します。
+- 親リポジトリ（最初にクローンしたディレクトリ）は `main` でクリーンな状態に保ち、worktree 作成の起点としてのみ利用してください。
+- `scripts/exec_plan/bootstrap.sh` や `bash scripts/records/...` などのコマンドは worktree 内でも同様に利用できます。`--slug` はブランチ名由来のハイフン区切りで指定すれば、内部でタイトルマッチングに合わせて正規化されます。
+- 作業完了後は `git worktree remove <path>` → `git worktree prune` で片付け、不要なディレクトリを残さないようにします。
+- 詳細な worktree 運用ルールは [docs/20-process/agents/README.md](agents/README.md#multi-agent-worktrees) を参照してください。
+
 補足（Deferred GitHub Ops）
 - 小さな作業や即時性が高い場合は、従来どおり最初に Draft PR を作成しても良いが、基本は「プラン初稿→合意→Issue/PR 生成」を推奨する。
 

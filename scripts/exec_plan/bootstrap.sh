@@ -113,19 +113,43 @@ fi
 
 if [[ -z "${issue_number}" ]]; then
   issue_list=$(gh issue list --repo "${repo}" --state open --limit 100 --json number,title,labels,url)
-  resolution=$(python3 - "${slug}" "${filter_label}" <<'PY' <<<"${issue_list}"
+  resolution=$(
+    ISSUE_LIST="${issue_list}" python3 - "${slug}" "${filter_label}" <<'PY'
 import json
+import os
+import re
 import sys
 
-issues = json.load(sys.stdin)
-slug = sys.argv[1].lower()
+issues = json.loads(os.environ.get("ISSUE_LIST", "[]"))
+raw_slug = sys.argv[1]
 filter_label = sys.argv[2]
 matches = []
 
+def normalize(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", text.lower()).strip()
+
+slug_norm = normalize(raw_slug)
+slug_tokens = [token for token in slug_norm.split() if token]
+
+def token_matches(issue_number: int, title: str) -> bool:
+    title_norm = normalize(title)
+    if not slug_tokens and not slug_norm:
+        return False
+    title_tokens = set(title_norm.split())
+    if slug_tokens and all(token in title_tokens for token in slug_tokens):
+        return True
+    if slug_norm and slug_norm in title_norm:
+        return True
+    for token in slug_tokens:
+        if token.isdigit() and int(token) == issue_number:
+            return True
+    return False
+
 for issue in issues:
-    title = issue["title"].lower()
-    labels = [label["name"] for label in issue["labels"]]
-    if slug in title and (not filter_label or filter_label in labels):
+    labels = [label["name"] for label in issue.get("labels", [])]
+    if filter_label and filter_label not in labels:
+        continue
+    if token_matches(issue["number"], issue["title"]):
         matches.append(issue)
 
 if not matches:
@@ -135,7 +159,7 @@ elif len(matches) == 1:
 else:
     print("MULTIPLE")
     for issue in matches:
-        labels = ", ".join(label["name"] for label in issue["labels"])
+        labels = ", ".join(label["name"] for label in issue.get("labels", []))
         print(f"#{issue['number']}|{issue['title']}|{labels}|{issue['url']}")
 PY
 )
@@ -157,13 +181,13 @@ if [[ -z "${issue_number}" ]] && [[ -n "${title}" ]]; then
     echo "[dry-run] would create issue '${title}' in ${repo}" >&2
     issue_number="(pending)"
   else
-    args=(issue create --repo "${repo}" --title "${title}" --json number,url)
+    base_args=(issue create --repo "${repo}" --title "${title}")
     IFS=',' read -ra label_array <<<"${labels}"
     for label in "${label_array[@]}"; do
       trimmed="${label#"${label%%[![:space:]]*}"}"
       trimmed="${trimmed%"${trimmed##*[![:space:]]}"}"
       if [[ -n "${trimmed}" ]]; then
-        args+=(--label "${trimmed}")
+        base_args+=(--label "${trimmed}")
       fi
     done
     if [[ -n "${body_file}" ]]; then
@@ -171,27 +195,61 @@ if [[ -z "${issue_number}" ]] && [[ -n "${title}" ]]; then
         echo "error: body file not found: ${body_file}" >&2
         exit 1
       fi
-      args+=(--body-file "${body_file}")
+      base_args+=(--body-file "${body_file}")
     fi
     if [[ -n "${assignee}" ]]; then
-      args+=(--assignee "${assignee}")
+      base_args+=(--assignee "${assignee}")
     fi
-    created_json=$(gh "${args[@]}")
-    issue_number=$(python3 - <<'PY' <<<"${created_json}"
+
+    json_args=("${base_args[@]}" --json number,url)
+    json_output=""
+    json_supported=true
+    if ! json_output=$(gh "${json_args[@]}" 2>&1); then
+      if [[ "${json_output}" == *"unknown flag: --json"* ]]; then
+        json_supported=false
+      else
+        echo "error: failed to create issue: ${json_output}" >&2
+        exit 1
+      fi
+    fi
+
+    if [[ "${json_supported}" == true ]]; then
+      issue_number=$(python3 - <<'PY' <<<"${json_output}"
 import json
 import sys
 data = json.load(sys.stdin)
 print(data["number"])
 PY
 )
-    issue_url=$(python3 - <<'PY' <<<"${created_json}"
+      issue_url=$(python3 - <<'PY' <<<"${json_output}"
 import json
 import sys
 data = json.load(sys.stdin)
 print(data["url"])
 PY
 )
-    echo "info: created issue #${issue_number} -> ${issue_url}" >&2
+      echo "info: created issue #${issue_number} -> ${issue_url}" >&2
+    else
+      if ! created_text=$(gh "${base_args[@]}" 2>&1); then
+        echo "error: failed to create issue: ${created_text}" >&2
+        exit 1
+      fi
+      issue_url=$(grep -Eo 'https://github.com/[^ ]+/issues/[0-9]+' <<<"${created_text}" | head -n1 || true)
+      if [[ -n "${issue_url}" ]]; then
+        issue_number="${issue_url##*/}"
+      else
+        issue_number=$(grep -Eo '#[0-9]+' <<<"${created_text}" | head -n1 | tr -d '#' || true)
+        if [[ -n "${issue_number}" ]]; then
+          issue_url="https://github.com/${repo}/issues/${issue_number}"
+        fi
+      fi
+      if [[ -z "${issue_number}" ]]; then
+        echo "error: failed to parse issue number from gh output" >&2
+        echo "${created_text}" >&2
+        exit 1
+      fi
+      echo "info: created issue #${issue_number} -> ${issue_url}" >&2
+    fi
   fi
 fi
 
