@@ -1,3 +1,4 @@
+---
 id: pr-<number>-<slug>
 type: pr # 原則 pr を使用（issue/commit は例外時のみ）
 status: draft # open | merged | closed | draft
@@ -11,20 +12,8 @@ dates:
   updated: YYYY-MM-DD
 links:
   thread: https://github.com/<org>/<repo>/pull/<n>
-  permalinks:
-    - url: https://github.com/<org>/<repo>/pull/<n>#discussion_rXXXX
-      note: main discussion
-repos: # 複数リポ横断時のみ記載
-  - name: frontend
-    url: https://github.com/<org>/frontend
-    branch: feature/<slug>
-    pr: https://github.com/<org>/frontend/pull/<n>
-    commits: []
-  - name: backend
-    url: https://github.com/<org>/backend
-    branch: feature/<slug>
-    pr: https://github.com/<org>/backend/pull/<n>
-    commits: []
+  permalinks: []
+repos: []
 decisions:
   - summary: "..."
     impacts: [docs path or module]
