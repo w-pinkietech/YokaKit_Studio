@@ -73,7 +73,7 @@ YokaKit Studio での作業は AI-DLC プロセスを前提としています。
 
 参考: 詳細は [docs/process-guides/agents/AGENTS.md](docs/process-guides/agents/AGENTS.md)（Exec Plan 運用 / records 連携）を参照。
 
-## Exec Plan クイックスタート（Step 1→3）
+## Exec Plan クイックスタート（Step 1→4）
 Step 1: 計画を依頼（plans.md 作成）
 - 次の要領で `plans.md` を用意し、実行計画を書かせる。
 - 参考資料（仕様・ADR・設計）を添付し、統合方法の調査と詳細計画を指示。
@@ -107,6 +107,10 @@ YYYY-MM-DD: 採用/却下したアプローチと理由
 Step 3: 実装を実行（進捗に応じ更新）
 - `plans.md` に基づき実装し、作業の前後でチェックボックス/決定ログを更新。
 - Draft PR で開始し、records の要約に `plans.md` と主要スレッドの Permalink を追記。
+
+Step 4: Plan を records に保存（マージ前）
+- `bash scripts/records/archive_plan.sh <pr-number> <slug>` を実行し、`records/by-pr/<pr>-<slug>/plans.md` にスナップショットを保存。
+- `records/by-pr/<pr>-<slug>/summary.md` の末尾に「Plan Snapshot: plans.md」リンクが追加されていることを確認。
 
 ---
 詳細なワークフロー、用語集、チェックリストは [docs/process-guides/agents/README.md](docs/process-guides/agents/README.md) を必ず参照してください。
