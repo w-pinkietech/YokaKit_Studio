@@ -22,4 +22,4 @@
 - [Step-by-Step Guides](stable/step-1-domain-design.md)
 - [Process Index](INDEX.md)
 - [Policy Framework](../../policy/framework/README.md)
-- [Documentation Rules/SOP](../../00-foundation/documentation/README.md)
+- [Documentation Rules / SOP](../../00-foundation/documentation/README.md)

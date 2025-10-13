@@ -12,5 +12,5 @@
 ## リンク集
 - [Reference Hub](README.md)
 - [Reference Index](INDEX.md)
-- [Documentation Rules/SOP](../00-foundation/documentation/README.md)
+- [Documentation Rules / SOP](../00-foundation/documentation/README.md)
 - [Process Guides](../process-guides/README.md)

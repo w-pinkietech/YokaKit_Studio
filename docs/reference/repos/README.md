@@ -21,4 +21,4 @@
 
 ## 参照
 - 索引: `INDEX.md`
-- AIDLC Rules/SOP: `../../00-foundation/aidlc/README.md`
+- AIDLC Rules / SOP: `../../00-foundation/aidlc/README.md`

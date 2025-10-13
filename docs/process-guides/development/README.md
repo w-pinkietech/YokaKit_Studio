@@ -38,5 +38,5 @@ AI 主導でコードを生成する際に求められるドキュメント駆�
 - [Process Guides Hub](../README.md)
 - [Agents Operations Guide](../agents/README.md)
 - [Policy Framework](../../policy/framework/README.md)
-- [Documentation Rules/SOP](../../00-foundation/documentation/README.md)
+- [Documentation Rules / SOP](../../00-foundation/documentation/README.md)
 - [AIDLC Rules/SOP](../../00-foundation/aidlc/README.md)
