@@ -30,4 +30,4 @@ next_actions:
 ## Links
 - 本文の一次情報（Permalink）を列挙。
 
-- Working Plan: ../../../plans.md
+- Working Plan: ../../../plan.md

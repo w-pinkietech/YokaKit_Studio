@@ -40,6 +40,7 @@
 - AIエージェント向け詳細ガイド: [process-guides/agents/README.md](process-guides/agents/README.md)
 - リファレンスハブ: [reference/README.md](reference/README.md)
  - リポジトリカタログ: [reference/repos/README.md](reference/repos/README.md)
+ - アーキテクチャ/ADR: `.aidlc/contexts/<id>/construction/logical-design/adr/`（本docsには恒久配置しない）
 
 ## ドキュメントのレイヤー（編集方針）
 本リポジトリのドキュメントは、以下のレイヤーモデルに準拠して整理・編集します（Issue #16）。
