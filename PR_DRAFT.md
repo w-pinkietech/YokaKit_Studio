@@ -15,8 +15,8 @@ Git worktree を前提としたマルチエージェント運用を実現する�
 
 ## Discussion Summary (records)
 - [x] `records/by-pr/39-git-worktree/summary.md` を作成し、要約を記載した
-- [x] PR本文に上記ファイルへのリンクを追記した
-- [ ] マージ前に `plans.md` を `records/by-pr/<number>-<slug>/plans.md` へスナップショット保存（`scripts/records/archive_plan.sh`）
+ - [x] PR本文に上記ファイルへのリンクを追記した
+ - [x] マージ前に `plans.md` を `records/by-pr/<number>-<slug>/plans.md` へスナップショット保存（`scripts/records/archive_plan.sh`）
 
 ヒント: 作成コマンド
 ```

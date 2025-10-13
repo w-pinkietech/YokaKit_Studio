@@ -23,7 +23,7 @@ decisions:
       - scripts/worktree/create.sh
       - scripts/exec_plan/bootstrap.sh
 next_actions:
-  - "`plans.md` のアーカイブと PR ready 化に向けた最終調整（records archive, checklist 更新など）をマージ前に完了させる。"
+  - "レビュー指摘への対応と Draft 解除の判断を進める。"
 ---
 
 ## Summary
@@ -40,5 +40,5 @@ AI エージェントが並列作業できるようにするため、Git worktre
 - Worktree を用いた Exec Plan コマンド検証（生成 → 片付け）を実施済み。
 
 ## Links
-- plans: plans.md
+- plans snapshot: records/by-pr/39-git-worktree/plans.md
 - Script validation log: scripts/worktree/create.sh（doc内に手順）

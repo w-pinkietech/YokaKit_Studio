@@ -1,3 +1,8 @@
+# Exec Plan Snapshot (2025-10-14 06:52:49)
+
+> branch: framework/28-git-worktree  commit: 49d78b8
+
+---
 # Exec Plan: Multi-agent worktrees
 
 > 使い方（雛形：Deferred GitHub Ops 推奨）
