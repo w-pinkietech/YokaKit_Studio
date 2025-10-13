@@ -45,6 +45,13 @@ track::framework + artifact::documentation + status::in-progress + impact::mediu
 
 ## Issue テンプレート（推奨構成）
 
+GitHub では `.github/ISSUE_TEMPLATE/` 配下に以下のテンプレートを用意している。AI エージェントを含め全員が同一フォーマットで起票すること。
+- `framework_task.md`（ガバナンス・プロセス整備用）
+- `feature_request.md`（利用者価値を高める機能提案）
+- `bug_report.md`（不具合報告）
+
+いずれのテンプレートも下記の骨子を共有する。
+
 ```
 ## 背景 / Context
 - 何が起きているか、どのドキュメント/箇所が対象か
@@ -57,6 +64,9 @@ track::framework + artifact::documentation + status::in-progress + impact::mediu
 
 ## 影響 / Impact
 - 波及範囲、想定されるメリット/デメリット
+
+## 受け入れ基準 / Acceptance Criteria
+- 完了判定に必要な条件をチェックリストで記載
 
 ## 次のアクション / Next Actions
 - 決定が必要なこと、作業オーナー、期限の目安

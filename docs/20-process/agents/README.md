@@ -29,6 +29,7 @@ AIエージェントが YokaKit Studio のコンテキストを効率的に参�
 ## Workflow Agreements
 - **ブランチ命名:** フレームワーク関連は `framework/<issue-number>-<slug>`、機能開発は `feature/<slug>` を原則とする。
 - **Issue ファースト:** すべての変更はIssueを起点とし、`status::triage`→`status::ready`→`status::in-progress`→`status::in-review`→`status::done` の遷移を意識して進める。
+- **テンプレート活用:** Issue を起票する際は `.github/ISSUE_TEMPLATE/` のテンプレート（framework_task / feature_request / bug_report）を用いる。
 - **PR必須:** `10-governance/framework/README.md` に記載されたレビューフローを遵守し、Draft PR でも議論を開始する。
 
 ## AI-DLC Execution
