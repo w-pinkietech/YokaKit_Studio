@@ -43,4 +43,4 @@ next_actions:
 
 ## Links
 - PR: https://github.com/w-pinkietech/YokaKit_Studio/pull/38
-- plans.md: plans.md
+- plans.md: records/by-pr/38-issue-linkage/plans.md
