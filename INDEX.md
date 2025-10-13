@@ -11,10 +11,15 @@ YokaKit Studio リポジトリ全体のドキュメントと主要ディレク�
 - [scripts/](scripts/) — 自動化スクリプト。使用前にガイドラインを確認する。
 
 ## ドキュメントカテゴリ
-- [docs/documentation-governance/README.md](docs/documentation-governance/README.md) — ドキュメント運用ルール。
-- [docs/framework-governance.md](docs/framework-governance.md) — Issue / PR ガバナンスとラベル戦略。
-- [docs/development-process.md](docs/development-process.md) — AI-DLC プロセス詳細。
-- [docs/claude-code.md](docs/claude-code.md) — Claude ツールのセットアップと運用。
+- [docs/policy/README.md](docs/policy/README.md) — ポリシー全体の概要。
+- [docs/00-foundation/documentation/README.md](docs/00-foundation/documentation/README.md) — ドキュメントルールとSOP。
+- [docs/policy/framework/README.md](docs/policy/framework/README.md) — Issue / PR ガバナンスとラベル戦略。
+- [docs/process-guides/README.md](docs/process-guides/README.md) — プロセスガイド全体の概要。
+- [docs/process-guides/development/README.md](docs/process-guides/development/README.md) — AI-DLC プロセス詳細。
+- [docs/process-guides/agents/README.md](docs/process-guides/agents/README.md) — エージェント向け実務ガイド。
+- [docs/tooling/README.md](docs/tooling/README.md) — ツールカテゴリ全体の概要。
+- [docs/tooling/claude/README.md](docs/tooling/claude/README.md) — Claude ツールのセットアップと運用。
+- [docs/reference/README.md](docs/reference/README.md) — 恒久的リファレンス資料のハブ。
 
 ## 運用メモ
 - 新しいドキュメントやディレクトリを追加した場合は、本ファイルと対応する INDEX / README / AGENTS を同時に更新する。
