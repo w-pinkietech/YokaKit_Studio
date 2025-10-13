@@ -1,9 +1,9 @@
-# Exec Plan: docs レイヤーモデル整合（Foundation→Governance→Process→…）
+# Exec Plan: docs レイヤーモデル整合（第二版：レイヤーディレクトリ採用）
 
 ## 目的 / ゴール
-- `docs/README.md` に定義されたレイヤー（00 Foundation / 10 Governance / 20 Process / 30 Architecture / 40 Reference / 50 Tooling / 60 Templates）に沿って、既存ドキュメントを再配置・整理する。
-- Hub（README/INDEX/AGENTS）と各サブカテゴリの導線を一貫化し、リンク切れをゼロにする。
-- 完了定義（Done）：レイヤーの過不足がない状態で全主要リンクが有効、重複・旧来ファイルは削除または移設とリダイレクト注記済み。
+- レイヤーディレクトリ（`10-governance/`, `20-process/`, `30-architecture/`, `40-reference/`, `50-tooling/`, `60-templates/`）を導入し、全ドキュメントを再配置する。
+- Hub（README/INDEX/AGENTS）と相互リンクを新構成に合わせて更新、リンク切れを 0 にする。
+- 完了定義（Done）：新レイヤーディレクトリ配下に整理済み、主要導線更新済み、リンクスイープで0件。
 
 ## 範囲 / 非範囲
 - 対象：`docs/` 配下の構造・文書リンクの整合、Hub/INDEX/AGENTSの更新、不要ドキュメントの整理。
@@ -59,29 +59,18 @@
 ## 進捗状況（Checklist）
 - [x] スパイク / 調査（docsツリー・ハブ確認、exec-plan追加）
 - [x] レイヤー別マッピング表の作成（現状→移設先）
-- [ ] ファイル移設・不要ファイル整理（削除/統合/注記）
-- [x] Hub/INDEX/AGENTS の導線更新（相互リンク統一・policy表現修正・Architecture注記）
+- [x] レイヤーディレクトリへの再配置（git mv）
+- [x] Hub/INDEX/AGENTS の導線更新（新パスへ）
 - [x] リンクスイープ（テンプレ除外）で切れを0件にする
 - [x] 表現ゆれの軽量統一（Rules / SOP 等）
 - [ ] 最終レビュー（自己チェック）
 
 ## 実行計画（Plan）
-1. 現状棚卸し（完了ファイル含む）
-   - docs配下のディレクトリ・ファイル一覧を取得し、レイヤー案内（docs/README.md）と差分を洗い出す。
-   - 重複or旧版候補を抽出（例：`docs/documentation-governance.md` など）。
-2. レイヤー別マッピング表の作成
-   - Foundation（00-foundation/...）: documentation/aidlc のルール＆SOPに統合。重複は移設・注記。
-   - Governance（policy/framework/）: 方針文書以外の紛れ（古いoverview等）がないか確認。
-   - Process（process-guides/）: agents/development/exec-plan の3本柱に導線統一。
-   - Reference / Tooling / Templates: ハブと相互リンク確認。
-3. 実施（移設・統合・削除）
-   - ファイル移動時は、移動元に1～2行の移設注記を追記するか、リンク更新で完全置換（選択基準はDisposability）。
-   - ハブ（docs/README.md, docs/INDEX.md, 各README/INDEX/AGENTS）からのリンクを更新。
-4. 検証
-   - `rg --pcre2 "\]\([^)]*\)" docs` 等でリンク先の存在を確認（スタブ不可）。
-   - 主要エントリ（ルートREADME, AGENTS, docs/README.md）からの導線を手動チェック。
-5. 仕上げ
-   - TODO/残件のIssue化は本Plan完了後に行う（本Plan内には残件を箇条書き）。
+1. ディレクトリ再配置（完了）
+2. ハブ/索引の更新（完了）
+3. 相対リンクの一括書換とスイープ（完了・テンプレ除外）
+4. 最終レビュー（語句ゆれ/索引の重複/案内の明確化）
+5. Plan のスナップショット保存（records/by-pr）
 
 ## 決定ログ（Decision Log）
 - 2025-10-14: Exec Plan の常設ドキュメントは Process 層（`docs/process-guides/exec-plan.md`）に配置し、雛形は Templates に置く方針を採用。
