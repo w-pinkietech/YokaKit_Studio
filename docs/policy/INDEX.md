@@ -7,13 +7,9 @@
   - `framework/README.md` — Issue/PR/ラベル運用のガイドライン
   - `framework/AGENTS.md` — AIエージェント向けチェックリスト
   - `framework/INDEX.md` — フレームワーク関連ポリシーの索引
-- **Documentation**: `documentation/`
-  - `documentation/README.md` — ドキュメント統制の概要
-  - `documentation/AGENTS.md` — AIエージェント向け文書整備手順
-  - `documentation/INDEX.md` — スタイルガイド・更新手順の索引
 
 ## ライフサイクルレイヤ
-- `stable/`: 現行の必須ポリシー（初期セットは `framework/` と `documentation/` が対象）
+- `stable/`: 現行の必須ポリシー（初期セットは `framework/` が対象）
 - `iterative/`: ボルト単位で検証・更新が必要な補足（必要になり次第追加）
 - `archive/`: 廃止済みポリシーの保管場所（追加時は README からリンクを外す）
 

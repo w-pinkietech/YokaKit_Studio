@@ -11,12 +11,11 @@
 | パス | 役割 | 備考 |
 |------|------|------|
 | `framework/` | フレームワーク運用ポリシー（Issue/PR/ラベル運用など） | 旧 `docs/framework-governance.md` を移管。 |
-| `documentation/` | ドキュメント統制・スタイルガイド | 旧 `docs/documentation-governance/` を移管。 |
 
 > 追加のポリシー領域が生じた場合は、本 README に追記し、`README/AGENTS/INDEX` の三点セットを整備してください。
 
 ## 関連資料
-- [ドキュメント ルール集](../00-foundation/documentation/rules.md)
-- [ドキュメント標準手順書](../00-foundation/documentation/standard-procedures.md)
+- [ドキュメント ルール集（Foundation）](../00-foundation/documentation/rules.md)
+- [ドキュメント標準手順書（Foundation）](../00-foundation/documentation/standard-procedures.md)
 - [docs/README.md](../README.md)
 - [docs/INDEX.md](../INDEX.md)

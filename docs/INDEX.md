@@ -5,7 +5,7 @@
 > 編集方針: ドキュメントはレイヤーモデル（Foundation→Governance→Process→…）で整理します。詳細は `docs/README.md` の「ドキュメントのレイヤー（編集方針）」を参照してください（Issue #16）。
 
 ## ハイレベルカテゴリ
-- [policy/](policy/README.md) — ポリシー集約（フレームワーク運用・ドキュメント統制など）。
+- [policy/](policy/README.md) — ポリシー集約（フレームワーク運用）。
 - [00-foundation/](00-foundation/README.md) — レイヤー00: 不変原則・SOP（documentation など）。
 - [policy/framework/](policy/framework/README.md) — Issue / PR ガバナンス、ラベル運用。
 - [00-foundation/documentation/](00-foundation/documentation/README.md) — ドキュメントルールと標準手順。
