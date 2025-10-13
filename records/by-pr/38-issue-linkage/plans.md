@@ -1,3 +1,8 @@
+# Exec Plan Snapshot (2025-10-14 05:40:22)
+
+> branch: framework/35-issue-linkage  commit: 02b7a86
+
+---
 # Exec Plan: framework issue linkage automation
 
 > 使い方（雛形：Deferred GitHub Ops 推奨）
@@ -67,8 +72,8 @@
 1. [x] PR テンプレートに Related Issues セクションを追加しチェックボックス要件を整備
 2. [x] PR 作成補助スクリプト（or docs）で `Closes #<n>` の自動挿入を実装し、利用方法を記載
 3. [x] Agents / Exec Plan / Framework docs に Issue 連携必須手順を反映
-4. [ ] records に plans.md を保存（`bash scripts/records/archive_plan.sh <pr-number> <slug>` を実行し、`records/by-pr/<pr>-issue-linkage>/plans.md` と `summary.md` のリンクを確認）
-5. [ ] records/by-pr/<pr>-issue-linkage/summary.md に作業内容を記述（Summary / Key Points / Decisions / Links を反映）
+4. [x] records に plans.md を保存（`bash scripts/records/archive_plan.sh <pr-number> <slug>` を実行し、`records/by-pr/<pr>-issue-linkage>/plans.md` と `summary.md` のリンクを確認）
+5. [x] records/by-pr/<pr>-issue-linkage/summary.md に作業内容を記述（Summary / Key Points / Decisions / Links を反映）
 6. [ ] records への保存後、ブランチ上の `plans.md` を削除（PR 差分から除外）
 
 ## Cross-Repository（必要時）
@@ -77,7 +82,8 @@
 | <name> | <framework/<issue>-<slug>> | <1/2/…> | 依存やゲートのメモ |
 
 ## 次アクション
-- [ ] `gh pr create --draft --body-file PR_DRAFT.md --title "[framework] <title>"` を実行し、PR 番号確定後に records 要約・plans アーカイブを進める。
+- [ ] `shellcheck` が利用可能になったら `scripts/exec_plan/prepare_pr_body.sh` を lint する。
+- [ ] `plans.md` を削除し PR 差分から除外する（マージ準備時）。
 
 ---
 メモ
