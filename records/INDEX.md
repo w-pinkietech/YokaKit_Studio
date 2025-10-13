@@ -4,6 +4,7 @@
 
 ## Pull Requests（原則ここに集約）
 - [#17 foundation reorg](by-pr/17-foundation-reorg/summary.md)
+- [#18 records hub](by-pr/18-records-hub/summary.md)
 
 ## Issues（例外: 長期議論の合意待ち時のみ）
 - （必要時に追加）
