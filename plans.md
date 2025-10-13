@@ -58,7 +58,7 @@
 
 ## 進捗状況（Checklist）
 - [x] スパイク / 調査（docsツリー・ハブ確認、exec-plan追加）
-- [ ] レイヤー別マッピング表の作成（現状→移設先）
+- [x] レイヤー別マッピング表の作成（現状→移設先）
 - [ ] ファイル移設・不要ファイル整理（削除/統合/注記）
 - [ ] Hub/INDEX/AGENTS の導線更新（相互リンク統一）
 - [ ] リンクスイープ（rg）で切れを0件にする
@@ -84,6 +84,7 @@
 
 ## 決定ログ（Decision Log）
 - 2025-10-14: Exec Plan の常設ドキュメントは Process 層（`docs/process-guides/exec-plan.md`）に配置し、雛形は Templates に置く方針を採用。
+- 2025-10-14: `docs/documentation-governance.md` は重複のため削除。Foundation 配下の documentation に一本化。
 
 ## 発見と驚き（Findings）
 - `docs/documentation-governance.md` が残存している。Foundation配下へ統合または削除の検討が必要。
