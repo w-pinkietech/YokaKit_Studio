@@ -82,7 +82,7 @@
 | <name> | <framework/<issue>-<slug>> | <1/2/…> | 依存やゲートのメモ |
 
 ## 次アクション
-- [ ] `shellcheck` が利用可能になったら `scripts/exec_plan/prepare_pr_body.sh` を lint する。
+- [x] `shellcheck` が利用可能になったら `scripts/exec_plan/prepare_pr_body.sh` を lint する。
 
 ---
 メモ
