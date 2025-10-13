@@ -48,3 +48,18 @@
 - 相対リンク検査: `rg -n "\[[^\]]+\]\((?!https?://)[^)]+\)" docs`
 - ツリー生成: `tree -a -F -I ".git|.DS_Store|node_modules|dist" docs`
 - TODO 検出: `rg -n "TODO|FIXME|TBD" docs`
+
+### 5. Cross-Repository Changes（複数リポ横断）
+事前
+- 権限/トークン/CI 実行可否の確認（対象リポすべて）。
+- ブランチ命名の統一（例: `framework/<issue>-<slug>` または `feature/<slug>`）。
+- PR 接頭辞の統一（例: `[change-pkg:#<issue>]`）。
+
+実行
+- リポ別に単体テスト/ビルドを確認 → 最低1本の統合検証を実施。
+- 変更順序（例: backend → frontend）を定義し、互換性のある状態で段階的にマージ。
+
+終了
+- すべての PR がマージされ、必要なタグ/リリース/通知が完了。
+- `records/` に Change Package の要約を追加（`records/packages/`）。
+- `records/INDEX.md` にリンクを追記。
