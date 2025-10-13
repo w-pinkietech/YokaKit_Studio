@@ -20,7 +20,7 @@
 
 ## 作業プロトコル
 1. 対象となるポリシー領域（framework / 追加予定カテゴリなど）を特定する。
-2. フレームワーク関連変更は、[#12](../../issues/12) で定義された再編方針に沿って Issue → ブランチ → PR の順で進める。
+2. フレームワーク関連変更は、[Issue #12](https://github.com/w-pinkietech/YokaKit_Studio/issues/12) で定義された再編方針に沿って Issue → ブランチ → PR の順で進める。
 3. ライフサイクルが `stable` とされているファイルは、必ず Issue で合意形成してから更新する。
 4. 参照リンクを追加・更新したら、`docs/README.md` と `docs/INDEX.md` を忘れずに同期する。
 

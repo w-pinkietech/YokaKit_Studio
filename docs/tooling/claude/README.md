@@ -75,7 +75,7 @@ claude login
 - [docs/policy/framework/README.md](../../policy/framework/README.md) — スラッシュコマンドテンプレート運用セクション
 - [docs/process-guides/agents/README.md](../../process-guides/agents/README.md) — エージェント向けのコマンドリファレンス
 - [`README.md`](../../README.md) — Commands Reference セクション
-- [.claude/commands/](../../.claude/commands/) — テンプレート本体
+- [.claude/commands/](../../../.claude/commands/) — テンプレート本体
 
 ---
 
