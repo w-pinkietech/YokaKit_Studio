@@ -36,7 +36,6 @@
 - AIエージェント向けクイックスタート: [../AGENTS.md](../AGENTS.md)
 - AIエージェント向け詳細ガイド: [process-guides/agents/README.md](process-guides/agents/README.md)
 - リファレンスハブ: [reference/README.md](reference/README.md)
-- ※ `AGENTS.md` は AI への行動指示、`INDEX.md` はディレクトリ全体の索引として機能する。
 
 ## ドキュメントのレイヤー（編集方針）
 本リポジトリのドキュメントは、以下のレイヤーモデルに準拠して整理・編集します（Issue #16）。
