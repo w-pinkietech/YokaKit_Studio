@@ -11,6 +11,7 @@
 - 2) プラン初稿を作成し、必要なら人間レビューで合意
 - 3) Issue/PR（Draft）作成 → PR番号 `<n>` と `slug` を決め、records 要約を生成して PR 本文にリンク
   - `bash scripts/records/new_pr_summary.sh <n> <slug> --issue <issue> --repo-url https://github.com/<org>/<repo> --author @<you>`
+  - `scripts/exec_plan/prepare_pr_body.sh --issue ${ISSUE} --output PR_DRAFT.md` でPR本文を生成し、`gh pr create --draft --body-file PR_DRAFT.md` で Draft PR を起票（ready の場合は `--draft` を外す）
 - 4) 実装しながら `plans.md` の進捗/決定ログを更新
 - 5) マージ前: `bash scripts/records/archive_plan.sh <n> <slug>` で `records/by-pr/<n>-<slug>/plans.md` にスナップショットを保存（summary にリンクも追記）
   - `records/by-pr/<n>-<slug>/summary.md` に作業内容（Summary / Key Points / Decisions / Links）を記述し、PR本文と整合を取る
@@ -39,6 +40,9 @@ cp docs/60-templates/exec-plan.md plans.md
 # PR要約の作成（再実行可: idempotent）
 bash scripts/records/new_pr_summary.sh ${PR} ${SLUG} --issue ${ISSUE} \
   --repo-url ${REPO} --author ${AUTHOR}
+# PR本文の自動生成と Draft PR 起票（ready の場合は --draft を外す）
+scripts/exec_plan/prepare_pr_body.sh --issue ${ISSUE} --output PR_DRAFT.md
+gh pr create --draft --body-file PR_DRAFT.md --title "[framework] <title>"
 
 # Plan の保存（マージ前に1回実行）
 bash scripts/records/archive_plan.sh ${PR} ${SLUG}
@@ -51,6 +55,7 @@ To-Do（Exec Plan）
 - [ ] 計画の雛形をコピー（plans.md 作成）
 - [ ] プラン初稿を作成・合意（レビュー）
 - [ ] Issue/PR（Draft）を作成し、PR 要約を生成（records/by-pr/<pr>-<slug>/summary.md）
+- [ ] `scripts/exec_plan/prepare_pr_body.sh` で `PR_DRAFT.md` を生成し、Related Issues セクションに `Closes #<n>` を挿入
 - [ ] 実装しながら plans.md を更新（進捗/決定/リスク）
 - [ ] マージ前に Plan を保存（archive_plan.sh で plans.md をスナップショット）
 - [ ] summary.md に作業内容を記述（Summary / Key Points / Decisions / Links を反映）
@@ -59,6 +64,7 @@ To-Do（Exec Plan）
 ## Immediate Checklist
 - 対応する Issue が存在し、状況ラベル（`track::framework` など）が整備されているか確認する。
 - 現在のブランチ命名規則とPRフローを [docs/10-governance/framework/README.md](docs/10-governance/framework/README.md) で確認する。
+- Draft PR を作成する前に `scripts/exec_plan/prepare_pr_body.sh` で Related Issues セクションに `Closes #<n>` が入っていることを確認する。
 - 作業対象の文脈（Intent, ADR, Domain Designなど）を `.aidlc/contexts/` から読み込み、変更理由を明確にする。
 - 変更後はテストや検証ステップを実行し、結果を記録する。
 - `gh auth status` やトークン設定を確認し、GitHub API へのアクセスが可能な状態にする。

@@ -36,6 +36,13 @@ cp docs/60-templates/exec-plan.md plans.md
 bash scripts/records/new_pr_summary.sh <pr> <slug> --issue <n> \
   --repo-url https://github.com/<org>/<repo> --author @<you>
 ```
+```
+# Related Issues セクションを自動で埋めた PR 本文を生成
+scripts/exec_plan/prepare_pr_body.sh --issue <n> --output PR_DRAFT.md
+# Draft のまま PR を開く場合の例（ready の場合は --draft を外す）
+gh pr create --draft --body-file PR_DRAFT.md --title "[framework] <title>"
+```
+> `--issue` は複数回指定でき、`--issues 12,34` のようにまとめて渡すことも可能です。生成された `PR_DRAFT.md` はそのまま編集してから `gh pr create` に渡せます。
 
 4) 実装しながら `plans.md` を随時更新（進捗/決定ログ/リスク）
 5) マージ前に `plans.md` をスナップショットとして保存

@@ -124,6 +124,7 @@ GitHub では `.github/ISSUE_TEMPLATE/` 配下に以下のテンプレートを�
 
 3. **PR 作成時の要件**  
    - タイトル冒頭に `[framework]` を付け、関連 Issue を `Closes #<issue>` でリンク。  
+   - PR 本文には `## Related Issues` セクションを設け、`Closes #<issue>` を明記する（`scripts/exec_plan/prepare_pr_body.sh --issue <n>` で自動生成可）。  
    - 変更概要、影響範囲、検証手順（必要ならDry-runコマンド等）を記載。
 
 4. **レビュー & 承認**  

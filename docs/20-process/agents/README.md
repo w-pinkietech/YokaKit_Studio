@@ -31,6 +31,7 @@ AIエージェントが YokaKit Studio のコンテキストを効率的に参�
 - **Issue ファースト:** すべての変更はIssueを起点とし、`status::triage`→`status::ready`→`status::in-progress`→`status::in-review`→`status::done` の遷移を意識して進める。
 - **テンプレート活用:** Issue を起票する際は `.github/ISSUE_TEMPLATE/` のテンプレート（framework_task / feature_request / bug_report）を用いる。
 - **PR必須:** `10-governance/framework/README.md` に記載されたレビューフローを遵守し、Draft PR でも議論を開始する。
+- **PR本文:** Draft PR 作成前に `scripts/exec_plan/prepare_pr_body.sh --issue <n>` を実行し、Related Issues セクションへ `Closes #<n>` を自動挿入する（GitHub UI で作成する場合も同等の内容を必ず記入）。
 
 ## AI-DLC Execution
 AI-DLC プロセスに沿って作業することが必須です。より詳しい手順は [development guide](../development/README.md) を参照しつつ、下記の要点を確認してください。
@@ -72,13 +73,14 @@ AI-DLC プロセスに沿って作業することが必須です。より詳し�
 ## Command & Script Reference
 - `scripts/setup_labels.sh <owner/repo>`: ラベルの同期。実行前に `GITHUB_TOKEN` または `GH_TOKEN` を設定。
 - `scripts/exec_plan/bootstrap.sh --slug <slug>`: Exec Plan 着手時に紐づく Issue を自動検出/作成。`--title` を指定すると未存在時に新規作成。
+- `scripts/exec_plan/prepare_pr_body.sh --issue <n>`: PR テンプレートを下書きし、Related Issues セクションに `Closes #<n>` を自動挿入する。Draft PR 作成前に実行。
 - `gh auth status`: GitHub CLI の認証状態を確認。エラーがあれば再ログイン。
 - `git submodule status`: 参照・コード出力リポジトリの現在のコミットを確認。
 - `bash scripts/verify_submodules.sh`: サブモジュールの参照コミットがガバナンス違反になっていないか検証。
 - `/constitution`, `/inception`, `/construction` などのスラッシュコマンドは Claude のチャット上で実行する。必要なコマンドが表示されない場合は `.claude/commands/<name>.md` を新規作成または更新する。テンプレート整備手順は [docs/10-governance/framework/README.md](../../10-governance/framework/README.md#スラッシュコマンドテンプレート運用) と [docs/50-tooling/claude/README.md](../../50-tooling/claude/README.md) を参照。
 
 ## Pull Request Checklist
-1. 変更に紐づく Issue を `Closes #<n>` でリンクしたか。
+1. Related Issues セクションに `Closes #<n>` を記載したか（`scripts/exec_plan/prepare_pr_body.sh` の出力を活用）。
 2. フレームワーク関連の場合、タイトルに `[framework]` を付与したか。
 3. 主要ファイル・行番号を記載した説明を提供したか。
 4. テスト/検証ステップを実施し、結果を記述したか。
