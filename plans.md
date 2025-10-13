@@ -63,7 +63,7 @@
 - [x] Hub/INDEX/AGENTS の導線更新（新パスへ）
 - [x] リンクスイープ（テンプレ除外）で切れを0件にする
 - [x] 表現ゆれの軽量統一（Rules / SOP 等）
-- [ ] 最終レビュー（自己チェック）
+- [x] 最終レビュー（自己チェック）
 
 ## 実行計画（Plan）
 1. ディレクトリ再配置（完了）
@@ -75,6 +75,7 @@
 ## 決定ログ（Decision Log）
 - 2025-10-14: Exec Plan の常設ドキュメントは Process 層（`docs/process-guides/exec-plan.md`）に配置し、雛形は Templates に置く方針を採用。
 - 2025-10-14: `docs/documentation-governance.md` は重複のため削除。Foundation 配下の documentation に一本化。
+- 2025-10-14: レイヤーディレクトリ（10/20/30/40/50/60）採用で docs 配下の再配置を完了（リンク切れ 0 件確認）。
 
 ## 発見と驚き（Findings）
 - `docs/documentation-governance.md` が残存している。Foundation配下へ統合または削除の検討が必要。
