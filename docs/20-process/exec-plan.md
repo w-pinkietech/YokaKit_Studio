@@ -14,6 +14,16 @@ Exec Plan は、複雑な作業を「計画→実装→検証→記録」で進�
 - 設計判断（採用/却下）を記録して後方参照したい場合
 
 ## 手順（標準フロー）
+0) Issue の確認 / 自動作成
+```
+ISSUE_LINE=$(scripts/exec_plan/bootstrap.sh --slug <slug> --filter-label track::framework \
+  --title "[framework] <title>" --labels "track::framework,artifact::<type>,status::triage" \
+  --repo <owner/repo>)
+```
+- 既存ブランチ名から Issue 番号を逆引きし、未登録の場合は GitHub を検索して紐づく Issue を特定します。
+- `--title` を指定すると Issue が見つからない場合に自動で作成されます（Dry-run したい場合は `--dry-run` を付与）。
+- 出力される `ISSUE=<number>` を Exec Plan とブランチ命名に反映してください。
+
 1) 雛形の設置（作業ブランチ直下）
 ```
 cp docs/60-templates/exec-plan.md plans.md
@@ -33,9 +43,16 @@ bash scripts/records/new_pr_summary.sh <pr> <slug> --issue <n> \
 bash scripts/records/archive_plan.sh <pr> <slug>
 ```
 → `records/by-pr/<pr>-<slug>/plans.md` が作成され、`summary.md` にリンクが追記されます。
+- スナップショット取得後はブランチ上の `plans.md` を削除し、最終差分から除外します。
 
 補足（Deferred GitHub Ops）
 - 小さな作業や即時性が高い場合は、従来どおり最初に Draft PR を作成しても良いが、基本は「プラン初稿→合意→Issue/PR 生成」を推奨する。
+
+### bootstrap.sh の詳細
+- 既存 Issue が複数検出された場合は一覧を表示して処理を停止します。タイトルやラベルを調整したうえで再実行してください。
+- Branch 名が `framework/<issue-number>-<slug>` 形式であれば Issue 番号を自動認識します。
+- `--labels` はカンマ区切りで指定します（例: `"track::framework,artifact::documentation,status::triage,lifecycle::draft"`）。
+- Issue を新規作成した場合は、出力された番号を `plans.md` の「参照」欄とブランチ名に反映して整合を取ります。
 
 ## plans.md の構成（必須要素）
 - 目的/ゴール（Doneの定義）

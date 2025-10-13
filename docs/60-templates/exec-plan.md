@@ -8,10 +8,14 @@
 > ```bash
 > set -euo pipefail
 > ISSUE=<n>; SLUG=<slug>; PR=<pr>; REPO=https://github.com/<org>/<repo>; AUTHOR=@you
+> scripts/exec_plan/bootstrap.sh --slug ${SLUG} --filter-label track::framework \
+>   --title "[framework] <title>" --labels "track::framework,artifact::<type>,status::triage,lifecycle::draft" \
+>   --repo ${REPO}
 > cp docs/60-templates/exec-plan.md plans.md
 > bash scripts/records/new_pr_summary.sh ${PR} ${SLUG} --issue ${ISSUE} --repo-url ${REPO} --author ${AUTHOR}
 > # 作業…
 > bash scripts/records/archive_plan.sh ${PR} ${SLUG}
+> rm plans.md
 > ```
 
 ## 目的 / ゴール
@@ -21,7 +25,7 @@
 - 対象、含めないもの、既知の前提・制約。
 
 ## 参照 / コンテキスト
-- Issue: #<n>
+- Issue: #<n>（`scripts/exec_plan/bootstrap.sh --slug <slug> ...` の結果を記載）
 - ADR / 設計: `.aidlc/contexts/<id>/construction/logical-design/adr/...`
 - 関連Docs: `docs/...`
  - PR: https://github.com/<org>/<repo>/pull/<pr>
@@ -58,6 +62,7 @@
 3. [ ] ...
 4. [ ] records に plans.md を保存（`bash scripts/records/archive_plan.sh <pr-number> <slug>` を実行し、`records/by-pr/<pr>-<slug>/plans.md` と `summary.md` のリンクを確認）
 5. [ ] records/by-pr/<pr>-<slug>/summary.md に作業内容を記述（Summary / Key Points / Decisions / Links を反映）
+6. [ ] records への保存後、ブランチ上の `plans.md` を削除（PR 差分から除外）
 
 ## Cross-Repository（必要時）
 | Repo | Branch | Order | Notes |
@@ -69,5 +74,5 @@
 
 ---
 メモ
-- 本ファイルは作業ブランチ（短命文書）。マージ後は PR（records/by-pr）から参照可能にする。
+- 本ファイルは作業ブランチ（短命文書）。`archive_plan.sh` で保存した後はブランチから削除し、PR（records/by-pr）から参照可能にする。
 - records の要約には本ファイル（plans.md）へのリンクを追加する。

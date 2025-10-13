@@ -70,6 +70,7 @@ AI-DLC プロセスに沿って作業することが必須です。より詳し�
 
 ## Command & Script Reference
 - `scripts/setup_labels.sh <owner/repo>`: ラベルの同期。実行前に `GITHUB_TOKEN` または `GH_TOKEN` を設定。
+- `scripts/exec_plan/bootstrap.sh --slug <slug>`: Exec Plan 着手時に紐づく Issue を自動検出/作成。`--title` を指定すると未存在時に新規作成。
 - `gh auth status`: GitHub CLI の認証状態を確認。エラーがあれば再ログイン。
 - `git submodule status`: 参照・コード出力リポジトリの現在のコミットを確認。
 - `bash scripts/verify_submodules.sh`: サブモジュールの参照コミットがガバナンス違反になっていないか検証。

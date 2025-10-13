@@ -31,10 +31,11 @@
 - 配置: 作業ブランチ直下 `plans.md`（リポジトリルート）。
 - 構成: 目的/範囲、進捗チェックボックス、決定ログ、リスク、次アクション。
 - 更新: 作業の前後で「進捗」「決定ログ」を必ず更新する。
-- 終了: マージ時点で `plans.md` はそのまま残し、PR 要約（records）にリンクを記録。
+- 終了: `bash scripts/records/archive_plan.sh <pr> <slug>` で記録したら、ブランチ上の `plans.md` は削除する（records にスナップショットが残る）。
 
 テンプレート
 - ひな型: `docs/60-templates/exec-plan.md` をコピーして `plans.md` を作成。
+- Issue 確認: `scripts/exec_plan/bootstrap.sh --slug <slug> --filter-label track::framework --title "[framework] <title>"` で紐づく Issue を自動検出/作成。
 
 補助コマンド例
 - 継続テスト: `watch -n 1 "npm test"` / `cargo test` 等

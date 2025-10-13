@@ -6,13 +6,15 @@
 最初に以下の手順で「計画→実装→記録」を動かしてください。詳細は [docs/20-process/exec-plan.md](docs/20-process/exec-plan.md) と [docs/20-process/agents/AGENTS.md](docs/20-process/agents/AGENTS.md) を参照。
 
 - 0) 前提（推奨）: `set -euo pipefail` を使い失敗時に即中断。
+- 0.5) Issue チェック: `scripts/exec_plan/bootstrap.sh --slug <slug> --filter-label track::framework --title "[framework] <title>"` で既存 Issue を検出/必要なら生成。
 - 1) 計画作成: `cp docs/60-templates/exec-plan.md plans.md`（ブランチ直下に配置）
 - 2) プラン初稿を作成し、必要なら人間レビューで合意
 - 3) Issue/PR（Draft）作成 → PR番号 `<n>` と `slug` を決め、records 要約を生成して PR 本文にリンク
   - `bash scripts/records/new_pr_summary.sh <n> <slug> --issue <issue> --repo-url https://github.com/<org>/<repo> --author @<you>`
 - 4) 実装しながら `plans.md` の進捗/決定ログを更新
 - 5) マージ前: `bash scripts/records/archive_plan.sh <n> <slug>` で `records/by-pr/<n>-<slug>/plans.md` にスナップショットを保存（summary にリンクも追記）
- - 5) 要約更新: `records/by-pr/<n>-<slug>/summary.md` に作業内容（Summary / Key Points / Decisions / Links）を記述し、PR本文と整合を取る
+  - `records/by-pr/<n>-<slug>/summary.md` に作業内容（Summary / Key Points / Decisions / Links）を記述し、PR本文と整合を取る
+- 6) アーカイブ後の後片付け: ブランチ上の `plans.md` を削除し、PR を ready → merge。
 
 Quick commands（雛形・変数化）
 ```
@@ -22,6 +24,11 @@ SLUG=layered-docs
 PR=21
 REPO=https://github.com/<org>/<repo>
 AUTHOR=@you
+
+# Issue検出/自動作成
+scripts/exec_plan/bootstrap.sh --slug ${SLUG} --filter-label track::framework \
+  --title "[framework] <title>" --labels "track::framework,artifact::process,status::triage,lifecycle::draft" \
+  --repo ${REPO}
 
 # ブランチ作成（例）
 git checkout -b framework/${ISSUE}-${SLUG}
@@ -35,6 +42,9 @@ bash scripts/records/new_pr_summary.sh ${PR} ${SLUG} --issue ${ISSUE} \
 
 # Plan の保存（マージ前に1回実行）
 bash scripts/records/archive_plan.sh ${PR} ${SLUG}
+
+# 後片付け（記録済みの plans.md を削除）
+rm plans.md
 ```
 
 To-Do（Exec Plan）
@@ -44,6 +54,7 @@ To-Do（Exec Plan）
 - [ ] 実装しながら plans.md を更新（進捗/決定/リスク）
 - [ ] マージ前に Plan を保存（archive_plan.sh で plans.md をスナップショット）
 - [ ] summary.md に作業内容を記述（Summary / Key Points / Decisions / Links を反映）
+- [ ] 記録完了後、ブランチ上の `plans.md` を削除（PRに残らないよう整備）
 
 ## Immediate Checklist
 - 対応する Issue が存在し、状況ラベル（`track::framework` など）が整備されているか確認する。

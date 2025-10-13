@@ -63,6 +63,7 @@
 - `docs/20-process/agents/README.md` に詳細な `status::` 記述は無く、今回の変更はフレームワークガバナンス文書側で完結できた。
 - `GITHUB_TOKEN=dummy ./scripts/setup_labels.sh example/example --dry-run` で新ラベル定義の生成内容を確認し、想定どおりに出力されることを確認。
 - Draft PR 素案 `PR_DRAFT.md` と records summary (`records/by-pr/22-status-label-flow/summary.md`) を準備し、残タスクを明確化できた。
+- Exec Plan 着手時に Issue を自動検出・生成できるよう `scripts/exec_plan/bootstrap.sh` を整備する追加作業が必要と判明。
 
 ## リスク / 代替案
 - リスク: ラベル名称変更に伴う既存 Issue の再分類作業が発生する / 回避策: チーム告知と移行ガイドをまとめ、移行期間を設定。
@@ -85,5 +86,5 @@
 
 ---
 メモ
-- 本ファイルは作業ブランチ（短命文書）。マージ後は PR（records/by-pr）から参照可能にする。
+- 本ファイルは作業ブランチ（短命文書）。`archive_plan.sh` 実行後はブランチから削除し、PR（records/by-pr）から参照可能にする。
 - records の要約には本ファイル（plans.md）へのリンクを追加する。
