@@ -35,10 +35,12 @@ records/
 
 ## 使い方の基本
 1) PR を作成したら、テンプレートをコピーして `records/by-pr/<number>-<slug>/summary.md` を作成。
+   - コマンド例: `bash scripts/records/new_pr_summary.sh <pr-number> <slug> --issue <issue-number> --repo-url https://github.com/<org>/<repo> --author @<you>`
 2) YAML front matter を埋める：`relates_to`（Issue/PR/Commit）、`links.thread`、主要スレッドの `permalinks`、必要なら `repos`。
 3) Summary/Key Points/Links を 3〜10行で要約（全文は貼らず Permalink で誘導）。
 4) 合意事項は docs（Rules/SOP/ADR 等）に反映し、`decisions.impacts` に該当ファイルを列挙。
 5) 複数リポ横断の場合は `records/packages/` に親を作り、各 PR 要約へリンク。
+   - コマンド例: `bash scripts/records/new_package.sh <issue-number> <slug>`
 ```
 
 ## メタデータ（YAML）
