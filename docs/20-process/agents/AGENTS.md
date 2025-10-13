@@ -6,6 +6,7 @@
 
 ## 事前確認
 - [ ] 対応する Issue に `track::`, `artifact::`, `status::`, `impact::` ラベルが付与されているか。
+- [ ] Issue 起票時は `.github/ISSUE_TEMPLATE/` のテンプレート（framework / feature / bug）を利用したか。
 - [ ] 作業ブランチが `framework/<issue-number>-<slug>` 等の命名規則に従っているか。
 - [ ] `.aidlc/contexts/<id>/` で関連する Intent / Domain Design / ADR を確認したか。
 - [ ] `gh auth status` を実行し、GitHub CLI の認証が有効か確認したか。
