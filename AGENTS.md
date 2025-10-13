@@ -3,7 +3,7 @@
 このドキュメントは、AIエージェントが YokaKit Studio で作業を開始する際に最低限押さえておくべきポイントをまとめたものです。さらに詳しいガイドラインは [docs/process-guides/agents/README.md](docs/process-guides/agents/README.md) を参照してください。
 
 ## Start Here: Exec Plan 実行手順（最優先）
-最初に以下の手順で「計画→実装→記録」を動かしてください。詳細は本ファイル内の「Exec Plan クイックスタート（Step 1→4）」と「Exec Plan × records（必須運用の要点）」を参照。
+最初に以下の手順で「計画→実装→記録」を動かしてください。詳細は [docs/process-guides/agents/AGENTS.md](docs/process-guides/agents/AGENTS.md)（Exec Plan 運用 / records 連携）を参照。
 
 - 0) 前提（推奨）: `set -euo pipefail` を使い失敗時に即中断。
 - 1) 計画作成: `cp docs/templates/exec-plan.md plans.md`（ブランチ直下に配置）
@@ -84,59 +84,18 @@ YokaKit Studio での作業は AI-DLC プロセスを前提としています。
 - スクリプト・自動化: `scripts/`
 - ドキュメントハブ: [docs/README.md](docs/README.md)
 
-## Exec Plan × records（必須運用の要点）
-- Draft PR を作成したら、PR要約を作成して本文にリンクを追記する。
+## 実務メモ（最小要点）
+- Draft PR 後に records の要約を作成し、PR本文へリンク。
   - `bash scripts/records/new_pr_summary.sh <pr-number> <slug> --issue <issue-number> --repo-url https://github.com/<org>/<repo> --author @<you>`
-- 複雑な作業は作業ブランチ直下に `plans.md` を用意（短命文書）。テンプレ: `docs/templates/exec-plan.md`。
-  - 進捗（チェックボックス）と決定ログを作業の前後で必ず更新。
-  - records の要約（`records/by-pr/<pr>-<slug>/summary.md`）の Links に `plans.md` を相対リンクで記録。
-- レビューは実装とは別コンテキストで実施し、主要スレッドのPermalinkを records に追記。
-- 複数リポ横断時は、毎回PR要約に対象リポ/ブランチ/順序を列挙（カタログは任意・恒常更新不要）。
-- スクリプトは厳格モード推奨: `set -euo pipefail`（失敗を早期検知し副作用を防止）。
+- 複雑な作業は `plans.md`（テンプレ: `docs/templates/exec-plan.md`）を作業ブランチ直下に置く。
+- レビューは別コンテキストで実行し、主要スレッドの Permalink を records に追記。
+- Cross-Repo は毎回 PR 要約に対象リポ/ブランチ/順序を列挙（カタログは任意）。
+- スクリプトは厳格モード推奨: `set -euo pipefail`。
 
-最後に（Planの保存）
-- マージ前に `scripts/records/archive_plan.sh <pr-number> <slug>` を実行し、`plans.md` を `records/by-pr/<pr>-<slug>/plans.md` にスナップショット保存する。
-
-参考: 詳細は [docs/process-guides/agents/AGENTS.md](docs/process-guides/agents/AGENTS.md)（Exec Plan 運用 / records 連携）を参照。
-
-## Exec Plan クイックスタート（Step 1→4）
-Step 1: 計画を依頼（plans.md 作成）
-- 次の要領で `plans.md` を用意し、実行計画を書かせる。
-- 参考資料（仕様・ADR・設計）を添付し、統合方法の調査と詳細計画を指示。
-- 初期化コマンド例: `cp docs/templates/exec-plan.md plans.md`
-
-Step 2: plans.md の構造（例）
-```
-# Exec Plan: <タイトル>
-
-## 全体像
-取り組む機能の目的/背景と期待する振る舞い（1〜3段落）
-
-## 進捗状況
-- [ ] スパイク：XXXライブラリの調査
-- [ ] 機能実装：ストリーミングAPI
-- [ ] テスト追加
-- [ ] ドキュメント更新
-
-## 発見と驚き
-- 依存ライブラリの既知バグ / 想定外の挙動 など
-
-## 決定ログ
-YYYY-MM-DD: 採用/却下したアプローチと理由
-
-## To-Do
-1. [ ] コア機能の実装
-2. [ ] エッジケースのテスト
-3. [ ] パフォーマンス最適化
-```
-
-Step 3: 実装を実行（進捗に応じ更新）
-- `plans.md` に基づき実装し、作業の前後でチェックボックス/決定ログを更新。
-- Draft PR で開始し、records の要約に `plans.md` と主要スレッドの Permalink を追記。
-
-Step 4: Plan を records に保存（マージ前）
-- `bash scripts/records/archive_plan.sh <pr-number> <slug>` を実行し、`records/by-pr/<pr>-<slug>/plans.md` にスナップショットを保存。
-- `records/by-pr/<pr>-<slug>/summary.md` の末尾に「Plan Snapshot: plans.md」リンクが追加されていることを確認。
+## Exec Plan（詳細ガイド）
+詳細な手順・サンプル構造は、以下を参照してください。
+- 運用詳細とワークフロー: `docs/process-guides/agents/AGENTS.md`
+- ひな型: `docs/templates/exec-plan.md`
 
 ---
 詳細なワークフロー、用語集、チェックリストは [docs/process-guides/agents/README.md](docs/process-guides/agents/README.md) を必ず参照してください。
