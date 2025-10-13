@@ -21,6 +21,7 @@
 | `process-guides/development/README.md` | 人間/AI | AI-DLC の開発プロセス（TDD/ドキュメント駆動）概要。 |
 | `process-guides/agents/README.md` | AIエージェント | エージェント運用の詳細ガイド。 |
 | `reference/` | 人間/AI | 用語集・仕様・コードマッピングなど参照情報。 |
+| `reference/repos/` | 人間/AI | リポジトリカタログ（横断作業向け）。 |
 | `tooling/` | 人間/AI | ツールセットアップと運用ガイド（例: Claude）。 |
 | `tooling/claude/README.md` | 人間/AI | Claude セットアップとスラッシュコマンド運用。 |
 | `templates/` | 人間/AI | README / AGENTS / INDEX 等のテンプレート集。 |
@@ -36,6 +37,7 @@
 - AIエージェント向けクイックスタート: [../AGENTS.md](../AGENTS.md)
 - AIエージェント向け詳細ガイド: [process-guides/agents/README.md](process-guides/agents/README.md)
 - リファレンスハブ: [reference/README.md](reference/README.md)
+ - リポジトリカタログ: [reference/repos/README.md](reference/repos/README.md)
 
 ## ドキュメントのレイヤー（編集方針）
 本リポジトリのドキュメントは、以下のレイヤーモデルに準拠して整理・編集します（Issue #16）。

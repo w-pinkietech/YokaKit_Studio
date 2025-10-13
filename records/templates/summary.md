@@ -15,6 +15,17 @@ links:
   permalinks:
     - url: https://github.com/<org>/<repo>/pull/<n>#discussion_rXXXX
       note: main discussion
+repos:
+  - name: frontend
+    url: https://github.com/<org>/frontend
+    branch: feature/<slug>
+    pr: https://github.com/<org>/frontend/pull/<n>
+    commits: []
+  - name: backend
+    url: https://github.com/<org>/backend
+    branch: feature/<slug>
+    pr: https://github.com/<org>/backend/pull/<n>
+    commits: []
 decisions:
   - summary: "..."
     impacts: [docs path or module]
@@ -30,4 +41,3 @@ next_actions:
 
 ## Links
 - 本文の一次情報（Permalink）を列挙。
-
