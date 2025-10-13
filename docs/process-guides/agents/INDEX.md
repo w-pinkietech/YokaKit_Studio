@@ -14,6 +14,8 @@
 
 ## 補助資料
 - [Operations Checklist](AGENTS.md)
+- [Exec Plan 運用](AGENTS.md#exec-plan-運用plansmd)
+- [records 連携](AGENTS.md#records-連携pr要約との紐付け)
 - [Development Process](../development/README.md)
 - [Policy Framework](../../policy/framework/README.md)
 - [Process Guides Hub](../README.md)
