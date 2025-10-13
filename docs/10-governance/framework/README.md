@@ -13,7 +13,7 @@
 | `track::` | `framework` / `delivery` / `operations` | 作業の大枠。現状は `track::framework` が中心。 |
 | `artifact::` | `process` / `documentation` / `tooling` | 触れている成果物の種別。AI-DLC 固有の階層は後日分割。 |
 | `lifecycle::` | `draft` / `in-review` / `approved` | 合意プロセスの進行状況。必要な Issue のみに付与。 |
-| `status::` | `needs-decision` / `blocked` / `ready` | 次のアクションを明示。1 Issue につき 1 種類。 |
+| `status::` | `triage` / `ready` / `in-progress` / `in-review` / `done` / `blocked` | 次のアクションを明示。`blocked` は任意の段階に併用。 |
 | `impact::` | `high` / `medium` / `low` | 優先度や波及範囲の指標。 |
 
 ### 運用ルール
@@ -21,18 +21,23 @@
 - `track::framework` でフレームワーク整備 Issue を集約し、合意後に `track::delivery` へ展開。
 - `artifact::process` はワークフローや手順、`artifact::documentation` は README などの記述、`artifact::tooling` は CLI・スクリプト整備に割り当てる。
 - レビュー待ちの段階で `lifecycle::in-review`、承認されドキュメント反映が完了したら `lifecycle::approved` とする。
-- `status::needs-decision` は方針決定待ち、`status::ready` は実装・反映準備完了、`status::blocked` は外的要因待ちを示す。
+- `status::triage` は起票直後の情報整理フェーズ。必要な材料が揃い次第 `status::ready` へ更新。
+- `status::ready` は直ちに着手可能かつ担当未確定。担当するメンバーはアサインと同時に `status::in-progress` へ切り替える。
+- `status::in-progress` は作業中を示す。外的要因で停止した場合は `status::blocked` を追加で付ける。
+- `status::in-review` は成果物が揃いレビュー待ちの状態。レビューアサイン時点でこのステータスにする。
+- `status::done` はレビュー指摘を反映し、クローズ準備が整った状態。クローズ後はラベルを外す。
+- `status::blocked` はどの段階でも併用可能で、停滞理由を明示する。
 
 ### ラベル組み合わせ例
 
 ```
-track::framework + artifact::process + status::needs-decision + impact::high
+track::framework + artifact::process + status::triage + impact::high
 → Submodule 更新フローの再設計（README.md:277 を根拠に議論開始）
 
-track::framework + artifact::documentation + status::needs-decision + impact::medium
+track::framework + artifact::documentation + status::ready + impact::medium
 → スラッシュコマンド実行環境の明文化（README.md:255, 327, 451）
 
-track::framework + artifact::documentation + status::needs-decision + impact::medium
+track::framework + artifact::documentation + status::in-progress + impact::medium
 → テスト先行プロセス記述の統一（README.md:342-347 と 405-410 の整合性確認）
 ```
 
@@ -102,7 +107,7 @@ track::framework + artifact::documentation + status::needs-decision + impact::me
 
 1. **Issue を起票**  
    - 上記テンプレートとラベルを用いて背景・課題・提案を明文化。  
-   - `status::needs-decision` で開始し、方向性合意後に `status::ready` へ更新。
+   - 起票時は `status::triage`、方向性が固まったら `status::ready`。担当が着手したら `status::in-progress`、レビュー提出で `status::in-review`、最終確認完了で `status::done` へ更新。
 
 2. **ブランチ命名**  
    - `framework/<issue-number>-<slug>` 形式を推奨。例: `framework/12-label-governance`.

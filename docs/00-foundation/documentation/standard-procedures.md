@@ -3,13 +3,13 @@
 ドキュメントを更新・維持するための標準手順（Standard Operating Procedures, SOP）をまとめる。原則やスタイルは `rules.md` を参照する。
 
 ## 1. ドキュメント更新フロー
-1. Issue を起票し、`track::framework` + `artifact::documentation` を付与する（初期ステータス: `status::needs-decision`）。
+1. Issue を起票し、`track::framework` + `artifact::documentation` を付与する（初期ステータス: `status::triage`）。
 2. 合意後に `status::ready` とし、`framework/<issue-number>-<slug>` ブランチを切る。
-3. 変更予定のファイルを `rg` 等で洗い出し、三点セットや関連リンクを把握する。
+3. 作業開始時に `status::in-progress` へ更新し、変更予定のファイルを `rg` 等で洗い出し、三点セットや関連リンクを把握する。
 4. 差分を作成したらセルフレビューで誤字・表記ゆれ・リンク切れを修正する。
-5. PR タイトルに `[framework]` を付け、`Closes #<n>` 形式で Issue を関連付ける。説明には変更理由・影響範囲・検証結果を記載する。
+5. PR タイトルに `[framework]` を付け、`Closes #<n>` 形式で Issue を関連付ける。説明には変更理由・影響範囲・検証結果を記載し、レビュー依頼時に `status::in-review` へ更新する。
 6. レビューコメントは対象ドキュメントへ反映し、必要に応じて TODO / フォローアップ Issue を残す。
-7. マージ後、影響するドキュメントやテンプレートを連鎖更新し、完了を Issue で報告する。
+7. マージ後、影響するドキュメントやテンプレートを連鎖更新し、完了を Issue で報告して `status::done` に切り替える。
 
 **チェック項目**
 - [ ] 影響範囲を把握し、関連ファイルのリンクや INDEX を更新した。  

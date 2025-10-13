@@ -1,0 +1,24 @@
+# [framework] status:: ラベル運用の簡素化
+
+## 概要
+- `status::` 軸のラベルを `triage` / `ready` / `in-progress` / `in-review` / `done` / `blocked` に再編成し、作業ステータスを明瞭化。
+- 運用ルールを `docs/10-governance/framework/README.md` および関連ガイドに反映。
+- `scripts/setup_labels.sh` の同期対象を更新し、Dry-run で挙動を確認。
+
+## 影響範囲
+- ガバナンスドキュメント（`docs/10-governance/framework/README.md`）
+- エージェントガイド（`docs/20-process/agents/README.md`）
+- ドキュメント SOP（`docs/00-foundation/documentation/standard-procedures.md`）
+- ラベル同期スクリプト（`scripts/setup_labels.sh`）
+- Exec Plan（`plans.md` / `records/by-pr/0-status-label-flow/plans.md`）
+
+## 検証
+```bash
+# ラベル定義のDry-run検証
+GITHUB_TOKEN=dummy ./scripts/setup_labels.sh example/example --dry-run
+```
+
+## 参考
+- Exec Plan: `plans.md`
+- Records summary: `records/by-pr/0-status-label-flow/summary.md`
+

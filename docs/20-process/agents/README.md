@@ -28,7 +28,7 @@ AIエージェントが YokaKit Studio のコンテキストを効率的に参�
 
 ## Workflow Agreements
 - **ブランチ命名:** フレームワーク関連は `framework/<issue-number>-<slug>`、機能開発は `feature/<slug>` を原則とする。
-- **Issue ファースト:** すべての変更はIssueを起点とし、`status::needs-decision`→`status::ready`の遷移を追う。
+- **Issue ファースト:** すべての変更はIssueを起点とし、`status::triage`→`status::ready`→`status::in-progress`→`status::in-review`→`status::done` の遷移を意識して進める。
 - **PR必須:** `10-governance/framework/README.md` に記載されたレビューフローを遵守し、Draft PR でも議論を開始する。
 
 ## AI-DLC Execution
