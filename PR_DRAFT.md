@@ -1,27 +1,33 @@
-# [framework] add standardized issue templates
+## Summary
+- PR テンプレートに `## Related Issues` セクションを追加し、`Closes #<n>` の自動挿入タグを設置。
+- `scripts/exec_plan/prepare_pr_body.sh` を新規追加し、PR 本文を自動生成できるよう整備。
+- Agents/Exec Plan/Framework ドキュメントを更新し、Issue 連携必須化と新コマンドを反映。
+- records summary: `records/by-pr/38-issue-linkage/summary.md`
 
-## 概要
-- `.github/ISSUE_TEMPLATE/` に `framework_task`, `feature_request`, `bug_report` の3種類のテンプレートを追加し、背景/課題/提案/影響/受け入れ基準/次のアクションを共通化。
-- ブランチ運用ガイド（`docs/10-governance/framework/README.md`）とエージェント向けチェックリストを更新し、テンプレート活用と受け入れ基準の明記を反映。
-- `docs/20-process/agents/README.md` にテンプレート利用ルールを追加し、AI エージェントが必ず統一フォーマットで起票するよう整備。
+## Related Issues
+<!-- 必須: 少なくとも1行の `Closes #<issue-number>` を記載。`scripts/exec_plan/prepare_pr_body.sh` が自動で更新します。 -->
+<!-- autop:related-issues:start -->
 
-## 影響範囲
-- `.github/ISSUE_TEMPLATE/*.md`, `.github/ISSUE_TEMPLATE/config.yml`
-- `docs/10-governance/framework/README.md`
-- `docs/20-process/agents/AGENTS.md`
-- `docs/20-process/agents/README.md`
+- Closes #35
+- Closes #36
+- Closes #37
+<!-- autop:related-issues:end -->
+<!-- 追加の Issue がある場合は `- Relates to #<issue-number>` などを追記 -->
 
-## 検証
-```bash
-# スモークテスト: テンプレート本文を用いた Issue 起票と即時クローズ
-body=$(tail -n +8 .github/ISSUE_TEMPLATE/framework_task.md)
-issue_url=$(gh issue create --title "[framework] Template smoke test" --body "$body" \
-  --label track::framework --label artifact::process --label status::triage --label impact::low)
-issue_number=${issue_url##*/}
-gh issue close "$issue_number" --comment "Smoke-test for new issue templates. Verified layout; closing immediately."
+## Discussion Summary (records)
+- [x] `records/by-pr/38-issue-linkage/summary.md` を作成し、要約を記載した
+- [x] PR本文に上記ファイルへのリンクを追記した
+- [ ] マージ前に `plans.md` を `records/by-pr/<number>-<slug>/plans.md` へスナップショット保存（`scripts/records/archive_plan.sh`）
+
+ヒント: 作成コマンド
+```
+bash scripts/records/new_pr_summary.sh <pr-number> <slug> --issue <issue-number> --repo-url https://github.com/<org>/<repo> --author @<you>
 ```
 
-## 参考
-- Exec Plan: `records/by-pr/31-issue-templates/plans.md`
-- Records summary: `records/by-pr/31-issue-templates/summary.md`
-- Issue: #29
+## Checklist
+- [x] Related Issues セクションに `Closes #<n>` を記載している
+- [x] docs の導線（README/AGENTS/INDEX）が必要に応じて更新されている
+- [ ] リンク切れ・誤字・表記ゆれを確認した
+
+## Notes
+必要に応じてスクリーンショットや補足を記載してください。

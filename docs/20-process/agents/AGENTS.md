@@ -16,7 +16,7 @@
 - [ ] 作業対象ドキュメントの参照先（Policy / Process Guides）を最新化したか。
 - [ ] 必要なテスト・検証ステップを `docs/20-process/development/README.md` で確認したか。
 - [ ] 変更後に `code-mapping.md` と関連ドキュメントの同期が必要か判断したか。
-- [ ] PR で `Closes #<issue>` を記載し、検証手順結果を共有したか。
+- [ ] PR の Related Issues セクションに `Closes #<issue>` を記載し、検証手順結果を共有したか。
 
 ## リンク集
 - [Process Guide (Full)](README.md)
@@ -37,10 +37,12 @@
 テンプレート
 - ひな型: `docs/60-templates/exec-plan.md` をコピーして `plans.md` を作成。
 - Issue 確認: `scripts/exec_plan/bootstrap.sh --slug <slug> --filter-label track::framework --title "[framework] <title>"` で紐づく Issue を自動検出/作成。
+- PR 本文: Draft PR 作成時は `scripts/exec_plan/prepare_pr_body.sh --issue <n> --output PR_DRAFT.md` で Related Issues セクションに `Closes #<n>` を自動挿入し、そのまま `gh pr create --draft --body-file PR_DRAFT.md` を実行する（複数 Issue は `--issue` を追加）。
 
 補助コマンド例
 - 継続テスト: `watch -n 1 "npm test"` / `cargo test` 等
 - 厳格モードでのスクリプト実行: `set -euo pipefail`（早期失敗で安全性を高める）
+- Draft PR の本文生成: `scripts/exec_plan/prepare_pr_body.sh --issue <n> --output PR_DRAFT.md`
 
 ## records 連携（PR要約との紐付け）
 PR 単位で必ず `records/by-pr/<number>-<slug>/summary.md` を作成し、以下を記録します。
