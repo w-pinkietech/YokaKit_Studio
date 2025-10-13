@@ -2,18 +2,26 @@
 
 `docs/` ディレクトリ全体の構成と主要ドキュメントへの導線をまとめる。
 
-## ハイレベルカテゴリ（成果物種別ベース）
-- `policy/` — Framework / Documentation など規約系ドキュメント。現状は [framework-governance.md](framework-governance.md) と [documentation-governance/](documentation-governance/README.md) を順次移行中。
-- `process-guides/` — AI-DLC 手順、エージェント運用、リリース運用などのガイドライン。[development-process.md](development-process.md) や [AGENTS.md](AGENTS.md) を再配置予定。
-- `reference/` — プロジェクト概要、用語集、コードマッピングなど参照資料（今後作成）。
-- `tooling/` — Claude や GitHub CLI 等のセットアップ・運用マニュアル。現状は [claude-code.md](claude-code.md) が該当。
-- `templates/` — README / AGENTS / INDEX ドキュメントのテンプレート集。既存通り。
+> 編集方針: ドキュメントはレイヤーモデル（Foundation→Governance→Process→…）で整理します。詳細は `docs/README.md` の「ドキュメントのレイヤー（編集方針）」を参照してください（Issue #16）。
+
+## ハイレベルカテゴリ
+- [policy/](policy/README.md) — ポリシー集約（フレームワーク運用・ドキュメント統制など）。
+- [00-foundation/](00-foundation/README.md) — レイヤー00: 不変原則・SOP（documentation など）。
+- [policy/framework/](policy/framework/README.md) — Issue / PR ガバナンス、ラベル運用。
+- [00-foundation/documentation/](00-foundation/documentation/README.md) — ドキュメントルールと標準手順。
+- [00-foundation/aidlc/](00-foundation/aidlc/README.md) — AIDLC のルールと標準手順。
+- [process-guides/](process-guides/README.md) — 開発プロセスやエージェント運用ガイド。
+- [process-guides/development/](process-guides/development/README.md) — AI-DLC の開発プロセス詳細。
+- [process-guides/agents/](process-guides/agents/README.md) — エージェント向け運用ガイド。
+- [tooling/](tooling/README.md) — ツールセットアップと運用ガイド。
+- [tooling/claude/](tooling/claude/README.md) — Claude セットアップとスラッシュコマンド運用。
+- [reference/](reference/README.md) — 恒久的リファレンス資料のハブ。
+- [templates/](templates/) — README / AGENTS / INDEX ドキュメントのテンプレート集。
 
 ## 各ディレクトリのインデックス
 - 人間向けインデックス: [README.md](README.md)
-- AI 向けインデックス: [AGENTS.md](AGENTS.md) → 移行後は `process-guides/agents/AGENTS.md`
-- ドキュメントスタイル索引: [documentation-governance/INDEX.md](documentation-governance/INDEX.md) → 移行後は `policy/documentation/INDEX.md`
-- ライフサイクルレイヤ運用: [documentation-governance/directory-structure.md](documentation-governance/directory-structure.md#ライフサイクルレイヤ運用例)
+- AI 向けインデックス: [AGENTS.md](AGENTS.md)
+- ドキュメントルール・SOP索引: [00-foundation/documentation/INDEX.md](00-foundation/documentation/INDEX.md)
 - ※ `AGENTS.md` は AI に対する実務指示、`INDEX.md` はディレクトリ全体の索引として利用する。
 
 ## 更新メモ

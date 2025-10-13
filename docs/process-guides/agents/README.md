@@ -1,12 +1,17 @@
-# Agents Guide Redirect
+# Agents Guide
 
-エージェント向けの詳細ガイドは `docs/process-guides/agents/` に移動しました。以下のドキュメントを参照してください。
+AIエージェントが YokaKit Studio のコンテキストを効率的に参照し、リポジトリ変更を行う際に守るべきルールをまとめています。概要のみ確認したい場合はリポジトリ直下の [../../AGENTS.md](../../AGENTS.md) を参照してください。
 
-- [Process Guides / Agents README](process-guides/agents/README.md)
-- [Process Guides / Agents AGENTS](process-guides/agents/AGENTS.md)
-- [Process Guides / Agents INDEX](process-guides/agents/INDEX.md)
+## 索引
+- [Primary Objectives](#primary-objectives)
+- [Context Sources](#context-sources)
+- [Workflow Agreements](#workflow-agreements)
+- [AI-DLC Execution](#ai-dlc-execution)
+- [Documentation Map](#documentation-map)
+- [Command & Script Reference](#command--script-reference)
+- [Pull Request Checklist](#pull-request-checklist)
+- [Glossary](#glossary)
 
-> 旧 `docs/AGENTS.md` の内容は上記 README に統合されています。
 ## Primary Objectives
 - ヒューマンチームが定義したガバナンス・プロセスに従って実装/ドキュメント作業を行う。
 - 変更前にコンテキスト（Intent, Units, ADRなど）を確認し、差分理由を明確にする。
@@ -16,18 +21,18 @@
 | 種別 | 参照先 | 用途 |
 |------|---------|------|
 | プロジェクト概要 | `README.md` | 全体アーキテクチャとComposite構成の把握。 |
-| フレームワークガバナンス | `framework-governance.md` | Issue/PR運用、ラベル体系、手続き確認。 |
-| 開発プロセス | `development-process.md` | AI-DLC のTDD/ドキュメント駆動手順。 |
+| フレームワークガバナンス | `policy/framework/README.md` | Issue/PR運用、ラベル体系、手続き確認。 |
+| 開発プロセス | `process-guides/development/README.md` | AI-DLC のTDD/ドキュメント駆動手順。 |
 | ドキュメント集約 | `docs/README.md` | ヒューマン向けドキュメント一覧。 |
-| ドキュメントスタイル | `documentation-governance/INDEX.md` | 各スタイルガイドと構造運用ルール。 |
+| ドキュメントルール/SOP | `00-foundation/documentation/INDEX.md` | 記述ルールと標準手順。 |
 
 ## Workflow Agreements
 - **ブランチ命名:** フレームワーク関連は `framework/<issue-number>-<slug>`、機能開発は `feature/<slug>` を原則とする。
 - **Issue ファースト:** すべての変更はIssueを起点とし、`status::needs-decision`→`status::ready`の遷移を追う。
-- **PR必須:** `framework-governance.md` に記載されたレビューフローを遵守し、Draft PR でも議論を開始する。
+- **PR必須:** `policy/framework/README.md` に記載されたレビューフローを遵守し、Draft PR でも議論を開始する。
 
 ## AI-DLC Execution
-AI-DLC プロセスに沿って作業することが必須です。より詳しい手順は [development-process.md](development-process.md) を参照しつつ、下記の要点を確認してください。
+AI-DLC プロセスに沿って作業することが必須です。より詳しい手順は [development guide](../development/README.md) を参照しつつ、下記の要点を確認してください。
 
 1. **Domain Design チェック**  
    `.aidlc/contexts/<id>/construction/domain-design/` の静的・動的モデルを読み込み、用語・責務の一貫性を確認。欠落があれば Issue 化。
@@ -51,24 +56,24 @@ AI-DLC プロセスに沿って作業することが必須です。より詳し�
 ```
 /README.md                 # リポジトリ概要
 /docs/README.md            # ヒューマン向けハブ
-/docs/AGENTS.md            # このガイド
+/docs/process-guides/README.md        # プロセスガイド全体
+/docs/process-guides/agents/README.md # このガイド
 /AGENTS.md                 # エージェント向けクイックスタート
-/docs/documentation-governance/README.md  # ドキュメント運用ルール（移行後は /docs/policy/documentation/README.md）
-/docs/documentation-governance/INDEX.md   # スタイルガイド索引（移行後は /docs/policy/documentation/INDEX.md）
-/docs/framework-governance.md             # フレームワークポリシー（移行後は /docs/policy/framework/README.md）
-/docs/development-process.md              # 開発プロセス詳細（移行後は /docs/process-guides/development/README.md）
+/docs/00-foundation/documentation/README.md      # ドキュメントルール/SOP
+/docs/00-foundation/documentation/INDEX.md       # ルール/SOP索引
+/docs/policy/framework/README.md          # ガバナンス詳細
+/docs/process-guides/development/README.md # 開発プロセス詳細
+/docs/tooling/claude/README.md            # Claude セットアップガイド
 /scripts/setup_labels.sh   # ラベル同期スクリプト
 ```
 > ドキュメントが更新された際は、このマップも随時アップデートしてください。`AGENTS.md` は AI 向け指示、`INDEX.md` は対応ディレクトリの索引である点を意識して運用すること。
-
-成果物種別を基軸に、必要に応じて `stable/` や `iterative/` などのライフサイクル階層で整理する方針は [docs/documentation-governance/directory-structure.md](documentation-governance/directory-structure.md#ライフサイクルレイヤ運用例) を参照。AI 向け資料は対象トピック配下に整備し、共有情報かどうかを文書中で明示する。
 
 ## Command & Script Reference
 - `scripts/setup_labels.sh <owner/repo>`: ラベルの同期。実行前に `GITHUB_TOKEN` または `GH_TOKEN` を設定。
 - `gh auth status`: GitHub CLI の認証状態を確認。エラーがあれば再ログイン。
 - `git submodule status`: 参照・コード出力リポジトリの現在のコミットを確認。
 - `bash scripts/verify_submodules.sh`: サブモジュールの参照コミットがガバナンス違反になっていないか検証。
-- `/constitution`, `/inception`, `/construction` などのスラッシュコマンドは Claude のチャット上で実行する。必要なコマンドが表示されない場合は `.claude/commands/<name>.md` を新規作成または更新する。テンプレート整備手順は [docs/framework-governance.md](framework-governance.md#スラッシュコマンドテンプレート運用)（移行後は `/docs/policy/framework/README.md` 内）と [docs/claude-code.md](claude-code.md) を参照。
+- `/constitution`, `/inception`, `/construction` などのスラッシュコマンドは Claude のチャット上で実行する。必要なコマンドが表示されない場合は `.claude/commands/<name>.md` を新規作成または更新する。テンプレート整備手順は [docs/policy/framework/README.md](../../policy/framework/README.md#スラッシュコマンドテンプレート運用) と [docs/tooling/claude/README.md](../../tooling/claude/README.md) を参照。
 
 ## Pull Request Checklist
 1. 変更に紐づく Issue を `Closes #<n>` でリンクしたか。
@@ -85,4 +90,3 @@ AI-DLC プロセスに沿って作業することが必須です。より詳し�
 
 ---
 更新が必要な場合は、関連Issueにコメントを残してから編集を行ってください。
->>>>>>> origin/main
