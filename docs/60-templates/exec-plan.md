@@ -1,5 +1,19 @@
 # Exec Plan: <タイトル>
 
+> 使い方（雛形）
+> - このファイルをブランチ直下 `plans.md` にコピーして編集します。
+> - PR 作成後に `scripts/records/new_pr_summary.sh` で要約を生成し、マージ前に `scripts/records/archive_plan.sh` でスナップショットを保存します。
+>
+> 推奨コマンド例:
+> ```bash
+> set -euo pipefail
+> ISSUE=<n>; SLUG=<slug>; PR=<pr>; REPO=https://github.com/<org>/<repo>; AUTHOR=@you
+> cp docs/60-templates/exec-plan.md plans.md
+> bash scripts/records/new_pr_summary.sh ${PR} ${SLUG} --issue ${ISSUE} --repo-url ${REPO} --author ${AUTHOR}
+> # 作業…
+> bash scripts/records/archive_plan.sh ${PR} ${SLUG}
+> ```
+
 ## 目的 / ゴール
 - 何を達成するか、完了の定義（Done）を1〜3行で明記。
 
@@ -10,6 +24,8 @@
 - Issue: #<n>
 - ADR / 設計: `.aidlc/contexts/<id>/construction/logical-design/adr/...`
 - 関連Docs: `docs/...`
+ - PR: https://github.com/<org>/<repo>/pull/<pr>
+ - Records: `records/by-pr/<pr>-<slug>/summary.md`
 
 ## 全体像
 - 取り組む機能の目的/背景と期待する振る舞い（1〜3段落）。
@@ -19,6 +35,7 @@
 - [ ] 実装（コア）
 - [ ] テスト追加 / 検証
 - [ ] ドキュメント更新 / リンク確認
+- [ ] Plan スナップショット保存（`archive_plan.sh` 実行）
 
 ## 実行計画（Plan）
 1. ...
@@ -40,6 +57,11 @@
 2. [ ] ...
 3. [ ] ...
 4. [ ] records に plans.md を保存（`bash scripts/records/archive_plan.sh <pr-number> <slug>` を実行し、`records/by-pr/<pr>-<slug>/plans.md` と `summary.md` のリンクを確認）
+
+## Cross-Repository（必要時）
+| Repo | Branch | Order | Notes |
+|------|--------|-------|-------|
+| <name> | <framework/<issue>-<slug>> | <1/2/…> | 依存やゲートのメモ |
 
 ## 次アクション
 - [ ] ...

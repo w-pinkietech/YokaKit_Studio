@@ -1,36 +1,43 @@
 # Agents Quickstart
 
-このドキュメントは、AIエージェントが YokaKit Studio で作業を開始する際に最低限押さえておくべきポイントをまとめたものです。さらに詳しいガイドラインは [docs/process-guides/agents/README.md](docs/process-guides/agents/README.md) を参照してください。
+このドキュメントは、AIエージェントが YokaKit Studio で作業を開始する際に最低限押さえておくべきポイントをまとめたものです。さらに詳しいガイドラインは [docs/20-process/agents/README.md](docs/20-process/agents/README.md) を参照してください。
 
 ## Start Here: Exec Plan 実行手順（最優先）
-最初に以下の手順で「計画→実装→記録」を動かしてください。詳細は [docs/process-guides/exec-plan.md](docs/process-guides/exec-plan.md) と [docs/process-guides/agents/AGENTS.md](docs/process-guides/agents/AGENTS.md) を参照。
+最初に以下の手順で「計画→実装→記録」を動かしてください。詳細は [docs/20-process/exec-plan.md](docs/20-process/exec-plan.md) と [docs/20-process/agents/AGENTS.md](docs/20-process/agents/AGENTS.md) を参照。
 
 - 0) 前提（推奨）: `set -euo pipefail` を使い失敗時に即中断。
-- 1) 計画作成: `cp docs/templates/exec-plan.md plans.md`（ブランチ直下に配置）
+- 1) 計画作成: `cp docs/60-templates/exec-plan.md plans.md`（ブランチ直下に配置）
 - 2) Draft PR 作成 → PR番号 `<n>` と `slug` を決め、要約を生成してPR本文にリンク
   - `bash scripts/records/new_pr_summary.sh <n> <slug> --issue <issue> --repo-url https://github.com/<org>/<repo> --author @<you>`
 - 3) 実装しながら `plans.md` の進捗/決定ログを更新
 - 4) マージ前: `bash scripts/records/archive_plan.sh <n> <slug>` で `records/by-pr/<n>-<slug>/plans.md` にスナップショットを保存（summary にリンクも追記）
 
-Quick commands（雛形）
+Quick commands（雛形・変数化）
 ```
+# 変数（例）
+ISSUE=123
+SLUG=layered-docs
+PR=21
+REPO=https://github.com/<org>/<repo>
+AUTHOR=@you
+
 # ブランチ作成（例）
-git checkout -b framework/<issue>-<slug>
+git checkout -b framework/${ISSUE}-${SLUG}
 
 # 計画の雛形
-cp docs/templates/exec-plan.md plans.md
+cp docs/60-templates/exec-plan.md plans.md
 
-# PR要約の作成（PR番号とslugを置換）
-bash scripts/records/new_pr_summary.sh <pr-number> <slug> --issue <issue-number> \
-  --repo-url https://github.com/<org>/<repo> --author @<you>
+# PR要約の作成（再実行可: idempotent）
+bash scripts/records/new_pr_summary.sh ${PR} ${SLUG} --issue ${ISSUE} \
+  --repo-url ${REPO} --author ${AUTHOR}
 
-# Plan の保存（マージ前）
-bash scripts/records/archive_plan.sh <pr-number> <slug>
+# Plan の保存（マージ前に1回実行）
+bash scripts/records/archive_plan.sh ${PR} ${SLUG}
 ```
 
 ## Immediate Checklist
 - 対応する Issue が存在し、状況ラベル（`track::framework` など）が整備されているか確認する。
-- 現在のブランチ命名規則とPRフローを [docs/policy/framework/README.md](docs/policy/framework/README.md) で確認する。
+- 現在のブランチ命名規則とPRフローを [docs/10-governance/framework/README.md](docs/10-governance/framework/README.md) で確認する。
 - 作業対象の文脈（Intent, ADR, Domain Designなど）を `.aidlc/contexts/` から読み込み、変更理由を明確にする。
 - 変更後はテストや検証ステップを実行し、結果を記録する。
 - `gh auth status` やトークン設定を確認し、GitHub API へのアクセスが可能な状態にする。
@@ -38,7 +45,7 @@ bash scripts/records/archive_plan.sh <pr-number> <slug>
 
 ## First Session Flow
 1. ルート `README.md` を読み、全体のドキュメント配置を把握する。
-2. [docs/policy/framework/README.md](docs/policy/framework/README.md) と [docs/process-guides/development/README.md](docs/process-guides/development/README.md) を通読し、運用ポリシーと開発フローを理解する。
+2. [docs/10-governance/framework/README.md](docs/10-governance/framework/README.md) と [docs/20-process/development/README.md](docs/20-process/development/README.md) を通読し、運用ポリシーと開発フローを理解する。
 3. GitHub Issue を `track::` ラベルでフィルタし、担当予定の Issue が `status::ready` かを確認する。
 4. `.aidlc/constitution` および該当する context ディレクトリ（例: `.aidlc/contexts/<id>-<feature>/`）を読み、背景情報を吸収する。
 5. 必要に応じて Submodule (`submodules/`) の現在のコミットを `git submodule status` で確認する。
@@ -51,7 +58,7 @@ bash scripts/records/archive_plan.sh <pr-number> <slug>
 - 参照リポジトリは `submodules/references/`、出力コードは `submodules/code-output/` にあります。
 
 ## AI-DLC Execution Checklist
-YokaKit Studio での作業は AI-DLC プロセスを前提としています。案件に取り組む際は、以下を順番に確認してください。詳細は [docs/process-guides/development/README.md](docs/process-guides/development/README.md) を参照。
+YokaKit Studio での作業は AI-DLC プロセスを前提としています。案件に取り組む際は、以下を順番に確認してください。詳細は [docs/20-process/development/README.md](docs/20-process/development/README.md) を参照。
 
 1. **Domain Design の確認**  
    - `.aidlc/contexts/<id>/construction/domain-design/` の `static-model.md` と `dynamic-model.md` を読み、用語や責務を把握する。  
@@ -62,7 +69,7 @@ YokaKit Studio での作業は AI-DLC プロセスを前提としています。
    - 実装方針がADRと矛盾しないかをチェック。
 
 3. **Test Specification の準備**  
-  - [docs/process-guides/development/README.md](docs/process-guides/development/README.md) の「Test Specification」セクションに沿って、必要なテストケースが網羅されているか評価。  
+  - [docs/20-process/development/README.md](docs/20-process/development/README.md) の「Test Specification」セクションに沿って、必要なテストケースが網羅されているか評価。  
    - 足りない場合は先にテストを補完し、人間レビューを依頼する。
 
 4. **Implementation フェーズ**  
@@ -75,28 +82,28 @@ YokaKit Studio での作業は AI-DLC プロセスを前提としています。
 
 6. **フォローアップ**  
    - 発見したギャップは Issue/TODO として残す。  
-   - 運用・デプロイに関わる場合は [docs/policy/framework/README.md](docs/policy/framework/README.md) のPRフローに従い、必要な承認を取得する。
+   - 運用・デプロイに関わる場合は [docs/10-governance/framework/README.md](docs/10-governance/framework/README.md) のPRフローに従い、必要な承認を取得する。
 
 ## Frequently Used References
-- フレームワークガバナンス: [docs/policy/framework/README.md](docs/policy/framework/README.md)
-- 開発プロセス詳細: [docs/process-guides/development/README.md](docs/process-guides/development/README.md)
-- Claude ツールガイド: [docs/tooling/claude/README.md](docs/tooling/claude/README.md)
+- フレームワークガバナンス: [docs/10-governance/framework/README.md](docs/10-governance/framework/README.md)
+- 開発プロセス詳細: [docs/20-process/development/README.md](docs/20-process/development/README.md)
+- Claude ツールガイド: [docs/50-tooling/claude/README.md](docs/50-tooling/claude/README.md)
 - スクリプト・自動化: `scripts/`
 - ドキュメントハブ: [docs/README.md](docs/README.md)
 
 ## 実務メモ（最小要点）
 - Draft PR 後に records の要約を作成し、PR本文へリンク。
   - `bash scripts/records/new_pr_summary.sh <pr-number> <slug> --issue <issue-number> --repo-url https://github.com/<org>/<repo> --author @<you>`
-- 複雑な作業は `plans.md`（テンプレ: `docs/templates/exec-plan.md`）を作業ブランチ直下に置く。
+- 複雑な作業は `plans.md`（テンプレ: `docs/60-templates/exec-plan.md`）を作業ブランチ直下に置く。
 - レビューは別コンテキストで実行し、主要スレッドの Permalink を records に追記。
 - Cross-Repo は毎回 PR 要約に対象リポ/ブランチ/順序を列挙（カタログは任意）。
 - スクリプトは厳格モード推奨: `set -euo pipefail`。
 
 ## Exec Plan（詳細ガイド）
 詳細な手順・サンプル構造は、以下を参照してください。
-- Exec Plan 手順（Process層）: `docs/process-guides/exec-plan.md`
-- 運用詳細とワークフロー: `docs/process-guides/agents/AGENTS.md`
-- ひな型（Templates層）: `docs/templates/exec-plan.md`
+- Exec Plan 手順（Process層）: `docs/20-process/exec-plan.md`
+- 運用詳細とワークフロー: `docs/20-process/agents/AGENTS.md`
+- ひな型（Templates層）: `docs/60-templates/exec-plan.md`
 
 ---
-詳細なワークフロー、用語集、チェックリストは [docs/process-guides/agents/README.md](docs/process-guides/agents/README.md) を必ず参照してください。
+詳細なワークフロー、用語集、チェックリストは [docs/20-process/agents/README.md](docs/20-process/agents/README.md) を必ず参照してください。
