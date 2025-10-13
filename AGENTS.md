@@ -2,6 +2,32 @@
 
 このドキュメントは、AIエージェントが YokaKit Studio で作業を開始する際に最低限押さえておくべきポイントをまとめたものです。さらに詳しいガイドラインは [docs/process-guides/agents/README.md](docs/process-guides/agents/README.md) を参照してください。
 
+## Start Here: Exec Plan 実行手順（最優先）
+最初に以下の手順で「計画→実装→記録」を動かしてください。詳細は本ファイル内の「Exec Plan クイックスタート（Step 1→4）」と「Exec Plan × records（必須運用の要点）」を参照。
+
+- 0) 前提（推奨）: `set -euo pipefail` を使い失敗時に即中断。
+- 1) 計画作成: `cp docs/templates/exec-plan.md plans.md`（ブランチ直下に配置）
+- 2) Draft PR 作成 → PR番号 `<n>` と `slug` を決め、要約を生成してPR本文にリンク
+  - `bash scripts/records/new_pr_summary.sh <n> <slug> --issue <issue> --repo-url https://github.com/<org>/<repo> --author @<you>`
+- 3) 実装しながら `plans.md` の進捗/決定ログを更新
+- 4) マージ前: `bash scripts/records/archive_plan.sh <n> <slug>` で `records/by-pr/<n>-<slug>/plans.md` にスナップショットを保存（summary にリンクも追記）
+
+Quick commands（雛形）
+```
+# ブランチ作成（例）
+git checkout -b framework/<issue>-<slug>
+
+# 計画の雛形
+cp docs/templates/exec-plan.md plans.md
+
+# PR要約の作成（PR番号とslugを置換）
+bash scripts/records/new_pr_summary.sh <pr-number> <slug> --issue <issue-number> \
+  --repo-url https://github.com/<org>/<repo> --author @<you>
+
+# Plan の保存（マージ前）
+bash scripts/records/archive_plan.sh <pr-number> <slug>
+```
+
 ## Immediate Checklist
 - 対応する Issue が存在し、状況ラベル（`track::framework` など）が整備されているか確認する。
 - 現在のブランチ命名規則とPRフローを [docs/policy/framework/README.md](docs/policy/framework/README.md) で確認する。
