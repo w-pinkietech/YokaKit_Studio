@@ -16,7 +16,7 @@
 | `10-governance/` | 人間/AI | ガバナンス系カテゴリのハブ（framework）。 |
 | `00-foundation/documentation/` | 人間/AI | ドキュメントルールと標準手順（Foundation層）。 |
 | `00-foundation/aidlc/` | 人間/AI | AIDLC のルールと標準手順（Foundation層）。 |
-| `policy/framework/` | 人間/AI | 運用ガバナンス（Issue/PR/ラベル運用、レビュー方針）。 |
+| `10-governance/framework/` | 人間/AI | 運用ガバナンス（Issue/PR/ラベル運用、レビュー方針）。 |
 | `20-process/` | 人間/AI | 実務手順・SOP のカテゴリ（development / agents）。 |
 | `20-process/exec-plan.md` | 人間/AI | Exec Plan 手順と records 連携（Process層）。 |
 | `20-process/development/README.md` | 人間/AI | AI-DLC の開発プロセス（TDD/ドキュメント駆動）概要。 |

@@ -21,15 +21,15 @@ AIエージェントが YokaKit Studio のコンテキストを効率的に参�
 | 種別 | 参照先 | 用途 |
 |------|---------|------|
 | プロジェクト概要 | `README.md` | 全体アーキテクチャとComposite構成の把握。 |
-| フレームワークガバナンス | `policy/framework/README.md` | Issue/PR運用、ラベル体系、手続き確認。 |
-| 開発プロセス | `process-guides/development/README.md` | AI-DLC のTDD/ドキュメント駆動手順。 |
+| フレームワークガバナンス | `10-governance/framework/README.md` | Issue/PR運用、ラベル体系、手続き確認。 |
+| 開発プロセス | `20-process/development/README.md` | AI-DLC のTDD/ドキュメント駆動手順。 |
 | ドキュメント集約 | `docs/README.md` | ヒューマン向けドキュメント一覧。 |
 | ドキュメントルール/SOP | `00-foundation/documentation/INDEX.md` | 記述ルールと標準手順。 |
 
 ## Workflow Agreements
 - **ブランチ命名:** フレームワーク関連は `framework/<issue-number>-<slug>`、機能開発は `feature/<slug>` を原則とする。
 - **Issue ファースト:** すべての変更はIssueを起点とし、`status::needs-decision`→`status::ready`の遷移を追う。
-- **PR必須:** `policy/framework/README.md` に記載されたレビューフローを遵守し、Draft PR でも議論を開始する。
+- **PR必須:** `10-governance/framework/README.md` に記載されたレビューフローを遵守し、Draft PR でも議論を開始する。
 
 ## AI-DLC Execution
 AI-DLC プロセスに沿って作業することが必須です。より詳しい手順は [development guide](../development/README.md) を参照しつつ、下記の要点を確認してください。
