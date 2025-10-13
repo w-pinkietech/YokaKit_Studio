@@ -51,3 +51,5 @@ docs 整備（Foundation フォローアップ）と records 運用開始のた�
 
 ## Links
 - PR 本文参照（以後、主要スレッドのPermalinkを追記）
+
+- Exec Plan（plans.md）運用とrecords連携のガイドを追加
