@@ -4,7 +4,7 @@ Exec Plan は、複雑な作業を「計画→実装→検証→記録」で進�
 
 ## レイヤー対応
 - Process（本書）: 手順・ワークフロー・実施基準
-- Templates: `docs/templates/exec-plan.md`（雛形）
+- Templates: `docs/60-templates/exec-plan.md`（雛形）
 - Foundation: `docs/00-foundation/documentation/`（記述ルール/SOPの原則）
 - Records: `records/by-pr/<pr>-<slug>/`（PR単位の履歴保存先）
 
@@ -16,7 +16,7 @@ Exec Plan は、複雑な作業を「計画→実装→検証→記録」で進�
 ## 手順（標準フロー）
 1) 雛形の設置（作業ブランチ直下）
 ```
-cp docs/templates/exec-plan.md plans.md
+cp docs/60-templates/exec-plan.md plans.md
 ```
 2) Draft PR を作成し、records の PR 要約を生成
 ```
@@ -42,7 +42,7 @@ bash scripts/records/archive_plan.sh <pr> <slug>
 - リスク/代替案
 - To-Do と 次アクション
 
-雛形は `docs/templates/exec-plan.md` を使用してください。
+雛形は `docs/60-templates/exec-plan.md` を使用してください。
 
 ## Cross-Repo の注意点
 - PR要約（records）に対象リポジトリ/ブランチ/依存順序を列挙

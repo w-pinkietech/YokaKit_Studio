@@ -2,7 +2,7 @@
 
 ## 目的
 - エージェントが作業を始める前に必要な情報源とガイドを素早く確認できるようにする。
-- `docs/process-guides/agents/README.md` の要点を抜粋し、タスク遂行時のチェックリストとして利用する。
+- `docs/20-process/agents/README.md` の要点を抜粋し、タスク遂行時のチェックリストとして利用する。
 
 ## 事前確認
 - [ ] 対応する Issue に `track::`, `artifact::`, `status::`, `impact::` ラベルが付与されているか。
@@ -13,14 +13,14 @@
 
 ## 実行時チェック
 - [ ] 作業対象ドキュメントの参照先（Policy / Process Guides）を最新化したか。
-- [ ] 必要なテスト・検証ステップを `docs/process-guides/development/README.md` で確認したか。
+- [ ] 必要なテスト・検証ステップを `docs/20-process/development/README.md` で確認したか。
 - [ ] 変更後に `code-mapping.md` と関連ドキュメントの同期が必要か判断したか。
 - [ ] PR で `Closes #<issue>` を記載し、検証手順結果を共有したか。
 
 ## リンク集
 - [Process Guide (Full)](README.md)
 - [Development Process](../development/README.md)
-- [Policy Framework](../../policy/framework/README.md)
+- [Policy Framework](../../10-governance/framework/README.md)
 
 ## Exec Plan 運用（plans.md）
 詳説は [../exec-plan.md](../exec-plan.md) を参照。以下はエージェント視点の要点抜粋です。
@@ -34,7 +34,7 @@
 - 終了: マージ時点で `plans.md` はそのまま残し、PR 要約（records）にリンクを記録。
 
 テンプレート
-- ひな型: `docs/templates/exec-plan.md` をコピーして `plans.md` を作成。
+- ひな型: `docs/60-templates/exec-plan.md` をコピーして `plans.md` を作成。
 
 補助コマンド例
 - 継続テスト: `watch -n 1 "npm test"` / `cargo test` 等

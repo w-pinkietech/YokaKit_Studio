@@ -69,7 +69,7 @@ track::framework + artifact::documentation + status::needs-decision + impact::me
 - `.claude/commands/` ディレクトリのテンプレート一式
 
 ### テンプレート整備フロー
-> Claude Code のインストールや同期方法は [docs/tooling/claude/README.md](../../tooling/claude/README.md) を参照。
+> Claude Code のインストールや同期方法は [docs/50-tooling/claude/README.md](../../50-tooling/claude/README.md) を参照。
 1. コマンドの挙動を変更・追加する場合、`.claude/commands/<name>.md` を新規作成（既存があれば編集）し、目的・入出力・フローを明文化する。  
 2. テンプレートを更新したら、README や関連ドキュメントのコマンド例を確認し、説明と矛盾がないかチェックする。  
 3. テンプレートに追加の入力が必要な場合は、`.aidlc/contexts/` や `docs/` にある関連ドキュメントから参照できるよう導線を張る。  
@@ -92,7 +92,7 @@ track::framework + artifact::documentation + status::needs-decision + impact::me
 - テンプレート変更後に期待した挙動が得られない → `.claude/commands/<name>.md` を保存したか、キャッシュが残っていないか確認する。  
 - 認証エラーが発生する → Anthropic アカウントの権限やチーム設定を確認し、Claude クライアントのログイン状態を再確認する。  
 
-> `.claude/commands/` の更新は必ず Issue を起点に行い、README / `docs/process-guides/agents/README.md` / 本ガバナンス文書の記述を同期させること。
+> `.claude/commands/` の更新は必ず Issue を起点に行い、README / `docs/20-process/agents/README.md` / 本ガバナンス文書の記述を同期させること。
 
 ---
 
@@ -188,4 +188,4 @@ GITHUB_TOKEN=ghp_xxx scripts/setup_labels.sh w-pinkietech/YokaKit_Studio
 - フレームワーク整備が落ち着いたら、`artifact::` 系ラベルを AI-DLC 階層（Intent / Domain Design など）へ細分化。
 - Milestone や Project Boards での運用ルールが固まった段階で、別途 `Project Governance` セクションを追加予定。
 - スクリプトの Node.js / Python 版 CLI などが必要になった場合は `scripts/` 以下でモジュール化し、本ドキュメントから参照する。
-- ドキュメントは `docs/` ディレクトリに集約し、ヒューマン向け・AI向けガイド（`docs/README.md`, `docs/process-guides/agents/README.md`）を随時更新する。
+- ドキュメントは `docs/` ディレクトリに集約し、ヒューマン向け・AI向けガイド（`docs/README.md`, `docs/20-process/agents/README.md`）を随時更新する。

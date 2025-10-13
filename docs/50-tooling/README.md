@@ -13,6 +13,6 @@ YokaKit Studio で利用するツール群（Claude、GitHub CLI、スクリプ�
 | `claude/` | Claude 関連セットアップ・スラッシュコマンド運用ガイド | 旧 `docs/claude-code.md` を移管。 |
 
 ## 関連ドキュメント
-- [policy/framework/README.md](../policy/framework/README.md)
+- [policy/framework/README.md](../10-governance/framework/README.md)
 - [00-foundation/documentation/README.md](../00-foundation/documentation/README.md)
-- [process-guides/README.md](../process-guides/README.md)
+- [process-guides/README.md](../20-process/README.md)

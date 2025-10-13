@@ -66,14 +66,14 @@ claude login
 - 2025年時点では、スラッシュコマンドは Claude のチャット画面での使用が前提です。CLI は補助的に利用してください。
 
 ### Q3. テンプレート更新時の注意は？
-- 必ず Issue を起点に変更意図を明確化し、README・docs/policy/framework/README.md・docs/process-guides/agents/README.md の説明と整合を取ってください。
+- 必ず Issue を起点に変更意図を明確化し、README・docs/10-governance/framework/README.md・docs/20-process/agents/README.md の説明と整合を取ってください。
 - 大幅な挙動変更を行う場合は、テスト用コマンド (`/test`) などで動作確認してください。
 
 ---
 
 ## 6. 関連ドキュメント
-- [docs/policy/framework/README.md](../../policy/framework/README.md) — スラッシュコマンドテンプレート運用セクション
-- [docs/process-guides/agents/README.md](../../process-guides/agents/README.md) — エージェント向けのコマンドリファレンス
+- [docs/10-governance/framework/README.md](../../10-governance/framework/README.md) — スラッシュコマンドテンプレート運用セクション
+- [docs/20-process/agents/README.md](../../20-process/agents/README.md) — エージェント向けのコマンドリファレンス
 - [`README.md`](../../README.md) — Commands Reference セクション
 - [.claude/commands/](../../../.claude/commands/) — テンプレート本体
 

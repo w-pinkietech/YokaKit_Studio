@@ -14,5 +14,5 @@
 - 拡張ロードマップ: `README.md#今後の拡張`
 
 ## 更新メモ
-- 更新時は `docs/policy/INDEX.md` と `docs/README.md` に新しい項目を追記すること。
+- 更新時は `docs/10-governance/INDEX.md` と `docs/README.md` に新しい項目を追記すること。
 - 参考スクリプトやテンプレートを変更した場合は、対応するドキュメント（`scripts/`, `.claude/commands/` 等）も併せて更新する。

@@ -8,7 +8,7 @@
   - ブランチ命名（例: `framework/<issue>-<slug>` / `feature/<slug>`）
   - 変更順序（例: backend → frontend）
   - 主要 CI の可否（最低限テスト/ビルド）
-- 本カタログ（docs/reference/repos）は更新必須ではありません。継続的な保守は不要です。
+- 本カタログ（docs/40-reference/repos）は更新必須ではありません。継続的な保守は不要です。
 
 ## カタログ項目（テンプレート）
 | 項目 | 説明 |

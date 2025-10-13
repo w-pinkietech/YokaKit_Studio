@@ -10,7 +10,7 @@
 
 ## ディレクトリマップ
 ```
-/docs/tooling/
+/docs/50-tooling/
 ├── README.md                # カテゴリ概要
 ├── AGENTS.md                # このファイル
 ├── INDEX.md                 # 詳細目次
@@ -25,4 +25,4 @@
 ## 関連リンク
 - [Tooling Index](INDEX.md)
 - [Claude Toolkit](claude/README.md)
-- [Policy Framework](../policy/framework/README.md)
+- [Policy Framework](../10-governance/framework/README.md)

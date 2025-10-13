@@ -15,5 +15,5 @@
 
 ## 関連ドキュメント
 - [00-foundation/documentation/README.md](../00-foundation/documentation/README.md)
-- [process-guides/README.md](../process-guides/README.md)
+- [process-guides/README.md](../20-process/README.md)
 - [docs/INDEX.md](../INDEX.md)

@@ -11,8 +11,8 @@ Claude 関連ドキュメントの索引用ページです。セットアップ�
 ## 補助資料
 - [Checklist](AGENTS.md)
 - [Tooling Hub](../README.md)
-- [Policy Framework](../../policy/framework/README.md)
-- [Agents Guide](../../process-guides/agents/README.md)
+- [Policy Framework](../../10-governance/framework/README.md)
+- [Agents Guide](../../20-process/agents/README.md)
 
 ## 更新チェック
 - [ ] README のセクション名が変わった場合、リンクを更新したか。

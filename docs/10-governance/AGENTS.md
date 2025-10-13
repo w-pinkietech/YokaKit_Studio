@@ -11,7 +11,7 @@
 
 ## ディレクトリマップ
 ```
-/docs/policy/
+/docs/10-governance/
 ├── README.md                # ポリシーカテゴリの目的と構成
 ├── AGENTS.md                # このファイル
 ├── INDEX.md                 # 詳細な目次

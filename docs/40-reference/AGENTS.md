@@ -13,4 +13,4 @@
 - [Reference Hub](README.md)
 - [Reference Index](INDEX.md)
 - [Documentation Rules / SOP](../00-foundation/documentation/README.md)
-- [Process Guides](../process-guides/README.md)
+- [Process Guides](../20-process/README.md)

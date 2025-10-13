@@ -2,7 +2,7 @@
 
 ## 目的
 - プロセス関連ドキュメント（開発フロー、エージェント運用ガイドなど）への導線をまとめ、作業前に必要事項を確認する。
-- `docs/process-guides/` 配下を更新する際のチェックリストを提供する。
+- `docs/20-process/` 配下を更新する際のチェックリストを提供する。
 
 ## 索引
 - [ディレクトリマップ](#ディレクトリマップ)
@@ -11,7 +11,7 @@
 
 ## ディレクトリマップ
 ```
-/docs/process-guides/
+/docs/20-process/
 ├── README.md                # カテゴリ概要
 ├── AGENTS.md                # このファイル
 ├── INDEX.md                 # 詳細目次
@@ -27,4 +27,4 @@
 ## 参考リンク
 - [Development Process Guide](development/README.md)
 - [Agents Operations Guide](agents/README.md)
-- [Policy Framework](../policy/framework/README.md)
+- [Policy Framework](../10-governance/framework/README.md)

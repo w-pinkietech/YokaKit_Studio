@@ -8,16 +8,16 @@
 - [ ] `.claude/commands/` に必要なテンプレートが揃っているか。
 - [ ] `gh auth status` で GitHub CLI の認証が有効か確認したか。
 - [ ] `GITHUB_TOKEN` や `GH_TOKEN` が必要に応じて設定されているか。
-- [ ] `docs/policy/framework/README.md` のスラッシュコマンド運用ルールを確認したか。
+- [ ] `docs/10-governance/framework/README.md` のスラッシュコマンド運用ルールを確認したか。
 
 ## テンプレート更新時チェック
 - [ ] 変更意図を Issue で共有したか。
 - [ ] README / Policy / Agents ガイドとの記述整合性を確認したか。
 - [ ] テンプレート更新後に `/test` などで動作検証を実施したか。
-- [ ] 必要に応じて `docs/process-guides/agents/README.md` を更新したか。
+- [ ] 必要に応じて `docs/20-process/agents/README.md` を更新したか。
 
 ## リンク集
 - [Claude Guide](README.md)
 - [Tooling Hub](../README.md)
-- [Policy Framework](../../policy/framework/README.md)
-- [Agents Guide](../../process-guides/agents/README.md)
+- [Policy Framework](../../10-governance/framework/README.md)
+- [Agents Guide](../../20-process/agents/README.md)

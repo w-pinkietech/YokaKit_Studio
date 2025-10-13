@@ -17,7 +17,7 @@
 - [Exec Plan 運用](AGENTS.md#exec-plan-運用plansmd)
 - [records 連携](AGENTS.md#records-連携pr要約との紐付け)
 - [Development Process](../development/README.md)
-- [Policy Framework](../../policy/framework/README.md)
+- [Policy Framework](../../10-governance/framework/README.md)
 - [Process Guides Hub](../README.md)
 
 ## 更新チェック

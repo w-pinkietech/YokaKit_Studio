@@ -56,14 +56,14 @@ AI-DLC プロセスに沿って作業することが必須です。より詳し�
 ```
 /README.md                 # リポジトリ概要
 /docs/README.md            # ヒューマン向けハブ
-/docs/process-guides/README.md        # プロセスガイド全体
-/docs/process-guides/agents/README.md # このガイド
+/docs/20-process/README.md        # プロセスガイド全体
+/docs/20-process/agents/README.md # このガイド
 /AGENTS.md                 # エージェント向けクイックスタート
 /docs/00-foundation/documentation/README.md      # ドキュメントルール/SOP
 /docs/00-foundation/documentation/INDEX.md       # ルール/SOP索引
-/docs/policy/framework/README.md          # ガバナンス詳細
-/docs/process-guides/development/README.md # 開発プロセス詳細
-/docs/tooling/claude/README.md            # Claude セットアップガイド
+/docs/10-governance/framework/README.md          # ガバナンス詳細
+/docs/20-process/development/README.md # 開発プロセス詳細
+/docs/50-tooling/claude/README.md            # Claude セットアップガイド
 /scripts/setup_labels.sh   # ラベル同期スクリプト
 ```
 > ドキュメントが更新された際は、このマップも随時アップデートしてください。`AGENTS.md` は AI 向け指示、`INDEX.md` は対応ディレクトリの索引である点を意識して運用すること。
@@ -73,7 +73,7 @@ AI-DLC プロセスに沿って作業することが必須です。より詳し�
 - `gh auth status`: GitHub CLI の認証状態を確認。エラーがあれば再ログイン。
 - `git submodule status`: 参照・コード出力リポジトリの現在のコミットを確認。
 - `bash scripts/verify_submodules.sh`: サブモジュールの参照コミットがガバナンス違反になっていないか検証。
-- `/constitution`, `/inception`, `/construction` などのスラッシュコマンドは Claude のチャット上で実行する。必要なコマンドが表示されない場合は `.claude/commands/<name>.md` を新規作成または更新する。テンプレート整備手順は [docs/policy/framework/README.md](../../policy/framework/README.md#スラッシュコマンドテンプレート運用) と [docs/tooling/claude/README.md](../../tooling/claude/README.md) を参照。
+- `/constitution`, `/inception`, `/construction` などのスラッシュコマンドは Claude のチャット上で実行する。必要なコマンドが表示されない場合は `.claude/commands/<name>.md` を新規作成または更新する。テンプレート整備手順は [docs/10-governance/framework/README.md](../../10-governance/framework/README.md#スラッシュコマンドテンプレート運用) と [docs/50-tooling/claude/README.md](../../50-tooling/claude/README.md) を参照。
 
 ## Pull Request Checklist
 1. 変更に紐づく Issue を `Closes #<n>` でリンクしたか。
