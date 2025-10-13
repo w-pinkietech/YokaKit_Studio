@@ -13,7 +13,7 @@
 | `README.md` | 人間 | このファイル。全体像と主要ドキュメントへの案内。 |
 | `AGENTS.md` | AIエージェント | AI向けの作業導線。 |
 | `INDEX.md` | 人間/AI | `docs/` 全体の目次（索引）。 |
-| `policy/` | 人間/AI | ガバナンス系カテゴリのハブ（framework / documentation）。 |
+| `policy/` | 人間/AI | ガバナンス系カテゴリのハブ（framework）。 |
 | `00-foundation/documentation/` | 人間/AI | ドキュメントルールと標準手順（Foundation層）。 |
 | `00-foundation/aidlc/` | 人間/AI | AIDLC のルールと標準手順（Foundation層）。 |
 | `policy/framework/` | 人間/AI | 運用ガバナンス（Issue/PR/ラベル運用、レビュー方針）。 |

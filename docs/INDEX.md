@@ -19,6 +19,9 @@
 - [reference/](reference/README.md) — 恒久的リファレンス資料のハブ。
 - [templates/](templates/) — README / AGENTS / INDEX ドキュメントのテンプレート集。
 
+## 補足（Architecture 層の所在）
+- ADRやアーキテクチャの詳細は `.aidlc/contexts/<id>/construction/logical-design/adr/` を参照（本 `docs/` 配下には恒久配置しない方針）。
+
 ## 各ディレクトリのインデックス
 - 人間向けインデックス: [README.md](README.md)
 - AI 向けインデックス: [AGENTS.md](AGENTS.md)
