@@ -1,11 +1,10 @@
----
 id: pr-<number>-<slug>
-type: pr # issue | pr | commit
+type: pr # 原則 pr を使用（issue/commit は例外時のみ）
 status: draft # open | merged | closed | draft
 relates_to:
-  issues: ["#<n>"]
-  prs: []
-  commits: []
+  issues: ["#<n>"] # 任意
+  prs: []            # 任意（関連PRがあれば）
+  commits: []        # 任意（PRを通さないHotfix時など）
 authors: []
 dates:
   created: YYYY-MM-DD
@@ -15,7 +14,7 @@ links:
   permalinks:
     - url: https://github.com/<org>/<repo>/pull/<n>#discussion_rXXXX
       note: main discussion
-repos:
+repos: # 複数リポ横断時のみ記載
   - name: frontend
     url: https://github.com/<org>/frontend
     branch: feature/<slug>
