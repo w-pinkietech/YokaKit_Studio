@@ -41,11 +41,11 @@
 
 ## 5. バージョニングと周知
 - 重大なルール変更（Breaking）は PR タイトルに `[breaking]` を追加し、`docs/CHANGELOG.md`（存在する場合）やリリースノートで周知する。
-- ルール変更に伴いテンプレート更新が必要な場合は、`docs/templates/` の該当テンプレートを同一PRで更新し、利用者に告知する。
+- ルール変更に伴いテンプレート更新が必要な場合は、`docs/60-templates/` の該当テンプレートを同一PRで更新し、利用者に告知する。
 
 ## 3. テンプレートライフサイクル
 1. **Proposal**: 目的・利用局面・対象読者を Issue に記載し、`track::framework` と `artifact::documentation` を付ける。
-2. **Drafting**: `docs/templates/` に新規ファイル（またはブランチ）を作成し、必要な README / AGENTS / INDEX を整備する。
+2. **Drafting**: `docs/60-templates/` に新規ファイル（またはブランチ）を作成し、必要な README / AGENTS / INDEX を整備する。
 3. **Verification**: テンプレートを最低 1 つのドキュメントで試用し、差分と使い勝手を確認する。
 4. **Review & Approval**: Human Maintainer が内容・リンク・スタイル準拠を確認して承認する。
 5. **Rollout**: テンプレートを利用している既存ドキュメントを更新し、導線や INDEX を同期させる。

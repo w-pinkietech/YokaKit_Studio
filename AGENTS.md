@@ -3,7 +3,7 @@
 このドキュメントは、AIエージェントが YokaKit Studio で作業を開始する際に最低限押さえておくべきポイントをまとめたものです。さらに詳しいガイドラインは [docs/process-guides/agents/README.md](docs/process-guides/agents/README.md) を参照してください。
 
 ## Start Here: Exec Plan 実行手順（最優先）
-最初に以下の手順で「計画→実装→記録」を動かしてください。詳細は [docs/process-guides/agents/AGENTS.md](docs/process-guides/agents/AGENTS.md)（Exec Plan 運用 / records 連携）を参照。
+最初に以下の手順で「計画→実装→記録」を動かしてください。詳細は [docs/process-guides/exec-plan.md](docs/process-guides/exec-plan.md) と [docs/process-guides/agents/AGENTS.md](docs/process-guides/agents/AGENTS.md) を参照。
 
 - 0) 前提（推奨）: `set -euo pipefail` を使い失敗時に即中断。
 - 1) 計画作成: `cp docs/templates/exec-plan.md plans.md`（ブランチ直下に配置）
@@ -94,8 +94,9 @@ YokaKit Studio での作業は AI-DLC プロセスを前提としています。
 
 ## Exec Plan（詳細ガイド）
 詳細な手順・サンプル構造は、以下を参照してください。
+- Exec Plan 手順（Process層）: `docs/process-guides/exec-plan.md`
 - 運用詳細とワークフロー: `docs/process-guides/agents/AGENTS.md`
-- ひな型: `docs/templates/exec-plan.md`
+- ひな型（Templates層）: `docs/templates/exec-plan.md`
 
 ---
 詳細なワークフロー、用語集、チェックリストは [docs/process-guides/agents/README.md](docs/process-guides/agents/README.md) を必ず参照してください。
