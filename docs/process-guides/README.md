@@ -12,6 +12,7 @@ AI-DLC の実務フローや手順書を成果物種別ごとに整理するた�
 |------|------|------|
 | `development/` | AI-DLC におけるドキュメント駆動・TDD 手順 | 旧 `docs/development-process.md` を移管。 |
 | `agents/` | AI エージェント向け運用ガイド | 旧 `docs/AGENTS.md` を移管。 |
+| `exec-plan.md` | Exec Plan の手順と records 連携 | 雛形は `docs/templates/exec-plan.md` を参照。 |
 
 ## 関連ドキュメント
 - [policy/framework/README.md](../policy/framework/README.md)

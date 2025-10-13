@@ -23,6 +23,7 @@
 - [Policy Framework](../../policy/framework/README.md)
 
 ## Exec Plan 運用（plans.md）
+詳説は [../exec-plan.md](../exec-plan.md) を参照。以下はエージェント視点の要点抜粋です。
 複雑な機能実装や大規模リファクタでは、ブランチ直下に `plans.md` を置き、計画→実装→検証の進捗を可視化します。マージ後は履歴として PR（records/by-pr）から辿れるため、`plans.md` はブランチ単位のエフェメラル（短命）文書として扱います。
 
 推奨ルール

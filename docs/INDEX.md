@@ -13,6 +13,7 @@
 - [process-guides/](process-guides/README.md) — 開発プロセスやエージェント運用ガイド。
 - [process-guides/development/](process-guides/development/README.md) — AI-DLC の開発プロセス詳細。
 - [process-guides/agents/](process-guides/agents/README.md) — エージェント向け運用ガイド。
+- [process-guides/exec-plan.md](process-guides/exec-plan.md) — Exec Plan の手順と records 連携。
 - [tooling/](tooling/README.md) — ツールセットアップと運用ガイド。
 - [tooling/claude/](tooling/claude/README.md) — Claude セットアップとスラッシュコマンド運用。
 - [reference/](reference/README.md) — 恒久的リファレンス資料のハブ。

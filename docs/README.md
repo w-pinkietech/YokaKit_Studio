@@ -18,6 +18,7 @@
 | `00-foundation/aidlc/` | 人間/AI | AIDLC のルールと標準手順（Foundation層）。 |
 | `policy/framework/` | 人間/AI | 運用ガバナンス（Issue/PR/ラベル運用、レビュー方針）。 |
 | `process-guides/` | 人間/AI | 実務手順・SOP のカテゴリ（development / agents）。 |
+| `process-guides/exec-plan.md` | 人間/AI | Exec Plan 手順と records 連携（Process層）。 |
 | `process-guides/development/README.md` | 人間/AI | AI-DLC の開発プロセス（TDD/ドキュメント駆動）概要。 |
 | `process-guides/agents/README.md` | AIエージェント | エージェント運用の詳細ガイド。 |
 | `reference/` | 人間/AI | 用語集・仕様・コードマッピングなど参照情報。 |
@@ -32,6 +33,7 @@
 - AIDLC ルール・標準手順: [00-foundation/aidlc/INDEX.md](00-foundation/aidlc/INDEX.md)
 - フレームワークガバナンス: [policy/framework/README.md](policy/framework/README.md)
 - 開発プロセス詳細: [process-guides/development/README.md](process-guides/development/README.md)
+- Exec Plan 手順: [process-guides/exec-plan.md](process-guides/exec-plan.md)
 - ツールセットアップ: [tooling/README.md](tooling/README.md)
 - Claude 運用手順: [tooling/claude/README.md](tooling/claude/README.md)
 - AIエージェント向けクイックスタート: [../AGENTS.md](../AGENTS.md)
