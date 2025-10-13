@@ -1,6 +1,6 @@
-# Exec Plan Snapshot (2025-10-14 03:39:09)
+# Exec Plan Snapshot (2025-10-14 03:46:27)
 
-> branch: framework/status-labels-simplified  commit: 8fb43ac
+> branch: framework/status-labels-simplified  commit: 611ce3b
 
 ---
 # Exec Plan: Issue ステータスラベル再設計
@@ -30,11 +30,11 @@
 - 前提: フレームワーク整備フェーズで運用する前提、他プロセス文書との整合は既存記述に従う。
 
 ## 参照 / コンテキスト
-- Issue: #0（placeholder — 実Issue番号で更新予定）
+- Issue: （未紐付け／後続で起票予定）
 - ADR / 設計: `.aidlc/contexts/`（該当なしを確認予定）
 - 関連Docs: `docs/10-governance/framework/README.md`, `docs/20-process/agents/README.md`
- - PR: PR_DRAFT.md（GitHub Draft 作成時に同期）
- - Records: `records/by-pr/0-status-label-flow/summary.md`
+ - PR: https://github.com/w-pinkietech/YokaKit_Studio/pull/22
+ - Records: `records/by-pr/22-status-label-flow/summary.md`
 
 ## 全体像
 - 現状の `status::` ラベルは `needs-decision` / `blocked` / `ready` の3種しかなく、同時並行で複数メンバーが同じ Issue に着手してしまうリスクが高い。
@@ -62,7 +62,7 @@
 - 変更前は `status::needs-decision/blocked/ready` の3種のみで運用されており、担当状況をラベルで管理できていなかった。
 - `docs/20-process/agents/README.md` に詳細な `status::` 記述は無く、今回の変更はフレームワークガバナンス文書側で完結できた。
 - `GITHUB_TOKEN=dummy ./scripts/setup_labels.sh example/example --dry-run` で新ラベル定義の生成内容を確認し、想定どおりに出力されることを確認。
-- Draft PR 素案 `PR_DRAFT.md` と records summary (`records/by-pr/0-status-label-flow/summary.md`) を準備し、残タスクを明確化できた。
+- Draft PR 素案 `PR_DRAFT.md` と records summary (`records/by-pr/22-status-label-flow/summary.md`) を準備し、残タスクを明確化できた。
 
 ## リスク / 代替案
 - リスク: ラベル名称変更に伴う既存 Issue の再分類作業が発生する / 回避策: チーム告知と移行ガイドをまとめ、移行期間を設定。
@@ -71,8 +71,8 @@
 ## To-Do
 1. [x] `docs/10-governance/framework/README.md` の `status::` セクションを改訂
 2. [x] `scripts/setup_labels.sh` のラベル定義を更新
-3. [x] Draft PR / records 要約の作成（`PR_DRAFT.md`, `records/by-pr/0-status-label-flow/summary.md`）
-4. [x] records に plans.md を保存（`bash scripts/records/archive_plan.sh 0 status-label-flow` 実行済み）
+3. [x] Draft PR / records 要約の作成（`PR_DRAFT.md`, `records/by-pr/22-status-label-flow/summary.md`）
+4. [x] records に plans.md を保存（`bash scripts/records/archive_plan.sh 22 status-label-flow` 実行済み）
 5. [x] records/by-pr/<pr>-<slug>/summary.md に作業内容を記述（Summary / Key Points / Decisions / Links を反映）
 
 ## Cross-Repository（必要時）
