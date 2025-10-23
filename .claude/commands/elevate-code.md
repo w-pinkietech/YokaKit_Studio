@@ -40,7 +40,7 @@ $ARGUMENTS
 2. If the implementation introduces undocumented behavior:
    - Propose updates to Domain Design or ADRs.
    - Highlight NFR implications.
-3. Optional: Generate a companion summary under `.aidlc-docs/plans/` if the elevation reveals significant refactor tasks (coordinate with the user).
+3. Optional: Generate a companion summary under `.aidlc-studio/plans/` if the elevation reveals significant refactor tasks (coordinate with the user).
 
 ## Execution Flow
 1. Confirm file path and context with the user.

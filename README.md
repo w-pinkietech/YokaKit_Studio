@@ -221,7 +221,7 @@ git init
 
 # 基本構造作成
 mkdir -p .aidlc/contexts
-mkdir -p .aidlc-docs/plans
+mkdir -p .aidlc-studio/plans
 mkdir -p .claude/commands
 mkdir -p submodules/code-output
 mkdir -p submodules/references
@@ -251,7 +251,7 @@ git push -u origin main
 
 ### Step 2: Constitution（プロジェクトDNA）の作成
 
-1. `.claude/commands/constitution.md` を確認し、プロジェクトに必要な質問やテンプレートが揃っているか整備します（存在しない場合は同名ファイルを新規作成し、テンプレートを定義してください）。テンプレートの作成手順やセットアップは [docs/tooling/claude/README.md](docs/tooling/claude/README.md) を参照できます。
+1. `.claude/commands/constitution.md` を確認し、プロジェクトに必要な質問やテンプレートが揃っているか整備します（存在しない場合は同名ファイルを新規作成し、テンプレートを定義してください）。テンプレートの作成手順やセットアップは [studio/50-tooling/claude/README.md](studio/50-tooling/claude/README.md) を参照できます。
 2. Claude（Claude Web / Claude Desktop / Claude Code など）で本リポジトリを開き、チャット欄で `/constitution` を実行します。
 3. コマンド実行中に AI が以下のような質問を行うので、会話しながら情報を埋めてください。
 
@@ -286,9 +286,9 @@ git -C submodules/code-output/yokakit pull --ff-only
 
 ### Step 4: 最初のIntentを入力
 
-事前に `.claude/commands/inception.md` を確認し（存在しない場合は新規作成します）、必要な質問が揃っていることを確認したうえで、Claude で `/inception "ユーザーが複数アカウントを切り替えられる機能"` を実行してください。テンプレートの作り方は [docs/tooling/claude/README.md](docs/tooling/claude/README.md) を参照するとスムーズです。
+事前に `.claude/commands/inception.md` を確認し（存在しない場合は新規作成します）、必要な質問が揃っていることを確認したうえで、Claude で `/inception "ユーザーが複数アカウントを切り替えられる機能"` を実行してください。テンプレートの作り方は [studio/50-tooling/claude/README.md](studio/50-tooling/claude/README.md) を参照するとスムーズです。
 
-> スラッシュコマンドのテンプレート整備と実行手順は [docs/policy/framework/README.md](docs/policy/framework/README.md#スラッシュコマンドテンプレート運用) を参照してください。
+> スラッシュコマンドのテンプレート整備と実行手順は [studio/10-governance/framework/README.md](studio/10-governance/framework/README.md#スラッシュコマンドテンプレート運用) を参照してください。
 
 **AIが会話をリード**します：
 
@@ -324,11 +324,11 @@ AI: Bolts計画を提案します：
 
 ### Step 5: Construction Phase（TDD & Documentation-Driven）
 
-**完全版**: [docs/process-guides/development/README.md](docs/process-guides/development/README.md) を参照
+**完全版**: [studio/20-process/development/README.md](studio/20-process/development/README.md) を参照
 
 YokaKit StudioではAIがほぼすべてのコードを書くため、**Documentation-First × TDD**を徹底します。
 
-`.claude/commands/construction.md` を確認したうえで（無い場合はテンプレートを追加します）、Claude で `/construction unit-1-account-management` を実行します。テンプレート整備の詳細は [docs/tooling/claude/README.md](docs/tooling/claude/README.md) を参照してください。
+`.claude/commands/construction.md` を確認したうえで（無い場合はテンプレートを追加します）、Claude で `/construction unit-1-account-management` を実行します。テンプレート整備の詳細は [studio/50-tooling/claude/README.md](studio/50-tooling/claude/README.md) を参照してください。
 
 **開発プロセス**:
 ```
@@ -707,7 +707,7 @@ YokaKit_Studio/                        # Context Studio（このリポジトリ�
 │       │
 │       └── 002-payment-integration/   # 他の機能も同様の構造
 │
-├── .aidlc-docs/                       # Workflow documentation
+├── .aidlc-studio/                       # Workflow documentation
 │   ├── plans/                         # AI-generated plans
 │   └── prompts.md                     # Prompt history
 │
@@ -777,7 +777,7 @@ Context Studio Issue #15
 
 ## Commands Reference
 
-以下のスラッシュコマンドは Claude のチャット画面で実行します。挙動を変更したい場合は `.claude/commands/<name>.md` を編集してから再実行してください。コマンドが表示されない場合は、対応するテンプレートファイルが作成・保存されているか確認し、必要であれば新規作成します。詳細なセットアップ手順は [docs/tooling/claude/README.md](docs/tooling/claude/README.md) を参照してください。
+以下のスラッシュコマンドは Claude のチャット画面で実行します。挙動を変更したい場合は `.claude/commands/<name>.md` を編集してから再実行してください。コマンドが表示されない場合は、対応するテンプレートファイルが作成・保存されているか確認し、必要であれば新規作成します。詳細なセットアップ手順は [studio/50-tooling/claude/README.md](studio/50-tooling/claude/README.md) を参照してください。
 
 ### Foundation
 
@@ -1071,12 +1071,12 @@ Milestone: Bolt-2024-W42 (5日間)
 
 ### Framework Governance
 
-フレームワーク整備期のIssue/PR管理、ラベル設計、自動化スクリプトは [docs/policy/framework/README.md](docs/policy/framework/README.md) にまとめています。必要に応じて参照してください。
+フレームワーク整備期のIssue/PR管理、ラベル設計、自動化スクリプトは [studio/10-governance/framework/README.md](studio/10-governance/framework/README.md) にまとめています。必要に応じて参照してください。
 
-- 人間向けドキュメントハブ: [docs/README.md](docs/README.md)
-- ドキュメント索引: [docs/INDEX.md](docs/INDEX.md)
-- AIエージェント向けガイド: [docs/process-guides/agents/README.md](docs/process-guides/agents/README.md)
-- ドキュメントルール集（Mermaid セクション含む）: [docs/00-foundation/documentation/rules.md](docs/00-foundation/documentation/rules.md)
+- 人間向けドキュメントハブ: [studio/README.md](studio/README.md)
+- ドキュメント索引: [studio/INDEX.md](studio/INDEX.md)
+- AIエージェント向けガイド: [studio/20-process/agents/README.md](studio/20-process/agents/README.md)
+- ドキュメントルール集（Mermaid セクション含む）: [studio/00-foundation/documentation/rules.md](studio/00-foundation/documentation/rules.md)
 - AIエージェント向けクイックスタート: [AGENTS.md](AGENTS.md)
 
 ---
@@ -1085,7 +1085,7 @@ Milestone: Bolt-2024-W42 (5日間)
 
 ### TDD & Documentation-Driven Development
 
-**完全版**: [docs/process-guides/development/README.md](docs/process-guides/development/README.md)
+**完全版**: [studio/20-process/development/README.md](studio/20-process/development/README.md)
 
 YokaKit StudioではAIがほぼすべてのコードを生成するため、品質担保のために以下を徹底：
 

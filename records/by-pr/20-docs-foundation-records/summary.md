@@ -20,9 +20,9 @@ decisions:
   - summary: "Exec Plan のスナップショットを records/by-pr に保存する運用を追加"
     impacts: ["scripts/records/archive_plan.sh", ".github/pull_request_template.md", "records/README.md"]
   - summary: "リポジトリカタログは任意・都度確認に縮小"
-    impacts: ["docs/reference/repos/README.md", "docs/reference/repos/INDEX.md"]
+    impacts: ["studio/reference/repos/README.md", "studio/reference/repos/INDEX.md"]
   - summary: "旧 documentation-governance の不要ファイルを削除"
-    impacts: ["docs/documentation-governance/directory-structure.md"]
+    impacts: ["studio/documentation-governance/directory-structure.md"]
 next_actions:
   - "次回以降のPRで Permalink を追記（主要レビュー/議論）"
   - "クロスリポ作業時は records の repos に対象を列挙"
