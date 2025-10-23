@@ -22,9 +22,7 @@ studio/00-foundation/documentation/
 ├── AGENTS.md
 ├── INDEX.md
 ├── rules.md
-├── standard-procedures.md
-└── reviews/
-    └── context-engineering-review-2025-10-23.md
+└── standard-procedures.md
 ```
 
 ## インデックスの役割
@@ -39,7 +37,6 @@ studio/00-foundation/documentation/
 |----------|------|
 | `rules.md` | ガバナンス原則とスタイルルールの統合リファレンス。 |
 | `standard-procedures.md` | 更新フロー、ツリー整備、テンプレート運用などの標準手順。 |
-| `reviews/` | ドキュメント構造やプロセスに関するレビュー記録。 |
 
 ## 参照ナビゲーション
 - 人間向けインデックス: ルート `README.md`
