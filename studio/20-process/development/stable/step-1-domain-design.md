@@ -1,5 +1,9 @@
 # Step 1: Domain Design（ドメイン設計）
 
+Domain-Driven Design (DDD) の戦術パターンに基づいてドメインモデルを設計します。
+
+> **参考**: Domain-Driven Design は Eric Evans によって体系化された設計手法です。詳細は [Domain-Driven Design: Tackling Complexity in the Heart of Software](https://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215) を参照してください。
+
 ### 1.1 Static Model（静的モデル）
 
 **AI Prompt Template**:

@@ -1,5 +1,9 @@
 # Step 2: Logical Design（論理設計・ADR）
 
+Architecture Decision Record (ADR) を用いて技術判断を記録します。
+
+> **参考**: ADR (Architecture Decision Record) は Michael Nygard が提唱したパターンです。詳細は [Documenting Architecture Decisions](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions) を参照してください。
+
 ### 2.1 Architecture Decision
 
 **AI Prompt Template**:
