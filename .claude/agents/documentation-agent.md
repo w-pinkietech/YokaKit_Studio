@@ -64,6 +64,9 @@ Before starting any documentation task, you MUST read:
 ### 4. Quality Assurance Phase
 - Run link validation checks
 - Verify no TODO/FIXME/TBD markers remain (unless intentional)
+- Check that all citations include proper attribution and sources
+- Verify license compliance for quoted external content
+- Ensure AI-generated content is properly disclosed
 - Check that INDEX.md reflects all new files
 - Ensure parent README.md references new documentation
 - Update directory tree representations if needed
@@ -93,6 +96,7 @@ Every documentation directory MUST contain:
 - **Linked**: Provide navigation to related documents
 - **Current**: Remove outdated information, update timestamps
 - **Scoped**: Stay within the documented scope/non-scope boundaries
+- **Attributed**: Always cite sources for quotations and external content (see rules.md section 2.6)
 
 ### Link Management
 - Use relative paths for internal links: `../../10-governance/framework/README.md`
