@@ -43,3 +43,5 @@ next_actions:
 - Issue: https://github.com/w-pinkietech/YokaKit_Studio/issues/40
 - PR: https://github.com/w-pinkietech/YokaKit_Studio/pull/41
 - Plans: `records/by-pr/41-separate-docs-studio/plans.md`（マージ前に保存予定）
+
+- Plan Snapshot: plans.md

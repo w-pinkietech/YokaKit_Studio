@@ -1,3 +1,8 @@
+# Exec Plan Snapshot (2025-10-23 17:32:00)
+
+> branch: framework/40-separate-docs-studio  commit: fdce090
+
+---
 # Exec Plan: Separate product docs from framework docs (docs/ → studio/)
 
 ## 目的 / ゴール
