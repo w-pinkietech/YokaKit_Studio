@@ -18,10 +18,12 @@
 
 ### 原則
 1) Documentation-First: ルール/意図/合意を先に明文化する
-2) Test-Driven: FAIL から START、PASS まで最短で回す
+2) Test-Driven: FAIL から START、PASS まで最短で回す（TDD の実践）
 3) Single Source: 重複禁止、唯一の出典にリンク集約
 4) Three-File Entry: README/AGENTS/INDEX の三点セットを徹底
 5) Traceability: 変更理由・影響範囲・参照関係を追跡可能に
+
+> **参考**: Test-Driven Development (TDD) は Kent Beck によって体系化された開発手法です。詳細は [Test Driven Development: By Example](https://www.amazon.com/Test-Driven-Development-Kent-Beck/dp/0321146530) を参照してください。
 
 ### 命名/構造
 - ブランチ: `framework/<issue-number>-<slug>`
@@ -38,7 +40,7 @@
 ### 用語集（Glossary）
 - Intent（意図）: 取り組む目的・達成したい価値の明示。
 - Domain Design: 静的/動的モデルで用語・責務・振る舞いを定義した資料。
-- ADR（Architecture Decision Record）: 技術判断の記録（採用理由・代替案・影響）。
+- ADR（Architecture Decision Record）: 技術判断の記録（採用理由・代替案・影響）。Michael Nygard が提唱したパターン（[Documenting Architecture Decisions](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions)）。
 - Context: ひとまとまりの目的/要件/成果物で切られた単位。
 - Artifact: AIDLC で生成・更新される成果物（設計/仕様/テスト/コード/ドキュメント）。
 - Test Specification: 合格基準を含むテストの仕様（ケース網羅とトレーサビリティ）。

@@ -1,5 +1,9 @@
 # CI/CD Pipeline
 
+継続的インテグレーション（CI）と継続的デリバリー（CD）のパイプライン設定です。
+
+> **参考**: CI/CD は DevOps の中核的実践です。詳細は [Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation](https://www.amazon.com/Continuous-Delivery-Deployment-Automation-Addison-Wesley/dp/0321601912) を参照してください。
+
 ### Context Studio Pipeline
 
 ```yaml

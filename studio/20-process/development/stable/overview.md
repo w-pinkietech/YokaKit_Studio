@@ -30,6 +30,8 @@ Test Cases (Human Verified) → AI Generates Code → Tests Pass
 - テストが仕様の明確化
 - **テスト = AIへの制約条件**
 
+> **参考**: Test-Driven Development (TDD) は Kent Beck によって体系化された開発手法です。詳細は [Test Driven Development: By Example](https://www.amazon.com/Test-Driven-Development-Kent-Beck/dp/0321146530) を参照してください。
+
 ### 3. Continuous Verification（継続的検証）
 
 ```
