@@ -13,12 +13,12 @@ YokaKit Studio リポジトリ全体のドキュメントと主要ディレク�
 ## ドキュメントカテゴリ
 - [studio/policy/README.md](studio/policy/README.md) — ポリシー全体の概要。
 - [studio/00-foundation/documentation/README.md](studio/00-foundation/documentation/README.md) — ドキュメントルールとSOP。
-- [studio/policy/framework/README.md](studio/policy/framework/README.md) — Issue / PR ガバナンスとラベル戦略。
-- [studio/process-guides/README.md](studio/process-guides/README.md) — プロセスガイド全体の概要。
-- [studio/process-guides/development/README.md](studio/process-guides/development/README.md) — AI-DLC プロセス詳細。
-- [studio/process-guides/agents/README.md](studio/process-guides/agents/README.md) — エージェント向け実務ガイド。
-- [studio/tooling/README.md](studio/tooling/README.md) — ツールカテゴリ全体の概要。
-- [studio/tooling/claude/README.md](studio/tooling/claude/README.md) — Claude ツールのセットアップと運用。
+- [studio/10-governance/framework/README.md](studio/10-governance/framework/README.md) — Issue / PR ガバナンスとラベル戦略。
+- [studio/20-process/README.md](studio/20-process/README.md) — プロセスガイド全体の概要。
+- [studio/20-process/development/README.md](studio/20-process/development/README.md) — AI-DLC プロセス詳細。
+- [studio/20-process/agents/README.md](studio/20-process/agents/README.md) — エージェント向け実務ガイド。
+- [studio/50-tooling/README.md](studio/50-tooling/README.md) — ツールカテゴリ全体の概要。
+- [studio/50-tooling/claude/README.md](studio/50-tooling/claude/README.md) — Claude ツールのセットアップと運用。
 - [studio/reference/README.md](studio/reference/README.md) — 恒久的リファレンス資料のハブ。
 
 ## 運用メモ
