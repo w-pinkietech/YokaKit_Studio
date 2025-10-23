@@ -13,19 +13,19 @@ dates:
 links:
   thread: https://github.com/w-pinkietech/YokaKit_Studio/pull/22
   permalinks:
-    - docs/10-governance/framework/README.md
-    - docs/20-process/agents/README.md
-    - docs/00-foundation/documentation/standard-procedures.md
-    - docs/20-process/exec-plan.md
-    - docs/20-process/agents/AGENTS.md
-    - docs/60-templates/exec-plan.md
+    - studio/10-governance/framework/README.md
+    - studio/20-process/agents/README.md
+    - studio/00-foundation/documentation/standard-procedures.md
+    - studio/20-process/exec-plan.md
+    - studio/20-process/agents/AGENTS.md
+    - studio/60-templates/exec-plan.md
     - AGENTS.md
     - scripts/setup_labels.sh
     - scripts/exec_plan/bootstrap.sh
 repos: []
 decisions:
   - summary: "`status::` ラベルを triage→ready→in-progress→in-review→done（+ blocked）に再編し、対応する運用ルールとスクリプトを更新する。"
-    impacts: [docs/10-governance/framework/README.md, docs/20-process/agents/README.md, docs/20-process/exec-plan.md, docs/20-process/agents/AGENTS.md, docs/00-foundation/documentation/standard-procedures.md, docs/60-templates/exec-plan.md, AGENTS.md, scripts/setup_labels.sh, scripts/exec_plan/bootstrap.sh]
+    impacts: [studio/10-governance/framework/README.md, studio/20-process/agents/README.md, studio/20-process/exec-plan.md, studio/20-process/agents/AGENTS.md, studio/00-foundation/documentation/standard-procedures.md, studio/60-templates/exec-plan.md, AGENTS.md, scripts/setup_labels.sh, scripts/exec_plan/bootstrap.sh]
 next_actions: []
 ---
 
@@ -37,7 +37,7 @@ Exec Plan と Draft PR 素案を records 配下に保存し、実際の Draft PR
 
 ## Key Points
 - `status::` ラベルを 5 段階 + `blocked` へ簡素化し、重複担当を防ぐ運用を定義。
-- `docs/10-governance/framework/README.md` ほか関連ドキュメントを同一コミットで更新し、Exec Plan 手順やテンプレートにも導線を追加。
+- `studio/10-governance/framework/README.md` ほか関連ドキュメントを同一コミットで更新し、Exec Plan 手順やテンプレートにも導線を追加。
 - `scripts/setup_labels.sh` を更新し Dry-run / 本番同期を実行。
 - `scripts/exec_plan/bootstrap.sh` を新設し、Issue 検出と自動作成フローをドキュメント化。
 - Issue #1 のステータスラベルを `status::triage` へ入れ替え、旧 `status::needs-decision` ラベルを削除。

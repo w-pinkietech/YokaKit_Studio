@@ -18,8 +18,8 @@ decisions:
   - summary: "Introduce records/ hub (PR-centric) with templates and scripts; add repository catalog; extend AIDLC SOP for cross-repo; add PR template hook"
     impacts:
       - "records/*"
-      - "docs/reference/repos/*"
-      - "docs/00-foundation/aidlc/standard-procedures.md"
+      - "studio/reference/repos/*"
+      - "studio/00-foundation/aidlc/standard-procedures.md"
       - ".github/pull_request_template.md"
 next_actions:
   - "Adopt PR template and create records entries for subsequent PRs"

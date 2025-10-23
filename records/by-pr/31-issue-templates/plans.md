@@ -16,7 +16,7 @@
 > scripts/exec_plan/bootstrap.sh --slug ${SLUG} --filter-label track::framework \
 >   --title "[framework] <title>" --labels "track::framework,artifact::<type>,status::triage,lifecycle::draft" \
 >   --repo ${REPO}
-> cp docs/60-templates/exec-plan.md plans.md
+> cp studio/60-templates/exec-plan.md plans.md
 > bash scripts/records/new_pr_summary.sh ${PR} ${SLUG} --issue ${ISSUE} --repo-url ${REPO} --author ${AUTHOR}
 > # 作業…
 > bash scripts/records/archive_plan.sh ${PR} ${SLUG}
@@ -36,7 +36,7 @@
 ## 参照 / コンテキスト
 - Issue: #29（`scripts/exec_plan/bootstrap.sh --slug issue-templates --filter-label track::framework`）
 - ADR / 設計: （該当なし）
-- 関連Docs: `docs/20-process/agents/AGENTS.md`, `docs/20-process/exec-plan.md`, `docs/00-foundation/documentation/standard-procedures.md`
+- 関連Docs: `studio/20-process/agents/AGENTS.md`, `studio/20-process/exec-plan.md`, `studio/00-foundation/documentation/standard-procedures.md`
 - PR: https://github.com/w-pinkietech/YokaKit_Studio/pull/31
 - Records: `records/by-pr/31-issue-templates/summary.md`
 

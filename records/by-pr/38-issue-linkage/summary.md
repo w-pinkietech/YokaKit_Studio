@@ -23,10 +23,10 @@ decisions:
       - "scripts/exec_plan/prepare_pr_body.sh"
   - summary: "Agents/Exec Plan/Governance ドキュメントへ Issue 連携必須手順と新コマンドを追記"
     impacts:
-      - "docs/20-process/agents/README.md"
-      - "docs/20-process/agents/AGENTS.md"
-      - "docs/20-process/exec-plan.md"
-      - "docs/10-governance/framework/README.md"
+      - "studio/20-process/agents/README.md"
+      - "studio/20-process/agents/AGENTS.md"
+      - "studio/20-process/exec-plan.md"
+      - "studio/10-governance/framework/README.md"
 next_actions:
   - "Plan スナップショット取得後に `plans.md` をブランチから削除"
   - "環境に shellcheck が入ったら `scripts/exec_plan/prepare_pr_body.sh` を lint する"

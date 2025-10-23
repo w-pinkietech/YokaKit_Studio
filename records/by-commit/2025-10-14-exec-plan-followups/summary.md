@@ -22,11 +22,11 @@ links:
 repos: []
 decisions:
   - summary: "Exec Plan コマンドをレイヤーパスに更新し、変数化した実行例を採用"
-    impacts: ["AGENTS.md", "docs/20-process/exec-plan.md", "docs/60-templates/exec-plan.md"]
+    impacts: ["AGENTS.md", "studio/20-process/exec-plan.md", "studio/60-templates/exec-plan.md"]
   - summary: "テンプレートに usage/links/checklist/cross-repo/summary 記述を追加"
-    impacts: ["docs/60-templates/exec-plan.md"]
+    impacts: ["studio/60-templates/exec-plan.md"]
   - summary: "Deferred GitHub Ops（プラン初稿→合意→Issue/PR Draft）を推奨"
-    impacts: ["docs/20-process/exec-plan.md", "AGENTS.md"]
+    impacts: ["studio/20-process/exec-plan.md", "AGENTS.md"]
 next_actions:
   - "次以降のPRでも Deferred GitHub Ops を適用し、summary.md 更新を徹底"
 ---

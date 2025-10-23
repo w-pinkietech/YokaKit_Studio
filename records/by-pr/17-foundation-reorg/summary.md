@@ -15,7 +15,7 @@ links:
   permalinks: []
 decisions:
   - summary: "Introduce 00-foundation and move documentation/AIDLC Rules & SOP under it; update docs hubs and links"
-    impacts: ["docs/00-foundation/*", "docs/INDEX.md", "docs/README.md"]
+    impacts: ["studio/00-foundation/*", "studio/INDEX.md", "studio/README.md"]
 next_actions:
   - "Follow up on AIDLC details (glossary/samples) after baseline stabilizes"
 ---
@@ -26,7 +26,7 @@ next_actions:
 ## Key Points
 - policy/documentation から 00-foundation/documentation へ移設
 - 00-foundation/aidlc を追加し、Rules/SOP の骨子を整備
-- docs/README.md, docs/INDEX.md を新構成に合わせて更新
+- studio/README.md, studio/INDEX.md を新構成に合わせて更新
 
 ## Links
 - PR #17 thread: https://github.com/w-pinkietech/YokaKit_Studio/pull/17

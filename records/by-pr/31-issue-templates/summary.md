@@ -16,13 +16,13 @@ links:
     - .github/ISSUE_TEMPLATE/framework_task.md
     - .github/ISSUE_TEMPLATE/feature_request.md
     - .github/ISSUE_TEMPLATE/bug_report.md
-    - docs/10-governance/framework/README.md
-    - docs/20-process/agents/AGENTS.md
-    - docs/20-process/agents/README.md
+    - studio/10-governance/framework/README.md
+    - studio/20-process/agents/AGENTS.md
+    - studio/20-process/agents/README.md
 repos: []
 decisions:
   - summary: "Issue 起票を標準化するため、framework / feature / bug のテンプレートを追加し、関連ドキュメントへ導線を整備する。"
-    impacts: [.github/ISSUE_TEMPLATE/framework_task.md, .github/ISSUE_TEMPLATE/feature_request.md, .github/ISSUE_TEMPLATE/bug_report.md, docs/10-governance/framework/README.md, docs/20-process/agents/AGENTS.md, docs/20-process/agents/README.md]
+    impacts: [.github/ISSUE_TEMPLATE/framework_task.md, .github/ISSUE_TEMPLATE/feature_request.md, .github/ISSUE_TEMPLATE/bug_report.md, studio/10-governance/framework/README.md, studio/20-process/agents/AGENTS.md, studio/20-process/agents/README.md]
 next_actions: []
 ---
 
@@ -33,8 +33,8 @@ framework / feature / bug の 3 種類の Issue テンプレートを追加し�
 
 ## Key Points
 - `.github/ISSUE_TEMPLATE/` に framework_task / feature_request / bug_report を追加。
-- `docs/10-governance/framework/README.md` にテンプレートの参照方法と受け入れ基準を追記。
-- `docs/20-process/agents/AGENTS.md` / `docs/20-process/agents/README.md` にテンプレート利用チェックを追加。
+- `studio/10-governance/framework/README.md` にテンプレートの参照方法と受け入れ基準を追記。
+- `studio/20-process/agents/AGENTS.md` / `studio/20-process/agents/README.md` にテンプレート利用チェックを追加。
 - Issue #30 を使ってスモークテストを実施し、その場でクローズ。
 
 ## Links

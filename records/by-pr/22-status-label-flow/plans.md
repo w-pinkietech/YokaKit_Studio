@@ -13,7 +13,7 @@
 > ```bash
 > set -euo pipefail
 > ISSUE=<n>; SLUG=<slug>; PR=<pr>; REPO=https://github.com/<org>/<repo>; AUTHOR=@you
-> cp docs/60-templates/exec-plan.md plans.md
+> cp studio/60-templates/exec-plan.md plans.md
 > bash scripts/records/new_pr_summary.sh ${PR} ${SLUG} --issue ${ISSUE} --repo-url ${REPO} --author ${AUTHOR}
 > # 作業…
 > bash scripts/records/archive_plan.sh ${PR} ${SLUG}
@@ -21,7 +21,7 @@
 
 ## 目的 / ゴール
 - Issue の `status::` ラベル体系を簡素化しつつ、担当の重複を防げる運用フローを設計する。
-- `docs/10-governance/framework/README.md` と `scripts/setup_labels.sh` を同期させた状態で更新する。
+- `studio/10-governance/framework/README.md` と `scripts/setup_labels.sh` を同期させた状態で更新する。
 - 新運用を周知するための次アクション（Exec Plan の更新方針）を整理する。
 
 ## 範囲 / 非範囲
@@ -32,7 +32,7 @@
 ## 参照 / コンテキスト
 - Issue: （未紐付け／後続で起票予定）
 - ADR / 設計: `.aidlc/contexts/`（該当なしを確認予定）
-- 関連Docs: `docs/10-governance/framework/README.md`, `docs/20-process/agents/README.md`
+- 関連Docs: `studio/10-governance/framework/README.md`, `studio/20-process/agents/README.md`
  - PR: https://github.com/w-pinkietech/YokaKit_Studio/pull/22
  - Records: `records/by-pr/22-status-label-flow/summary.md`
 
@@ -50,7 +50,7 @@
 
 ## 実行計画（Plan）
 1. 現在の `status::` ラベル運用を整理し、シンプルなフェーズ案（4〜5段階）を確定する。
-2. `docs/10-governance/framework/README.md` に新しいフェーズと運用ルールを反映し、文脈を更新する。
+2. `studio/10-governance/framework/README.md` に新しいフェーズと運用ルールを反映し、文脈を更新する。
 3. `scripts/setup_labels.sh` に新ラベルセットを実装し、既存ラベルの削除/説明更新も反映する。
 4. `plans.md` の進捗・決定ログをアップデートし、Draft PR 作成・要約生成の条件を整える。
 5. 実ラベル同期や周知に向けたフォローアップ手順を To-Do として整理する。
@@ -60,7 +60,7 @@
 
 ## 発見と驚き（Findings）
 - 変更前は `status::needs-decision/blocked/ready` の3種のみで運用されており、担当状況をラベルで管理できていなかった。
-- `docs/20-process/agents/README.md` に詳細な `status::` 記述は無く、今回の変更はフレームワークガバナンス文書側で完結できた。
+- `studio/20-process/agents/README.md` に詳細な `status::` 記述は無く、今回の変更はフレームワークガバナンス文書側で完結できた。
 - `GITHUB_TOKEN=dummy ./scripts/setup_labels.sh example/example --dry-run` で新ラベル定義の生成内容を確認し、想定どおりに出力されることを確認。
 - Draft PR 素案 `PR_DRAFT.md` と records summary (`records/by-pr/22-status-label-flow/summary.md`) を準備し、残タスクを明確化できた。
 - Exec Plan 着手時に Issue を自動検出・生成できるよう `scripts/exec_plan/bootstrap.sh` を整備する追加作業が必要と判明。
@@ -70,7 +70,7 @@
 - 代替案: 既存3種を維持しコメント運用で補う → 手動管理が増え、二重担当防止に失敗するため採用しない。
 
 ## To-Do
-1. [x] `docs/10-governance/framework/README.md` の `status::` セクションを改訂
+1. [x] `studio/10-governance/framework/README.md` の `status::` セクションを改訂
 2. [x] `scripts/setup_labels.sh` のラベル定義を更新
 3. [x] Draft PR / records 要約の作成（`PR_DRAFT.md`, `records/by-pr/22-status-label-flow/summary.md`）
 4. [x] records に plans.md を保存（`bash scripts/records/archive_plan.sh 22 status-label-flow` 実行済み）
